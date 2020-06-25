@@ -1,12 +1,7 @@
 // Internal Imports
 import { Component } from "../component";
 import { DOMUtils } from "../../services";
-import {
-	Roles,
-	Events,
-	GaugeTypes,
-	ArrowDirections
-} from "../../interfaces";
+import { Roles, Events, GaugeTypes, ArrowDirections } from "../../interfaces";
 import { Tools } from "../../tools";
 
 // D3 Imports
@@ -257,7 +252,12 @@ export class Gauge extends Component {
 			"numberFormatter"
 		);
 
-		const arrowSize = Tools.getProperty(options, "gauge", "deltaArrow", "size");
+		const arrowSize = Tools.getProperty(
+			options,
+			"gauge",
+			"deltaArrow",
+			"size"
+		);
 		const numberSpacing = Tools.getProperty(
 			options,
 			"gauge",
@@ -297,7 +297,12 @@ export class Gauge extends Component {
 		);
 
 		// check if delta arrow is disabled
-		const arrowEnabled = Tools.getProperty(options, "gauge", "deltaArrow", "enabled");
+		const arrowEnabled = Tools.getProperty(
+			options,
+			"gauge",
+			"deltaArrow",
+			"enabled"
+		);
 		const deltaArrow = deltaGroup
 			.selectAll("svg.gauge-delta-arrow")
 			.data(delta !== null && arrowEnabled ? [delta] : []);
