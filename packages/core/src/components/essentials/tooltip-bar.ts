@@ -9,7 +9,7 @@ import {
 } from "./../../interfaces";
 
 // import the settings for the css prefix
-import settings from "carbon-components/es/globals/js/settings";
+import settings from "@rocketsoftware/carbon-components/es/globals/js/settings";
 
 // D3 Imports
 import { select } from "d3-selection";

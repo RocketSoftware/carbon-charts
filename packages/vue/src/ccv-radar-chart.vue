@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { RadarChart } from '@carbon/charts';
+import { RadarChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {

@@ -10,8 +10,8 @@ export default {
 		format: "umd",
 		name: "ChartsDemoData",
 		globals: {
-			"@carbon/charts": "Charts",
-			"@carbon/charts/tools": "Charts",
+			"@rocketsoftware/charts": "Charts",
+			"@rocketsoftware/charts/tools": "Charts",
 			"d3-scale": "d3Scale",
 			"d3-selection": "d3Selection",
 			"d3-transition": "d3Transition",
@@ -39,5 +39,5 @@ export default {
 
 		next(warning);
 	},
-	external: ["@carbon/charts"],
+	external: ["@rocketsoftware/charts"],
 };

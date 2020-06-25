@@ -1,16 +1,16 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "../../globals/js/settings", "../../globals/js/misc/mixin", "../../globals/js/mixins/create-component", "../../globals/js/mixins/init-component-by-search", "../../globals/js/mixins/evented-state", "../../globals/js/misc/event-matches"], factory);
+    define(["exports", "../../globals/js/settings", "../../globals/js/misc/mixin", "../../globals/js/mixins/create-component", "../../globals/js/mixins/init-component-by-search", "../../globals/js/mixins/evented-state", "../../globals/js/mixins/handles", "../../globals/js/misc/event-matches", "../../globals/js/misc/on"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("../../globals/js/settings"), require("../../globals/js/misc/mixin"), require("../../globals/js/mixins/create-component"), require("../../globals/js/mixins/init-component-by-search"), require("../../globals/js/mixins/evented-state"), require("../../globals/js/misc/event-matches"));
+    factory(exports, require("../../globals/js/settings"), require("../../globals/js/misc/mixin"), require("../../globals/js/mixins/create-component"), require("../../globals/js/mixins/init-component-by-search"), require("../../globals/js/mixins/evented-state"), require("../../globals/js/mixins/handles"), require("../../globals/js/misc/event-matches"), require("../../globals/js/misc/on"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.settings, global.mixin, global.createComponent, global.initComponentBySearch, global.eventedState, global.eventMatches);
+    factory(mod.exports, global.settings, global.mixin, global.createComponent, global.initComponentBySearch, global.eventedState, global.handles, global.eventMatches, global.on);
     global.dataTable = mod.exports;
   }
-})(this, function (_exports, _settings, _mixin2, _createComponent, _initComponentBySearch, _eventedState, _eventMatches) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _settings, _mixin2, _createComponent, _initComponentBySearch, _eventedState, _handles, _eventMatches, _on) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -22,7 +22,9 @@
   _createComponent = _interopRequireDefault(_createComponent);
   _initComponentBySearch = _interopRequireDefault(_initComponentBySearch);
   _eventedState = _interopRequireDefault(_eventedState);
+  _handles = _interopRequireDefault(_handles);
   _eventMatches = _interopRequireDefault(_eventMatches);
+  _on = _interopRequireDefault(_on);
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
@@ -248,8 +250,12 @@
       };
 
       _this._actionBarToggle = function (toggleOn) {
+        var handleTransitionEnd;
+
         var transition = function transition(evt) {
-          _this.batchActionEl.removeEventListener('transitionend', transition);
+          if (handleTransitionEnd) {
+            handleTransitionEnd = _this.unmanage(handleTransitionEnd).release();
+          }
 
           if (evt.target.matches(_this.options.selectorActions)) {
             if (_this.batchActionEl.dataset.active === 'false') {
@@ -271,7 +277,7 @@
         }
 
         if (_this.batchActionEl) {
-          _this.batchActionEl.addEventListener('transitionend', transition);
+          handleTransitionEnd = _this.manage((0, _on.default)(_this.batchActionEl, 'transitionend', transition));
         }
       };
 
@@ -314,15 +320,12 @@
         });
       };
 
-      _this._expandableHoverToggle = function (element) {
-        element.previousElementSibling.classList.add(_this.options.classExpandableRowHover);
+      _this._expandableHoverToggle = function (evt) {
+        var element = (0, _eventMatches.default)(evt, _this.options.selectorChildRow);
 
-        var mouseout = function mouseout() {
-          element.previousElementSibling.classList.remove(_this.options.classExpandableRowHover);
-          element.removeEventListener('mouseout', mouseout);
-        };
-
-        element.addEventListener('mouseout', mouseout);
+        if (element) {
+          element.previousElementSibling.classList.toggle(_this.options.classExpandableRowHover, evt.type === 'mouseover');
+        }
       };
 
       _this._toggleState = function (element, evt) {
@@ -399,15 +402,11 @@
 
       _this.refreshRows();
 
-      _this.element.addEventListener('mouseover', function (evt) {
-        var eventElement = (0, _eventMatches.default)(evt, _this.options.selectorChildRow);
+      _this.manage((0, _on.default)(_this.element, 'mouseover', _this._expandableHoverToggle));
 
-        if (eventElement) {
-          _this._expandableHoverToggle(eventElement, true);
-        }
-      });
+      _this.manage((0, _on.default)(_this.element, 'mouseout', _this._expandableHoverToggle));
 
-      _this.element.addEventListener('click', function (evt) {
+      _this.manage((0, _on.default)(_this.element, 'click', function (evt) {
         var eventElement = (0, _eventMatches.default)(evt, _this.options.eventTrigger);
 
         var searchContainer = _this.element.querySelector(_this.options.selectorToolbarSearchContainer);
@@ -419,9 +418,9 @@
         if (searchContainer) {
           _this._handleDocumentClick(evt);
         }
-      });
+      }));
 
-      _this.element.addEventListener('keydown', _this._keydownHandler);
+      _this.manage((0, _on.default)(_this.element, 'keydown', _this._keydownHandler));
 
       _this.state = {
         checkboxCount: 0
@@ -526,7 +525,7 @@
       'action-bar-cancel': '_actionBarCancel'
     };
     return DataTable;
-  }((0, _mixin2.default)(_createComponent.default, _initComponentBySearch.default, _eventedState.default));
+  }((0, _mixin2.default)(_createComponent.default, _initComponentBySearch.default, _eventedState.default, _handles.default));
 
   var _default = DataTable;
   _exports.default = _default;

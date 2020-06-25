@@ -8,7 +8,7 @@
 @import 'vars';
 @import 'css--reset';
 @import 'typography';
-@import './vendor/@carbon/elements/scss/import-once/import-once';
+@import './vendor/@rocketsoftware/elements/scss/import-once/import-once';
 
 /// Include styles for screen reader/assistive text
 /// @access public
@@ -24,7 +24,7 @@
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
-    visibility: visible;
+    visibility: inherit;
     white-space: nowrap;
   }
 

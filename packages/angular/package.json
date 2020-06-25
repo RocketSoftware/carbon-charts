@@ -1,6 +1,7 @@
 {
-	"name": "@carbon/charts-angular",
-	"version": "0.32.9",
+	"name": "@rocketsoftware/charts-angular",
+	"version": "0.0.1",
+	"private": true,
 	"description": "Carbon charting components for Angular",
 	"main": "index.js",
 	"scripts": {
@@ -40,7 +41,7 @@
 		"scss"
 	],
 	"dependencies": {
-		"@carbon/charts": "^0.32.9"
+		"@rocketsoftware/charts": "0.0.1"
 	},
 	"peerDependencies": {
 		"@angular/common": "^6.0.0 || ^7.0.0 || ^8.0.0",

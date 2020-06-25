@@ -1,5 +1,5 @@
 import { create } from "@storybook/theming";
-import { g10, g100 } from "@carbon/themes";
+import { g10, g100 } from "@rocketsoftware/themes";
 
 const {
 	field01,

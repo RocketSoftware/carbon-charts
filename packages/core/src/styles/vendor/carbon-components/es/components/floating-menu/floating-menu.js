@@ -133,15 +133,19 @@ function _defineProperty(obj, key, value) {
  */
 
 
+import warning from 'warning';
 import mixin from '../../globals/js/misc/mixin';
+import settings from '../../globals/js/settings';
 import createComponent from '../../globals/js/mixins/create-component';
 import eventedShowHideState from '../../globals/js/mixins/evented-show-hide-state';
+import handles from '../../globals/js/mixins/handles';
 import trackBlur from '../../globals/js/mixins/track-blur';
 import getLaunchingDetails from '../../globals/js/misc/get-launching-details';
 import optimizedResize from '../../globals/js/misc/resize';
+import on from '../../globals/js/misc/on';
 /**
  * The structure for the position of floating menu.
- * @typedef {Object} FloatingMenu~position
+ * @typedef {object} FloatingMenu~position
  * @property {number} left The left position.
  * @property {number} top The top position.
  * @property {number} right The right position.
@@ -150,14 +154,14 @@ import optimizedResize from '../../globals/js/misc/resize';
 
 /**
  * The structure for the size of floating menu.
- * @typedef {Object} FloatingMenu~size
+ * @typedef {object} FloatingMenu~size
  * @property {number} width The width.
  * @property {number} height The height.
  */
 
 /**
  * The structure for the position offset of floating menu.
- * @typedef {Object} FloatingMenu~offset
+ * @typedef {object} FloatingMenu~offset
  * @property {number} top The top position.
  * @property {number} left The left position.
  */
@@ -271,23 +275,56 @@ function (_mixin) {
       _this.element.setAttribute(_this.options.attribDirection, _this.options.direction);
     }
 
+    _this.manage(on(_this.element.ownerDocument, 'keydown', function (event) {
+      _this._handleKeydown(event);
+    }));
+
     return _this;
   }
   /**
-   * Focuses back on the trigger button if this component loses focus.
+   * Handles key press on document.
+   * @param {Event} event The triggering event.
+   * @private
    */
 
 
   _createClass(FloatingMenu, [{
+    key: "_handleKeydown",
+    value: function _handleKeydown(event) {
+      var key = event.which;
+      var _this$options = this.options,
+          triggerNode = _this$options.triggerNode,
+          refNode = _this$options.refNode;
+      var isOfMenu = this.element.contains(event.target);
+
+      switch (key) {
+        // Esc
+        case 27:
+          this.changeState('hidden', getLaunchingDetails(event), function () {
+            if (isOfMenu) {
+              (triggerNode || refNode).focus();
+            }
+          });
+          break;
+
+        default:
+          break;
+      }
+    }
+    /**
+     * Focuses back on the trigger button if this component loses focus.
+     */
+
+  }, {
     key: "handleBlur",
     value: function handleBlur(event) {
       if (this.element.classList.contains(this.options.classShown)) {
         this.changeState('hidden', getLaunchingDetails(event));
-        var _this$options = this.options,
-            refNode = _this$options.refNode,
-            triggerNode = _this$options.triggerNode;
+        var _this$options2 = this.options,
+            refNode = _this$options2.refNode,
+            triggerNode = _this$options2.triggerNode;
 
-        if (this.element.contains(event.relatedTarget) && refNode && event.target !== refNode) {
+        if ((event.relatedTarget === null || this.element.contains(event.relatedTarget)) && refNode && event.target !== refNode) {
           HTMLElement.prototype.focus.call(triggerNode || refNode); // SVGElement in IE11 does not have `.focus()` method
         }
       }
@@ -311,13 +348,13 @@ function (_mixin) {
     key: "_getPos",
     value: function _getPos() {
       var element = this.element;
-      var _this$options2 = this.options,
-          refNode = _this$options2.refNode,
-          offset = _this$options2.offset,
-          direction = _this$options2.direction;
+      var _this$options3 = this.options,
+          refNode = _this$options3.refNode,
+          offset = _this$options3.offset,
+          direction = _this$options3.direction;
 
       if (!refNode) {
-        throw new Error('Cannot find the refernce node for positioning floating menu.');
+        throw new Error('Cannot find the reference node for positioning floating menu.');
       }
 
       return getFloatingPosition({
@@ -401,19 +438,14 @@ function (_mixin) {
       var _this2 = this;
 
       var shown = state === 'shown';
-      var _this$options3 = this.options,
-          refNode = _this$options3.refNode,
-          classShown = _this$options3.classShown,
-          classRefShown = _this$options3.classRefShown;
+      var _this$options4 = this.options,
+          refNode = _this$options4.refNode,
+          classShown = _this$options4.classShown,
+          classRefShown = _this$options4.classRefShown,
+          triggerNode = _this$options4.triggerNode;
 
       if (!refNode) {
-        throw new TypeError('Cannot find the refernce node for changing the style.');
-      }
-
-      this.element.classList.toggle(classShown, shown);
-
-      if (classRefShown) {
-        refNode.classList.toggle(classRefShown, shown);
+        throw new TypeError('Cannot find the reference node for changing the style.');
       }
 
       if (state === 'shown') {
@@ -424,12 +456,43 @@ function (_mixin) {
         }
 
         this._getContainer().appendChild(this.element);
+      }
 
+      this.element.setAttribute('aria-hidden', (!shown).toString());
+      (triggerNode || refNode).setAttribute('aria-expanded', shown.toString());
+      this.element.classList.toggle(classShown, shown);
+
+      if (classRefShown) {
+        refNode.classList.toggle(classRefShown, shown);
+      }
+
+      if (state === 'shown') {
         this._place(); // IE11 puts focus on elements with `.focus()`, even ones without `tabindex` attribute
 
 
         if (!this.element.hasAttribute(this.options.attribAvoidFocusOnOpen)) {
-          (this.element.querySelector(this.options.selectorPrimaryFocus) || this.element).focus();
+          var primaryFocusNode = this.element.querySelector(this.options.selectorPrimaryFocus);
+          var contentNode = this.options.contentNode || this.element;
+          var tabbableNode = contentNode.querySelector(settings.selectorTabbable); // The programmatically focusable element may be (and typically will be) the content node itself;
+
+          var focusableNode = contentNode.matches(settings.selectorFocusable) ? contentNode : contentNode.querySelector(settings.selectorFocusable);
+
+          if (primaryFocusNode) {
+            // User defined focusable node
+            primaryFocusNode.focus();
+          } else if (tabbableNode) {
+            // First sequentially focusable node
+            tabbableNode.focus();
+          } else if (focusableNode) {
+            // First programmatic focusable node
+            focusableNode.focus();
+          } else {
+            this.element.focus();
+
+            if (process.env.NODE_ENV !== "production") {
+              process.env.NODE_ENV !== "production" ? warning(focusableNode === null, 'Floating Menus must have at least a programmatically focusable child. ' + 'This can be accomplished by adding tabindex="-1" to the content element.') : void 0;
+            }
+          }
         }
       }
 
@@ -474,6 +537,6 @@ function (_mixin) {
   };
   FloatingMenu.components = new WeakMap();
   return FloatingMenu;
-}(mixin(createComponent, eventedShowHideState, trackBlur));
+}(mixin(createComponent, eventedShowHideState, trackBlur, handles));
 
 export default FloatingMenu;

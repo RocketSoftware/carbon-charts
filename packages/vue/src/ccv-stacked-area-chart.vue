@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { StackedAreaChart } from '@carbon/charts';
+import { StackedAreaChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {

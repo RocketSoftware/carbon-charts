@@ -972,90 +972,9 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@carbon/colors@10.3.0":
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-10.3.0.tgz#99df98f141c6d3a237d72ac9b21ad58a07112348"
-
-"@carbon/colors@10.4.0":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-10.4.0.tgz#8c21127926bc389dcb4d415b55d4eae278f3d525"
-
-"@carbon/colors@^10.8.0":
-  version "10.8.0"
-  resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-10.8.0.tgz#bdd6f30c052e86c7de20522a2a2b58062fcdb9dd"
-
-"@carbon/elements@10.10.1":
-  version "10.10.1"
-  resolved "https://registry.yarnpkg.com/@carbon/elements/-/elements-10.10.1.tgz#b3fe36492534101f5e52394f7ef3a0e631b0273f"
-  dependencies:
-    "@carbon/colors" "^10.8.0"
-    "@carbon/grid" "^10.9.1"
-    "@carbon/icons" "^10.9.1"
-    "@carbon/import-once" "^10.3.0"
-    "@carbon/layout" "^10.8.1"
-    "@carbon/motion" "^10.6.0"
-    "@carbon/themes" "^10.10.1"
-    "@carbon/type" "^10.9.1"
-
-"@carbon/grid@^10.9.1":
-  version "10.9.1"
-  resolved "https://registry.yarnpkg.com/@carbon/grid/-/grid-10.9.1.tgz#cef9b1c0d1e31f8126e8ac6da7834eea17313314"
-  dependencies:
-    "@carbon/import-once" "^10.3.0"
-    "@carbon/layout" "^10.8.1"
-
-"@carbon/icons@^10.9.1":
-  version "10.9.1"
-  resolved "https://registry.yarnpkg.com/@carbon/icons/-/icons-10.9.1.tgz#e032eb480bc7a432925000944c55960e80caeee6"
-
-"@carbon/import-once@10.3.0", "@carbon/import-once@^10.3.0":
+"@carbon/import-once@10.3.0":
   version "10.3.0"
   resolved "https://registry.yarnpkg.com/@carbon/import-once/-/import-once-10.3.0.tgz#58617da4efb6d7a11352d8e6b7209da1d39f364d"
-
-"@carbon/layout@10.5.0":
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/@carbon/layout/-/layout-10.5.0.tgz#02b79bb4713ea750622e432c9e8ada626cdb6555"
-
-"@carbon/layout@^10.8.1":
-  version "10.8.1"
-  resolved "https://registry.yarnpkg.com/@carbon/layout/-/layout-10.8.1.tgz#23cbfa331824e57a4dce8608a0ec1810832264a1"
-
-"@carbon/motion@10.4.0":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@carbon/motion/-/motion-10.4.0.tgz#6365b8bded801902dc0a40355cd0525308e1e55b"
-
-"@carbon/motion@^10.6.0":
-  version "10.6.0"
-  resolved "https://registry.yarnpkg.com/@carbon/motion/-/motion-10.6.0.tgz#3b03628e9aad22f5275dd6d33973fa32904221db"
-
-"@carbon/themes@10.4.0":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@carbon/themes/-/themes-10.4.0.tgz#c957feb6315006f16e98d5fd319f9f5821393daf"
-  dependencies:
-    "@carbon/colors" "10.3.0"
-
-"@carbon/themes@^10.10.1":
-  version "10.10.1"
-  resolved "https://registry.yarnpkg.com/@carbon/themes/-/themes-10.10.1.tgz#0c11e5a2df17319fd184dd5d36d0674cd05b40cc"
-  dependencies:
-    "@carbon/colors" "^10.8.0"
-    "@carbon/layout" "^10.8.1"
-    "@carbon/type" "^10.9.1"
-    color "^3.1.2"
-
-"@carbon/type@10.5.1":
-  version "10.5.1"
-  resolved "https://registry.yarnpkg.com/@carbon/type/-/type-10.5.1.tgz#07a9c1ca154042ccd8ae6da753a6c738a46ece0b"
-  dependencies:
-    "@carbon/import-once" "10.3.0"
-    "@carbon/layout" "10.5.0"
-
-"@carbon/type@^10.9.1":
-  version "10.9.1"
-  resolved "https://registry.yarnpkg.com/@carbon/type/-/type-10.9.1.tgz#1214b211e1af9c7bf8e71d905308d52571696b4c"
-  dependencies:
-    "@carbon/import-once" "^10.3.0"
-    "@carbon/layout" "^10.8.1"
 
 "@carbon/utils-position@1.1.1":
   version "1.1.1"
@@ -2554,6 +2473,75 @@
     invariant "^2.2.3"
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
+
+"@rocketsoftware/carbon-components@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/carbon-components/-/carbon-components-0.6.0.tgz#b76df7f0f4ddeb95db6fb24190d88ddf094c5042"
+  integrity sha512-TX0gCGAlIU2ybsLS3TJCzB5wPFacF0pRCO6DSWqucITpc3Pp9gRpNIPl5KXg2lZ+xWd5DlHeLCqOjFw6ZxvzJw==
+  dependencies:
+    flatpickr "4.6.1"
+    lodash.debounce "^4.0.8"
+    warning "^3.0.0"
+
+"@rocketsoftware/colors@0.6.0", "@rocketsoftware/colors@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/colors/-/colors-0.6.0.tgz#ee0ae521e719d5a112c6767bffe87a7f31b36d72"
+  integrity sha512-tjqVpj11dpw5Xsa2aOcHzTeJKO4YtrKbSQNSWddRakY0qdhV9FY8q5kFGBvOkGaBp8EnPAUsqTiK/XTCpJCIHA==
+
+"@rocketsoftware/elements@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/elements/-/elements-0.6.0.tgz#68568689475c4b214c6a123c5c4ed4ad08b3ebd8"
+  integrity sha512-ZK0tt+jWeR2aqPjqerxGJsPh7jnHau9aA/OJiTGHO8WF0v2MXdx1emu1r2933keNimFQ0xBWCsD2QF4Yod+B2Q==
+  dependencies:
+    "@carbon/import-once" "10.3.0"
+    "@rocketsoftware/colors" "^0.6.0"
+    "@rocketsoftware/grid" "^0.6.0"
+    "@rocketsoftware/icons" "^0.6.0"
+    "@rocketsoftware/layout" "^0.6.0"
+    "@rocketsoftware/motion" "^0.6.0"
+    "@rocketsoftware/themes" "^0.6.0"
+    "@rocketsoftware/type" "^0.6.0"
+
+"@rocketsoftware/grid@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/grid/-/grid-0.6.0.tgz#1d978d47a61fe0e7b54c855eb37844e7f50386a0"
+  integrity sha512-bSAnL4IcB707KzMobchD43cIGb2HR6BSRX/or6vC6/fsUpvnWMvWF/HdglpYe0Af9UpDIQsSJpQKqJ8IOjAyaA==
+  dependencies:
+    "@carbon/import-once" "10.3.0"
+    "@rocketsoftware/layout" "^0.6.0"
+
+"@rocketsoftware/icons@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/icons/-/icons-0.6.0.tgz#b089856091e9e45902c734b8a30efe5bb4c1d483"
+  integrity sha512-dpgetW81Vy4S4sAIe2OgZJ3+LSl4EpKrNnCXtjdWgkc6hYV/gfcFivw5JsvcQwEK+NOjjT3Q+C977AU9OMWn/A==
+
+"@rocketsoftware/layout@0.6.0", "@rocketsoftware/layout@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/layout/-/layout-0.6.0.tgz#bd96f0f6b99f92379b66135f17fb0f082b4837f0"
+  integrity sha512-9ahVg2vRmKxsfXO0k7gNKZlvT4mi4DAKEy4Ru0MBAQohkjComYuIhyYee1WIcZmQdmT+NdvIgkRsCzpzEoDnhA==
+
+"@rocketsoftware/motion@0.6.0", "@rocketsoftware/motion@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/motion/-/motion-0.6.0.tgz#b1cf5eabc77e34ad83f49108ffb4c8f101361e45"
+  integrity sha512-QwOb78cg1F7K4KYMD9ELYylSQkoJfImmpMOQQLdG2FIHkWowm7QZeJfTh6iqN5mlqyHHOfT1tw7btP24B00Ahg==
+
+"@rocketsoftware/themes@0.6.0", "@rocketsoftware/themes@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/themes/-/themes-0.6.0.tgz#b487ce9689c1dd7de799421d2913c5ba63953716"
+  integrity sha512-XMZdsypbC9ye6daX28uRqZjiwyBTwJidrwwaoVM4nHaSaT8w9xzcPQ439zpqCsWSoTKJnIfcTCgXuUJrxLsElw==
+  dependencies:
+    "@rocketsoftware/colors" "^0.6.0"
+    "@rocketsoftware/layout" "^0.6.0"
+    "@rocketsoftware/type" "^0.6.0"
+    color "^3.1.2"
+
+"@rocketsoftware/type@0.6.0", "@rocketsoftware/type@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@rocketsoftware/type/-/type-0.6.0.tgz#f767484d309fce63477534d7adc5a38088f585e9"
+  integrity sha512-AfZIuJOW+ZL0A6IH6bv/vRBQEOpAgPPBaHIHIwwzNI8+oP5b+Y0cogcNaCBGWk9+6y9HAJpMuEiEMKNSouFUZw==
+  dependencies:
+    "@carbon/import-once" "10.3.0"
+    "@rocketsoftware/layout" "^0.6.0"
 
 "@rollup/plugin-json@4.0.2":
   version "4.0.2"
@@ -6376,19 +6364,6 @@ canonical-path@1.0.0:
 capture-stack-trace@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.1.tgz#a6c0bbe1f38f3aa0b92238ecb6ff42c344d4135d"
-
-carbon-components@10.5.0:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.5.0.tgz#f9d0d4da57b41ba958a30745cb4ada902e491345"
-  dependencies:
-    carbon-icons "^7.0.7"
-    flatpickr "4.6.1"
-    lodash.debounce "^4.0.8"
-    warning "^3.0.0"
-
-carbon-icons@^7.0.7:
-  version "7.0.7"
-  resolved "https://registry.yarnpkg.com/carbon-icons/-/carbon-icons-7.0.7.tgz#ebafe3e9fa25df973796a8eca06d8a7c501cc610"
 
 case-sensitive-paths-webpack-plugin@^2.2.0:
   version "2.3.0"

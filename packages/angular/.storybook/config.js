@@ -10,7 +10,7 @@ setOptions({
 });
 
 // load global styles
-require("!style-loader!css-loader!@carbon/charts/demo/styles.css");
+require("!style-loader!css-loader!@rocketsoftware/charts/demo/styles.css");
 
 const req = require.context("../stories", true, /.stories.ts$/);
 function loadStories() {

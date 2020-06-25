@@ -28,7 +28,7 @@ introStories.add("Welcome", () => {
 		<span class="netlify">Deploys by <a href="https://netlify.com" target="_blank">Netlify</a></span>
 
 		<div class="links">
-			<a class="bx--btn bx--btn--primary" href="https://github.com/carbon-design-system/carbon-charts" target="_blank">
+			<a class="bx--btn bx--btn--primary" href="https://github.com/RocketSoftware/carbon-charts" target="_blank">
 				Repository
 			</a>
 

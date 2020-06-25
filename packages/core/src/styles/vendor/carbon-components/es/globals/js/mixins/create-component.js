@@ -131,7 +131,7 @@ export default function (ToMix) {
       _this.element = element;
       /**
        * The component options.
-       * @type {Object}
+       * @type {object}
        */
 
       _this.options = Object.assign(Object.create(_this.constructor.options), options);

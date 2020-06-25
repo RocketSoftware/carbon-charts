@@ -4,7 +4,7 @@ import { withKnobs, object } from "@storybook/addon-knobs";
 
 import * as ChartComponents from "../src/index";
 
-import { storybookDemoGroups } from "@carbon/charts/demo/data";
+import { storybookDemoGroups } from "@rocketsoftware/charts/demo/data";
 
 // Loop through all demo groups
 storybookDemoGroups.forEach(demoGroup => {

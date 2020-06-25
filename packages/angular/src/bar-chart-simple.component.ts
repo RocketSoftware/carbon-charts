@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { SimpleBarChart } from "@carbon/charts";
+import { SimpleBarChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `SimpleBarChart` in carbon charts library

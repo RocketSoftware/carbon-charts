@@ -30,7 +30,7 @@ import {
 	createSvelteChartApp
 } from "../create-codesandbox";
 
-import { Tools } from "@carbon/charts/tools";
+import { Tools } from "@rocketsoftware/charts/tools";
 
 export const chartTypes = {
 	AreaChart: {

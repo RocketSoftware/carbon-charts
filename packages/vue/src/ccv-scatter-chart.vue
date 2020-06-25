@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { ScatterChart } from '@carbon/charts';
+import { ScatterChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {

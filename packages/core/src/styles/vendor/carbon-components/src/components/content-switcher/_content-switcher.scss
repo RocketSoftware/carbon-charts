@@ -9,7 +9,7 @@
 @import '../../globals/scss/typography';
 @import '../../globals/scss/helper-mixins';
 @import '../../globals/scss/css--reset';
-@import '../../globals/scss/vendor/@carbon/elements/scss/import-once/import-once';
+@import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
 
 /// Content switcher styles
 /// @access private
@@ -19,7 +19,7 @@
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-    height: rem(32px);
+    height: rem(40px);
   }
 
   .#{$prefix}--content-switcher--disabled {
@@ -35,7 +35,6 @@
     display: inline-flex;
     align-items: center;
     width: 100%;
-    height: rem(40px);
     padding: $carbon--spacing-03 $carbon--spacing-05;
     margin: 0;
     white-space: nowrap;

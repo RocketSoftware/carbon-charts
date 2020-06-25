@@ -12,13 +12,13 @@ consistent markup, styles, and behavior in prototype and production work.
 
 **with yarn:**
 \`\`\`bash
-yarn add @carbon/charts d3
+yarn add @rocketsoftware/charts d3
 \`\`\`
 
 **with npm:**
 
 \`\`\`bash
-npm install --save @carbon/charts d3
+npm install --save @rocketsoftware/charts d3
 \`\`\`
 
 **Note:** you'd also need to install \`carbon-components\` if you're not using a bundled version of the library.
@@ -39,8 +39,8 @@ To start using the \`StackedBarChart\` component, try the example below:
 
 ###### index.js
 \`\`\`js
-import "@carbon/charts/styles.css";
-import { StackedBarChart } from "@carbon/charts";
+import "@rocketsoftware/charts/styles.css";
+import { StackedBarChart } from "@rocketsoftware/charts";
 
 // grab chart holder DOM element
 const chartHolder = document.getElementById("my-bar-chart");
@@ -60,12 +60,12 @@ new StackedBarChart(chartHolder, {
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/@carbon/charts/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@rocketsoftware/charts/styles.css" />
   </head>
   <body>
     <div id="my-bar-chart"></div>
 
-    <script src="https://unpkg.com/@carbon/charts/bundle.js"></script>
+    <script src="https://unpkg.com/@rocketsoftware/charts/bundle.js"></script>
     <script>
       // grab chart holder DOM element
       const chartHolder = document.getElementById("my-bar-chart");

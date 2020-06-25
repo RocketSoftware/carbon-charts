@@ -126,7 +126,7 @@ function (_mixin) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ProgressIndicator).call(this, element, options));
     /**
      * The component state.
-     * @type {Object}
+     * @type {object}
      */
 
     _this.state = {

@@ -21,6 +21,10 @@ function _nonIterableRest() {
 }
 
 function _iterableToArrayLimit(arr, i) {
+  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+    return;
+  }
+
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -148,6 +152,18 @@ var HeaderSubmenu =
 /*#__PURE__*/
 function (_mixin) {
   _inherits(HeaderSubmenu, _mixin);
+  /**
+   * Sub menus in header nav.
+   * @extends CreateComponent
+   * @extends InitComponentBySearch
+   * @extends Handles
+   * @param {HTMLElement} element The element working as a submenu in header nav.
+   * @param {object} [options] The component options.
+   * @param {string} [options.selectorTrigger] The CSS selector to find the trigger button.
+   * @param {string} [options.selectorItem] The CSS selector to find the menu items.
+   * @param {string} [options.attribExpanded] The attribute that represents the expanded/collapsed state.
+   */
+
 
   function HeaderSubmenu(element, options) {
     var _this;
@@ -424,6 +440,9 @@ function (_mixin) {
      * @member HeaderSubmenu.options
      * @type {object}
      * @property {string} selectorInit The data attribute to find side navs.
+     * @property {string} [selectorTrigger] The CSS selector to find the trigger button.
+     * @property {string} [selectorItem] The CSS selector to find the menu items.
+     * @property {string} [attribExpanded] The attribute that represents the expanded/collapsed state.
      */
     get: function get() {
       var prefix = settings.prefix;
@@ -438,7 +457,7 @@ function (_mixin) {
      * Enum for navigating backward/forward.
      * @readonly
      * @member HeaderSubmenu.NAVIGATE
-     * @type {Object}
+     * @type {object}
      * @property {number} BACKWARD Navigating backward.
      * @property {number} FORWARD Navigating forward.
      */
@@ -459,4 +478,4 @@ function (_mixin) {
   return HeaderSubmenu;
 }(mixin(createComponent, initComponentBySearch, handles));
 
-export { HeaderSubmenu as default };
+export default HeaderSubmenu;

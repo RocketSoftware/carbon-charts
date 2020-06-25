@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { GroupedBarChart } from "@carbon/charts";
+import { GroupedBarChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `GroupedBarChart` in carbon charts library

@@ -10,7 +10,7 @@
     factory(mod.exports, global.settings, global.mixin, global.createComponent, global.initComponentBySearch, global.handles, global.toggleAttribute);
     global.inlineLoading = mod.exports;
   }
-})(this, function (_exports, _settings, _mixin2, _createComponent, _initComponentBySearch, _handles, _toggleAttribute) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _settings, _mixin2, _createComponent, _initComponentBySearch, _handles, _toggleAttribute) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -165,20 +165,28 @@
         var _this$options = this.options,
             selectorSpinner = _this$options.selectorSpinner,
             selectorFinished = _this$options.selectorFinished,
+            selectorError = _this$options.selectorError,
             selectorTextActive = _this$options.selectorTextActive,
-            selectorTextFinished = _this$options.selectorTextFinished;
+            selectorTextFinished = _this$options.selectorTextFinished,
+            selectorTextError = _this$options.selectorTextError;
         var spinner = elem.querySelector(selectorSpinner);
         var finished = elem.querySelector(selectorFinished);
+        var error = elem.querySelector(selectorError);
         var textActive = elem.querySelector(selectorTextActive);
         var textFinished = elem.querySelector(selectorTextFinished);
+        var textError = elem.querySelector(selectorTextError);
 
         if (spinner) {
           spinner.classList.toggle(this.options.classLoadingStop, state !== states.ACTIVE);
-          (0, _toggleAttribute.default)(spinner, 'hidden', state === states.FINISHED);
+          (0, _toggleAttribute.default)(spinner, 'hidden', state !== states.INACTIVE && state !== states.ACTIVE);
         }
 
         if (finished) {
           (0, _toggleAttribute.default)(finished, 'hidden', state !== states.FINISHED);
+        }
+
+        if (error) {
+          (0, _toggleAttribute.default)(error, 'hidden', state !== states.ERROR);
         }
 
         if (textActive) {
@@ -189,11 +197,15 @@
           (0, _toggleAttribute.default)(textFinished, 'hidden', state !== states.FINISHED);
         }
 
+        if (textError) {
+          (0, _toggleAttribute.default)(textError, 'hidden', state !== states.ERROR);
+        }
+
         return this;
       }
       /**
        * The list of states.
-       * @type {Object<string, string>}
+       * @type {object<string, string>}
        */
 
     }], [{
@@ -209,8 +221,10 @@
        * @property {string} selectorInit The CSS selector to find inline loading components.
        * @property {string} selectorSpinner The CSS selector to find the spinner.
        * @property {string} selectorFinished The CSS selector to find the "finished" icon.
+       * @property {string} selectorError The CSS selector to find the "error" icon.
        * @property {string} selectorTextActive The CSS selector to find the text describing the active state.
        * @property {string} selectorTextFinished The CSS selector to find the text describing the finished state.
+       * @property {string} selectorTextError The CSS selector to find the text describing the error state.
        * @property {string} classLoadingStop The CSS class for spinner's stopped state.
        */
       get: function get() {
@@ -219,8 +233,10 @@
           selectorInit: '[data-inline-loading]',
           selectorSpinner: '[data-inline-loading-spinner]',
           selectorFinished: '[data-inline-loading-finished]',
+          selectorError: '[data-inline-loading-error]',
           selectorTextActive: '[data-inline-loading-text-active]',
           selectorTextFinished: '[data-inline-loading-text-finished]',
+          selectorTextError: '[data-inline-loading-text-error]',
           classLoadingStop: "".concat(prefix, "--loading--stop")
         };
       }
@@ -229,7 +245,8 @@
     InlineLoading.states = {
       INACTIVE: 'inactive',
       ACTIVE: 'active',
-      FINISHED: 'finished'
+      FINISHED: 'finished',
+      ERROR: 'error'
     };
     InlineLoading.components = new WeakMap();
     return InlineLoading;

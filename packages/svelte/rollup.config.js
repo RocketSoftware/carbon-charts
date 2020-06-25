@@ -10,7 +10,7 @@ export default [
 			format: "umd",
 			name: "ChartsSvelte",
 			globals: {
-				"@carbon/charts": "Charts"
+				"@rocketsoftware/charts": "Charts"
 			}
 		},
 		plugins: [
@@ -18,7 +18,7 @@ export default [
 			resolve(),
 			terser()
 		],
-		external: ["svelte", "@carbon/charts"]
+		external: ["svelte", "@rocketsoftware/charts"]
 	},
 	{
 		input: "./src/index.js",
@@ -30,6 +30,6 @@ export default [
 			svelte(),
 			resolve()
 		],
-		external: ["svelte", "@carbon/charts"]
+		external: ["svelte", "@rocketsoftware/charts"]
 	}
 ];

@@ -10,7 +10,7 @@
     factory(mod.exports, global.mixin, global.createComponent, global.initComponentBySearch, global.handles, global.on, global.settings);
     global.headerNav = mod.exports;
   }
-})(this, function (_exports, _mixin2, _createComponent, _initComponentBySearch, _handles, _on, _settings) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _mixin2, _createComponent, _initComponentBySearch, _handles, _on, _settings) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -121,6 +121,18 @@
   /*#__PURE__*/
   function (_mixin) {
     _inherits(HeaderNav, _mixin);
+    /**
+     * Header nav.
+     * @extends CreateComponent
+     * @extends InitComponentBySearch
+     * @extends Handles
+     * @param {HTMLElement} element The element working as an header nav.
+     * @param {object} [options] The component options.
+     * @param {string} [options.selectorSubmenu] The CSS selector to find sub menus.
+     * @param {string} [options.selectorSubmenuLink] The CSS selector to find the trigger buttons of sub menus.
+     * @param {string} [options.selectorSubmenuItem] The CSS selector to find the sub menu items.
+     */
+
 
     function HeaderNav(element, options) {
       var _this;
@@ -195,6 +207,9 @@
        * @member HeaderNav.options
        * @type {object}
        * @property {string} selectorInit The data attribute to find side navs.
+       * @property {string} [selectorSubmenu] The CSS selector to find sub menus.
+       * @property {string} [selectorSubmenuLink] The CSS selector to find the trigger buttons of sub menus.
+       * @property {string} [selectorSubmenuItem] The CSS selector to find the sub menu items.
        */
       get: function get() {
         var prefix = _settings.default.prefix;
@@ -210,7 +225,7 @@
        * Enum for navigating backward/forward.
        * @readonly
        * @member Header.NAVIGATE
-       * @type {Object}
+       * @type {object}
        * @property {number} BACKWARD Navigating backward.
        * @property {number} FORWARD Navigating forward.
        */
@@ -225,5 +240,6 @@
     return HeaderNav;
   }((0, _mixin2.default)(_createComponent.default, _initComponentBySearch.default, _handles.default));
 
-  _exports.default = HeaderNav;
+  var _default = HeaderNav;
+  _exports.default = _default;
 });

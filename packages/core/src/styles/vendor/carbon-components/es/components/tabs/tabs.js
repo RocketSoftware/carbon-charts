@@ -376,7 +376,7 @@ function (_ContentSwitcher) {
      * Enum for navigating backward/forward.
      * @readonly
      * @member Tab.NAVIGATE
-     * @type {Object}
+     * @type {object}
      * @property {number} BACKWARD Navigating backward.
      * @property {number} FORWARD Navigating forward.
      */

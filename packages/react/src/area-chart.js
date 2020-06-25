@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AreaChart as AC } from "@carbon/charts";
+import { AreaChart as AC } from "@rocketsoftware/charts";
 import BaseChart from "./base-chart";
 
 export default class AreaChart extends BaseChart {

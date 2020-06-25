@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { PieChart } from "@carbon/charts";
+import { PieChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `PieChart` in carbon charts library

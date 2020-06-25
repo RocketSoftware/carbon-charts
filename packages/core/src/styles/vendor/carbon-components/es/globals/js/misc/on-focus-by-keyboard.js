@@ -11,7 +11,7 @@ export default function onFocusByKeyboard(node, name, callback) {
   var focusoutEventName = hasFocusout ? 'focusout' : 'blur';
   /**
    * Event types supported by this function
-   * @type {Object<string, string>}
+   * @type {object<string, string>}
    */
 
   var supportedEvents = {

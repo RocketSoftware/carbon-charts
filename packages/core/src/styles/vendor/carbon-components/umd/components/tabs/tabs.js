@@ -10,7 +10,7 @@
     factory(mod.exports, global.settings, global.eventMatches, global.contentSwitcher, global.on);
     global.tabs = mod.exports;
   }
-})(this, function (_exports, _settings, _eventMatches, _contentSwitcher, _on) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _settings, _eventMatches, _contentSwitcher, _on) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -394,7 +394,7 @@
        * Enum for navigating backward/forward.
        * @readonly
        * @member Tab.NAVIGATE
-       * @type {Object}
+       * @type {object}
        * @property {number} BACKWARD Navigating backward.
        * @property {number} FORWARD Navigating forward.
        */

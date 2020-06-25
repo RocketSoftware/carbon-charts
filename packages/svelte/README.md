@@ -1,4 +1,4 @@
-# `@carbon/charts-svelte`
+# `@rocketsoftware/charts-svelte`
 
 > Carbon Charting Svelte Wrappers
 
@@ -15,14 +15,14 @@ Please direct all questions regarding support, bug fixes, and feature requests t
 Run the following command using [npm](https://www.npmjs.com/):
 
 ```bash
-npm install -S @carbon/charts @carbon/charts-svelte d3
+npm install -S @rocketsoftware/charts @rocketsoftware/charts-svelte d3
 ```
 
 If you prefer [Yarn](https://yarnpkg.com/en/), use the following command
 instead:
 
 ```bash
-yarn add @carbon/charts @carbon/charts-svelte d3
+yarn add @rocketsoftware/charts @rocketsoftware/charts-svelte d3
 ```
 
 **Note:** you'd also need to install `carbon-components` if you're not using a bundled version of the library.

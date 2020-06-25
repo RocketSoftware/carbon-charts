@@ -103,6 +103,18 @@ var HeaderNav =
 /*#__PURE__*/
 function (_mixin) {
   _inherits(HeaderNav, _mixin);
+  /**
+   * Header nav.
+   * @extends CreateComponent
+   * @extends InitComponentBySearch
+   * @extends Handles
+   * @param {HTMLElement} element The element working as an header nav.
+   * @param {object} [options] The component options.
+   * @param {string} [options.selectorSubmenu] The CSS selector to find sub menus.
+   * @param {string} [options.selectorSubmenuLink] The CSS selector to find the trigger buttons of sub menus.
+   * @param {string} [options.selectorSubmenuItem] The CSS selector to find the sub menu items.
+   */
+
 
   function HeaderNav(element, options) {
     var _this;
@@ -177,6 +189,9 @@ function (_mixin) {
      * @member HeaderNav.options
      * @type {object}
      * @property {string} selectorInit The data attribute to find side navs.
+     * @property {string} [selectorSubmenu] The CSS selector to find sub menus.
+     * @property {string} [selectorSubmenuLink] The CSS selector to find the trigger buttons of sub menus.
+     * @property {string} [selectorSubmenuItem] The CSS selector to find the sub menu items.
      */
     get: function get() {
       var prefix = settings.prefix;
@@ -192,7 +207,7 @@ function (_mixin) {
      * Enum for navigating backward/forward.
      * @readonly
      * @member Header.NAVIGATE
-     * @type {Object}
+     * @type {object}
      * @property {number} BACKWARD Navigating backward.
      * @property {number} FORWARD Navigating forward.
      */
@@ -207,4 +222,4 @@ function (_mixin) {
   return HeaderNav;
 }(mixin(createComponent, initComponentBySearch, handles));
 
-export { HeaderNav as default };
+export default HeaderNav;

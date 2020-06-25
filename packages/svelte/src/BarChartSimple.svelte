@@ -1,5 +1,5 @@
 <script>
-  import { SimpleBarChart } from "@carbon/charts";
+  import { SimpleBarChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

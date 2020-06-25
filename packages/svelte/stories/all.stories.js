@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/svelte";
 import { withKnobs, object } from "@storybook/addon-knobs";
-import { storybookDemoGroups } from "@carbon/charts/demo/data";
+import { storybookDemoGroups } from "@rocketsoftware/charts/demo/data";
 import * as ChartComponents from "../src";
 import ChartWrapper from "./ChartWrapper.svelte";
 

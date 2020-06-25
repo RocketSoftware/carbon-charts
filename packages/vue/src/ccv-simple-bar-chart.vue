@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { SimpleBarChart } from '@carbon/charts';
+import { SimpleBarChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {

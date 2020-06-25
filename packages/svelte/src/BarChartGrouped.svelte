@@ -1,5 +1,5 @@
 <script>
-  import { GroupedBarChart } from "@carbon/charts";
+  import { GroupedBarChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

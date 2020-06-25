@@ -10,7 +10,7 @@
     factory(mod.exports, global.eventedState, global.getLaunchingDetails);
     global.eventedShowHideState = mod.exports;
   }
-})(this, function (_exports, _eventedState, _getLaunchingDetails) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _eventedState, _getLaunchingDetails) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {

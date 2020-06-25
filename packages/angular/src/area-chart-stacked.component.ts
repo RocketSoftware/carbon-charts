@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { StackedAreaChart } from "@carbon/charts";
+import { StackedAreaChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `StackedAreaChart` in carbon charts library

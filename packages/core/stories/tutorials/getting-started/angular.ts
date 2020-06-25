@@ -15,12 +15,12 @@ in prototype and production work.
 
 **with yarn:**
 \`\`\`bash
-yarn add @carbon/charts-angular d3
+yarn add @rocketsoftware/charts-angular d3
 \`\`\`
 
 **with npm:**
 \`\`\`bash
-npm install --save @carbon/charts-angular d3
+npm install --save @rocketsoftware/charts-angular d3
 \`\`\`
 
 **Note:** you'd also need to install \`carbon-components\` if you're not using a bundled version of the library.
@@ -36,7 +36,7 @@ To start using the \`StackedBarChart\` component, try the example below:
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 
-import { ChartsModule } from "@carbon/charts-angular";
+import { ChartsModule } from "@rocketsoftware/charts-angular";
 
 import { AppComponent } from "./app.component";
 
@@ -62,7 +62,7 @@ export class AppModule {}
 ###### app.component.ts
 \`\`\`ts
 import { Component } from "@angular/core";
-import "@carbon/charts/styles.css";
+import "@rocketsoftware/charts/styles.css";
 
 @Component({
   selector: "my-app",

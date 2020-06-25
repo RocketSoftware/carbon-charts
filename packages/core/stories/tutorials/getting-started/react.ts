@@ -14,12 +14,12 @@ consistent markup, styles, and behavior in prototype and production work.
 
 **with yarn:**
 \`\`\`bash
-yarn add @carbon/charts-react d3
+yarn add @rocketsoftware/charts-react d3
 \`\`\`
 
 **with npm:**
 \`\`\`bash
-npm install --save @carbon/charts-react d3
+npm install --save @rocketsoftware/charts-react d3
 \`\`\`
 
 **Note:** you'd also need to install \`carbon-components\` if you're not using a bundled version of the library.
@@ -33,10 +33,10 @@ To start using the \`StackedBarChart\` component, try the example below:
 \`\`\`ts
 import React from "react";
 
-import { StackedBarChart } from "@carbon/charts-react";
-import "@carbon/charts/styles.css";
+import { StackedBarChart } from "@rocketsoftware/charts-react";
+import "@rocketsoftware/charts/styles.css";
 // Or
-// import '@carbon/charts/styles/styles.scss';
+// import '@rocketsoftware/charts/styles/styles.scss';
 
 const stackedBarOptions = {
 	// refer to chart specific options

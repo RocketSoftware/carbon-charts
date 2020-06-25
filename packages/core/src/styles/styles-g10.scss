@@ -1,4 +1,4 @@
-@import "./vendor/carbon-components/scss/globals/scss/vendor/@carbon/elements/scss/themes/mixins";
+@import "./vendor/carbon-components/scss/globals/scss/vendor/@rocketsoftware/elements/scss/themes/mixins";
 @include carbon--theme($carbon--theme--g10) {
 	@import "./styles";
 }

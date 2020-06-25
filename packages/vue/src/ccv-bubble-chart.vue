@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { BubbleChart } from '@carbon/charts';
+import { BubbleChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {

@@ -8,9 +8,9 @@ if [ $CONTEXT == "deploy-preview" ]; then
 	PKG_NAME=`echo $URL | sed s/"https:\/\/carbon-charts-"// | sed s/"\..*"//`
 
 	if [ $PKG_NAME == "core" ]; then
-		PKG_TO_BUILD="@carbon/charts"
+		PKG_TO_BUILD="@rocketsoftware/charts"
 	else
-		PKG_TO_BUILD="@carbon/charts-$PKG_NAME"
+		PKG_TO_BUILD="@rocketsoftware/charts-$PKG_NAME"
 	fi
 
 	cd packages/core

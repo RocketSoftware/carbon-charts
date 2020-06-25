@@ -14,7 +14,7 @@ import { select, mouse } from "d3-selection";
 import Position, { PLACEMENTS } from "@carbon/utils-position";
 
 // import the settings for the css prefix
-import settings from "carbon-components/es/globals/js/settings";
+import settings from "@rocketsoftware/carbon-components/es/globals/js/settings";
 import {
 	formatTick,
 	computeTimeIntervalName,

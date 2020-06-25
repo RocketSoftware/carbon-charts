@@ -115,13 +115,14 @@ import NavigationMenuPanel from './navigation-menu-panel';
 import on from '../../globals/js/misc/on';
 import settings from '../../globals/js/settings';
 import onFocusOutByKeyboard from '../../globals/js/misc/on-focus-by-keyboard';
+var seq = 0;
 
 var ProductSwitcher =
 /*#__PURE__*/
 function (_NavigationMenuPanel) {
   _inherits(ProductSwitcher, _NavigationMenuPanel);
   /**
-   * A navigation menu
+   * A navigation menu.
    * @extends NavigationMenuPanel
    * @param {HTMLElement} element The element working as a selector.
    * @param {object} [options] The component options.
@@ -173,7 +174,7 @@ function (_NavigationMenuPanel) {
       var launcher = event.delegateTarget;
 
       if (!launcher.id) {
-        launcher.id = "__carbon-product-switcher-launcher-".concat(Math.random().toString(36).substr(2));
+        launcher.id = "__carbon-product-switcher-launcher-".concat(seq++);
       }
 
       var current = launcher.id;
@@ -283,4 +284,4 @@ function (_NavigationMenuPanel) {
   return ProductSwitcher;
 }(NavigationMenuPanel);
 
-export { ProductSwitcher as default };
+export default ProductSwitcher;

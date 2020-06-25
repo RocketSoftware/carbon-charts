@@ -3,13 +3,13 @@ import marked from "marked";
 export const tabularTutorial = marked(`
 # Tabular data format
 
-We've recently updated the default \`@carbon/charts\` data
+We've recently updated the default \`@rocketsoftware/charts\` data
 format to be of a tabular nature.
 
 This means more flexibility for our users in terms of the shape
 of the data they can provide to the library.
 
-**If you're looking to use @carbon/charts@0.30.8 and above,
+**If you're looking to use @rocketsoftware/charts@0.30.8 and above,
 we recommend updating your data type as it should be a quick
 and easy switch.**
 

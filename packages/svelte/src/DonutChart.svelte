@@ -1,5 +1,5 @@
 <script>
-  import { DonutChart } from "@carbon/charts";
+  import { DonutChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

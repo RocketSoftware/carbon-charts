@@ -1,4 +1,4 @@
-import { blue, cyan, green, magenta, purple, red, teal } from "@carbon/colors";
+import { blue, cyan, green, magenta, purple, red, teal } from "@rocketsoftware/colors";
 
 const getColor = (obj, shade) => obj[shade];
 

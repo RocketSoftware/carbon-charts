@@ -10,7 +10,7 @@
     factory(mod.exports, global.mixin, global.createComponent, global.initComponentBySearch, global.handles, global.on, global.settings, global.eventMatches);
     global.headerSubmenu = mod.exports;
   }
-})(this, function (_exports, _mixin2, _createComponent, _initComponentBySearch, _handles, _on, _settings, _eventMatches) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _mixin2, _createComponent, _initComponentBySearch, _handles, _on, _settings, _eventMatches) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -54,6 +54,10 @@
   }
 
   function _iterableToArrayLimit(arr, i) {
+    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+      return;
+    }
+
     var _arr = [];
     var _n = true;
     var _d = false;
@@ -166,6 +170,18 @@
   /*#__PURE__*/
   function (_mixin) {
     _inherits(HeaderSubmenu, _mixin);
+    /**
+     * Sub menus in header nav.
+     * @extends CreateComponent
+     * @extends InitComponentBySearch
+     * @extends Handles
+     * @param {HTMLElement} element The element working as a submenu in header nav.
+     * @param {object} [options] The component options.
+     * @param {string} [options.selectorTrigger] The CSS selector to find the trigger button.
+     * @param {string} [options.selectorItem] The CSS selector to find the menu items.
+     * @param {string} [options.attribExpanded] The attribute that represents the expanded/collapsed state.
+     */
+
 
     function HeaderSubmenu(element, options) {
       var _this;
@@ -442,6 +458,9 @@
        * @member HeaderSubmenu.options
        * @type {object}
        * @property {string} selectorInit The data attribute to find side navs.
+       * @property {string} [selectorTrigger] The CSS selector to find the trigger button.
+       * @property {string} [selectorItem] The CSS selector to find the menu items.
+       * @property {string} [attribExpanded] The attribute that represents the expanded/collapsed state.
        */
       get: function get() {
         var prefix = _settings.default.prefix;
@@ -456,7 +475,7 @@
        * Enum for navigating backward/forward.
        * @readonly
        * @member HeaderSubmenu.NAVIGATE
-       * @type {Object}
+       * @type {object}
        * @property {number} BACKWARD Navigating backward.
        * @property {number} FORWARD Navigating forward.
        */
@@ -477,5 +496,6 @@
     return HeaderSubmenu;
   }((0, _mixin2.default)(_createComponent.default, _initComponentBySearch.default, _handles.default));
 
-  _exports.default = HeaderSubmenu;
+  var _default = HeaderSubmenu;
+  _exports.default = _default;
 });

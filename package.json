@@ -1,5 +1,5 @@
 {
-	"name": "@carbon/charts-monorepo",
+	"name": "@rocketsoftware/charts-monorepo",
 	"private": true,
 	"description": "Carbon charting components, lerna monorepo",
 	"repository": {

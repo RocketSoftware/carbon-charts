@@ -10,7 +10,7 @@
     factory(mod.exports, global.navigationMenuPanel, global.on, global.settings, global.onFocusByKeyboard);
     global.productSwitcher = mod.exports;
   }
-})(this, function (_exports, _navigationMenuPanel, _on, _settings, _onFocusByKeyboard) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _navigationMenuPanel, _on, _settings, _onFocusByKeyboard) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -141,12 +141,14 @@
     return _setPrototypeOf(o, p);
   }
 
+  var seq = 0;
+
   var ProductSwitcher =
   /*#__PURE__*/
   function (_NavigationMenuPanel) {
     _inherits(ProductSwitcher, _NavigationMenuPanel);
     /**
-     * A navigation menu
+     * A navigation menu.
      * @extends NavigationMenuPanel
      * @param {HTMLElement} element The element working as a selector.
      * @param {object} [options] The component options.
@@ -198,7 +200,7 @@
         var launcher = event.delegateTarget;
 
         if (!launcher.id) {
-          launcher.id = "__carbon-product-switcher-launcher-".concat(Math.random().toString(36).substr(2));
+          launcher.id = "__carbon-product-switcher-launcher-".concat(seq++);
         }
 
         var current = launcher.id;
@@ -308,5 +310,6 @@
     return ProductSwitcher;
   }(_navigationMenuPanel.default);
 
-  _exports.default = ProductSwitcher;
+  var _default = ProductSwitcher;
+  _exports.default = _default;
 });

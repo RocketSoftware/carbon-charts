@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { AreaChart } from "@carbon/charts";
+import { AreaChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `AreaChart` in carbon charts library
