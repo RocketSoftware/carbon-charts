@@ -1885,6 +1885,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **react wrappers storybook:** full react wrappers ([4a456ee](https://github.com/carbon-design-system/carbon-charts/commit/4a456ee)), closes [#117](https://github.com/carbon-design-system/carbon-charts/issues/117) [#115](https://github.com/carbon-design-system/carbon-charts/issues/115) [#120](https://github.com/carbon-design-system/carbon-charts/issues/120) [#121](https://github.com/carbon-design-system/carbon-charts/issues/121)
 
 
+## [Unreleased]
+## 0.32.9 - 2020-25-06
+### Added
+- Added following mouse events to line charts
+    *LINE_MOUSEOVER
+	*LINE_MOUSEMOVE
+	*LINE_CLICK
+	*LINE_MOUSEOUT
 
 
 

@@ -1,5 +1,10 @@
-.#{$prefix}--#{$charts-prefix}--line path.line {
-	pointer-events: none;
-	fill: none;
-	stroke-width: 1.5;
+.#{$prefix}--#{$charts-prefix}--line {
+	path.line {
+		fill: none;
+		stroke-width: 1.5;
+	}
+	path.line.hovered {
+		cursor: pointer;
+		stroke-width: 3px;
+	}
 }

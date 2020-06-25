@@ -337,7 +337,7 @@ let allDemoGroups = [
 			{
 				options: lineDemos.lineTimeSeriesCustomDomainOptions,
 				data: lineDemos.lineTimeSeriesData,
-				chartType: chartTypes.LineChart,
+				chartType: chartTypes.LineChart
 			},
 			{
 				options: lineDemos.lineTimeSeriesDenseOptions,
@@ -352,7 +352,7 @@ let allDemoGroups = [
 			{
 				options: lineDemos.lineCustomDomainOptions,
 				data: lineDemos.lineData,
-				chartType: chartTypes.LineChart,
+				chartType: chartTypes.LineChart
 			},
 			{
 				options: lineDemos.lineTimeSeriesRotatedTicksOptions,
