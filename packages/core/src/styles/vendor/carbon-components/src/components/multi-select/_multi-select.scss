@@ -9,8 +9,9 @@
 // List Box
 //-----------------------------
 
-@import '../../globals/scss/vendor/@carbon/elements/scss/import-once/import-once';
+@import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
 @import '../../globals/scss/vars';
+@import '../checkbox/checkbox';
 @import '../list-box/list-box';
 
 /// Multi select styles

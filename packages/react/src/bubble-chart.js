@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BubbleChart as BC } from "@carbon/charts";
+import { BubbleChart as BC } from "@rocketsoftware/charts";
 import BaseChart from "./base-chart";
 
 export default class BubbleChart extends BaseChart {

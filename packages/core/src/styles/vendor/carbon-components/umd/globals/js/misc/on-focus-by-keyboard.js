@@ -10,7 +10,7 @@
     factory(mod.exports);
     global.onFocusByKeyboard = mod.exports;
   }
-})(this, function (_exports) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -31,7 +31,7 @@
     var focusoutEventName = hasFocusout ? 'focusout' : 'blur';
     /**
      * Event types supported by this function
-     * @type {Object<string, string>}
+     * @type {object<string, string>}
      */
 
     var supportedEvents = {

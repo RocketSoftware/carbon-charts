@@ -3,8 +3,8 @@
 	"compilerOptions": {
 		"outDir": "../dist",
 		"paths": {
-			"@carbon/charts": ["src"],
-			"@carbon/charts/tools": ["src/tools.ts"]
+			"@rocketsoftware/charts": ["src"],
+			"@rocketsoftware/charts/tools": ["src/tools.ts"]
 		}
 	},
 	"ts-node": {

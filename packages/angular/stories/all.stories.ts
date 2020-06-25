@@ -3,7 +3,7 @@ import { withKnobs, object } from "@storybook/addon-knobs";
 
 import { ChartsModule } from "../src/charts.module";
 
-import { storybookDemoGroups } from "@carbon/charts/demo/data";
+import { storybookDemoGroups } from "@rocketsoftware/charts/demo/data";
 
 const getTemplate = demo => `
 	<div class="container theme--white">

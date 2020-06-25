@@ -14,12 +14,12 @@ styles, and behavior in prototype and production work.
 
 **with yarn:**
 \`\`\`bash
-yarn add @carbon/charts-vue d3
+yarn add @rocketsoftware/charts-vue d3
 \`\`\`
 
 **with npm:**
 \`\`\`bash
-npm install --save @carbon/charts-vue d3
+npm install --save @rocketsoftware/charts-vue d3
 \`\`\`
 
 **Note:** you'd also need to install \`carbon-components\` if you're not using a bundled version of the library.
@@ -34,8 +34,8 @@ To start using the \`StackedBarChart\` component, try the example below:
 \`\`\`vue
 <script>
   import Vue from "vue";
-  import "@carbon/charts/styles.css";
-  import chartsVue from "@carbon/charts-vue";
+  import "@rocketsoftware/charts/styles.css";
+  import chartsVue from "@rocketsoftware/charts-vue";
 
   Vue.use(chartsVue);
 

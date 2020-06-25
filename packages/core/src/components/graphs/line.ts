@@ -32,7 +32,7 @@ export class Line extends Component {
 		const getRangeValue = (d, i) => cartesianScales.getRangeValue(d, i);
 		const [
 			getXValue,
-			getYValue,
+			getYValue
 		] = Tools.flipDomainAndRangeBasedOnOrientation(
 			getDomainValue,
 			getRangeValue,
@@ -57,9 +57,9 @@ export class Line extends Component {
 
 		let data = [];
 		if (this.configs.stacked) {
-			const percentage = Object.keys(options.axes).some(axis => 
-				options.axes[axis].percentage	
-			)
+			const percentage = Object.keys(options.axes).some(
+				(axis) => options.axes[axis].percentage
+			);
 			const stackedData = this.model.getStackedData({ percentage });
 
 			data = stackedData.map((d) => ({
@@ -67,9 +67,9 @@ export class Line extends Component {
 				data: d.map((datum) => ({
 					date: datum.data.sharedStackKey,
 					group: datum.group,
-					value: datum[1],
+					value: datum[1]
 				})),
-				hidden: !Tools.some(d, (datum) => datum[0] !== datum[1]),
+				hidden: !Tools.some(d, (datum) => datum[0] !== datum[1])
 			}));
 		} else {
 			data = this.model.getGroupedData();

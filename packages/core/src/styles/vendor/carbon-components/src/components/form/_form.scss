@@ -9,7 +9,7 @@
 @import '../../globals/scss/typography';
 @import '../../globals/scss/helper-mixins';
 @import '../../globals/scss/css--reset';
-@import '../../globals/scss/vendor/@carbon/elements/scss/import-once/import-once';
+@import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
 
 /// Form styles
 /// @access private
@@ -24,7 +24,10 @@
     @include type-style('body-short-01');
     display: flex;
     flex-direction: column;
-    flex: 1;
+    // We specify `auto` as the default value so that the form item does
+    // not collapse in IE11 due to a `flex-basis` of 0 only working with
+    // `flex-direction: row`
+    flex: 1 1 auto;
     align-items: flex-start;
   }
 
@@ -76,7 +79,7 @@
     ~ .#{$prefix}--form-requirement {
       max-height: rem(200px);
       display: block;
-      color: $support-01;
+      color: $text-error;
     }
   }
 
@@ -101,8 +104,7 @@
 
   .#{$prefix}--form__helper-text {
     @include type-style('helper-text-01');
-    font-style: italic;
-    color: $text-02;
+    color: $text-05;
     z-index: 0;
     opacity: 1;
     margin-bottom: $carbon--spacing-03;

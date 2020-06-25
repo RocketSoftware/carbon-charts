@@ -10,7 +10,7 @@
     factory(mod.exports);
     global.eventedState = mod.exports;
   }
-})(this, function (_exports) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -238,7 +238,7 @@
          * Classes inheriting {@link EventedState `EventedState`} should override this function.
          * @function EventedState#shouldStateBeChanged
          * @param {string} [state] The new state. Can be an omitted, which means toggling.
-         * @param {Object} [detail]
+         * @param {object} [detail]
          *   The object that should be put to event details that is fired before/after changing state.
          *   Can have a `group` property, which specifies what state to be changed.
          * @returns {boolean}

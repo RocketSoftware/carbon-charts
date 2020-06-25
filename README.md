@@ -6,8 +6,8 @@
 	<p align="center">
 		A reusable framework-agnostic D3 charting library.
 		<br /><br />
-		<a href="https://www.npmjs.com/package/@carbon/charts">
-			<img src="https://img.shields.io/npm/v/@carbon/charts.svg" />
+		<a href="https://www.npmjs.com/package/@rocketsoftware/charts">
+			<img src="https://img.shields.io/npm/v/@rocketsoftware/charts.svg" />
 		</a>
 		<img src="https://img.shields.io/badge/comp-IE11%2B-blue.svg" />
 		<img alt="semantic-versioning" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--ver-e10079.svg" />

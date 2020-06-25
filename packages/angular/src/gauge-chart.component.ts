@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { GaugeChart } from "@carbon/charts";
+import { GaugeChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `GaugeChart` in carbon charts library

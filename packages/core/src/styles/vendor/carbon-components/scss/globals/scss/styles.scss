@@ -27,17 +27,17 @@ $css--helpers: true !default;
 /// @group feature-flags
 $css--body: true !default;
 
-/// If true, the `layer()` mixin sets `box-shadow` values
-/// @access public
-/// @type Bool
-/// @group feature-flags
-$css--use-layer: true !default;
-
 /// If true, include reset CSS
 /// @access public
 /// @type Bool
 /// @group feature-flags
 $css--reset: true !default;
+
+/// If true, include default type
+/// @access public
+/// @type Bool
+/// @group feature-flags
+$css--default-type: true !default;
 
 /// Used with `css--font-face` feature flag, if true, uses Plex font families instead of Helvetica
 /// @access public
@@ -70,7 +70,7 @@ $css--use-experimental-grid-fallback: false !default;
 @import 'layer';
 @import 'spacing';
 @import 'typography';
-@import './vendor/@carbon/elements/scss/import-once/import-once';
+@import './vendor/@rocketsoftware/elements/scss/import-once/import-once';
 @import 'css--reset';
 @import 'css--font-face';
 @import 'css--helpers';
@@ -151,7 +151,13 @@ $deprecations--message: 'Deprecated code was found, this code will be removed be
 @import '../../components/skeleton/skeleton';
 @import '../../components/inline-loading/inline-loading';
 @import '../../components/pagination-nav/pagination-nav';
-
+@import '../../components/card/card';
+@import '../../components/resource-header/resource-header';
+@import '../../components/split-button/split-button';
+@import '../../components/button-group/button-group';
+@import '../../components/tour-tooltip/tour-tooltip';
+@import '../../components/footer-wrapper/footer-wrapper';
+@import '../../components/flat-progress-indicator/flat-progress-indicator';
 //-------------------------------------
 // 🔬 Experimental
 //-------------------------------------

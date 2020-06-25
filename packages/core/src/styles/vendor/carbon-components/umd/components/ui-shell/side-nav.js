@@ -10,7 +10,7 @@
     factory(mod.exports, global.mixin, global.createComponent, global.settings, global.initComponentBySearch, global.handles, global.on, global.eventMatches);
     global.sideNav = mod.exports;
   }
-})(this, function (_exports, _mixin2, _createComponent, _settings, _initComponentBySearch, _handles, _on, _eventMatches) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _mixin2, _createComponent, _settings, _initComponentBySearch, _handles, _on, _eventMatches) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -148,6 +148,27 @@
      * @type {WeakMap}
      */
 
+    /**
+     * Side nav.
+     * @extends CreateComponent
+     * @extends InitComponentBySearch
+     * @extends Handles
+     * @param {HTMLElement} element The element working as a side nav.
+     * @param {object} [options] The component options.
+     * @param {string} [options.selectorSideNavToggle]
+     *   The CSS selector to find the toggle button.
+     * @param {string} [options.selectorSideNavSubmenu] The CSS selector to find the trigger buttons for sub nav items.
+     * @param {string} [options.selectorSideNavItem] The CSS selector to find the nav items.
+     * @param {string} [options.selectorSideNavLink] The CSS selector to find the interactive potions in non-nested nav items.
+     * @param {string} [options.selectorSideNavLinkCurrent]
+     *   The CSS selector to find the interactive potion in active non-nested nav item.
+     * @param {string} [options.classSideNavExpanded] The CSS class for the expanded state.
+     * @param {string} [options.classSideNavItemActive]
+     *   The CSS class for the active/inactive state for nav items.
+     * @param {string} [options.classSideNavLinkCurrent]
+     *   The CSS class for the active/inactive state of the interactive potion in non-nested nav items.
+     */
+
 
     function SideNav(element, options) {
       var _this;
@@ -200,7 +221,7 @@
      * Enum for toggling side nav visibility
      * @readonly
      * @member SideNav.state
-     * @type {Object}
+     * @type {object}
      * @property {string} EXPANDED Opening/visible
      * @property {string} COLLAPSED Closing/hidden
      */
@@ -245,5 +266,6 @@
     return SideNav;
   }((0, _mixin2.default)(_createComponent.default, _initComponentBySearch.default, _handles.default));
 
-  _exports.default = SideNav;
+  var _default = SideNav;
+  _exports.default = _default;
 });

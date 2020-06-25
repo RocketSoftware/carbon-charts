@@ -10,7 +10,7 @@
     factory(mod.exports, global.settings, global.eventMatches, global.mixin, global.createComponent, global.initComponentBySearch, global.eventedShowHideState, global.handles, global.floatingMenu, global.getLaunchingDetails, global.on);
     global.overflowMenu = mod.exports;
   }
-})(this, function (_exports, _settings, _eventMatches, _mixin2, _createComponent, _initComponentBySearch, _eventedShowHideState, _handles, _floatingMenu, _getLaunchingDetails, _on) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _settings, _eventMatches, _mixin2, _createComponent, _initComponentBySearch, _eventedShowHideState, _handles, _floatingMenu, _getLaunchingDetails, _on) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -28,29 +28,56 @@
   _getLaunchingDetails = _interopRequireDefault(_getLaunchingDetails);
   _on = _interopRequireDefault(_on);
 
+  function _getRequireWildcardCache() {
+    if (typeof WeakMap !== "function") return null;
+    var cache = new WeakMap();
+
+    _getRequireWildcardCache = function _getRequireWildcardCache() {
+      return cache;
+    };
+
+    return cache;
+  }
+
   function _interopRequireWildcard(obj) {
     if (obj && obj.__esModule) {
       return obj;
-    } else {
-      var newObj = {};
+    }
 
-      if (obj != null) {
-        for (var key in obj) {
-          if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
+    if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+      return {
+        default: obj
+      };
+    }
 
-            if (desc.get || desc.set) {
-              Object.defineProperty(newObj, key, desc);
-            } else {
-              newObj[key] = obj[key];
-            }
-          }
+    var cache = _getRequireWildcardCache();
+
+    if (cache && cache.has(obj)) {
+      return cache.get(obj);
+    }
+
+    var newObj = {};
+    var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+
+        if (desc && (desc.get || desc.set)) {
+          Object.defineProperty(newObj, key, desc);
+        } else {
+          newObj[key] = obj[key];
         }
       }
-
-      newObj.default = obj;
-      return newObj;
     }
+
+    newObj.default = obj;
+
+    if (cache) {
+      cache.set(obj, newObj);
+    }
+
+    return newObj;
   }
 
   function _interopRequireDefault(obj) {
@@ -180,7 +207,7 @@
   }
   /**
    * The CSS property names of the arrow keyed by the floating menu direction.
-   * @type {Object<string, string>}
+   * @type {object<string, string>}
    */
 
 
@@ -193,7 +220,7 @@
   }();
   /**
    * Determines how the position of arrow should affect the floating menu position.
-   * @type {Object<string, number>}
+   * @type {object<string, number>}
    */
 
 
@@ -346,15 +373,6 @@
     _createClass(OverflowMenu, [{
       key: "changeState",
       value: function changeState(state, detail, callback) {
-        // @todo Can clean up to use `this.triggerNode` once non-compliant code is deprecated
-        var triggerElement = this.triggerNode ? 'triggerNode' : 'element';
-
-        if (state === 'hidden') {
-          this[triggerElement].setAttribute('aria-expanded', 'false');
-        } else {
-          this[triggerElement].setAttribute('aria-expanded', 'true');
-        }
-
         if (!this.optionMenu) {
           var optionMenu = this.element.querySelector(this.options.selectorOptionMenu);
 
@@ -368,7 +386,8 @@
             classShown: this.options.classMenuShown,
             classRefShown: this.options.classShown,
             offset: this.options.objMenuOffset,
-            triggerNode: this.triggerNode
+            triggerNode: this.triggerNode,
+            contentNode: this.element.querySelector(this.options.selectorContent)
           });
           this.children.push(this.optionMenu);
         }
@@ -447,16 +466,7 @@
         var triggerElement = triggerNode ? 'triggerNode' : 'element';
 
         switch (key) {
-          // Esc
-          case 27:
-            this.changeState('hidden', (0, _getLaunchingDetails.default)(event), function () {
-              if (isOfMenu) {
-                _this3[triggerElement].focus();
-              }
-            });
-            break;
           // Enter || Space bar
-
           case 13:
           case 32:
             {
@@ -514,7 +524,8 @@
           selectorInit: '[data-overflow-menu]',
           selectorOptionMenu: ".".concat(prefix, "--overflow-menu-options"),
           selectorTrigger: 'button[aria-haspopup]',
-          selectorItem: "\n        .".concat(prefix, "--overflow-menu-options--open >\n        .").concat(prefix, "--overflow-menu-options__option:not(.").concat(prefix, "--overflow-menu-options__option--disabled) >\n        .").concat(prefix, "--overflow-menu-options__btn\n      "),
+          selectorContent: ".".concat(prefix, "--overflow-menu-options__content"),
+          selectorItem: "\n        .".concat(prefix, "--overflow-menu-options--open\n        .").concat(prefix, "--overflow-menu-options__option:not(.").concat(prefix, "--overflow-menu-options__option--disabled) >\n        .").concat(prefix, "--overflow-menu-options__btn\n      "),
           classShown: "".concat(prefix, "--overflow-menu--open"),
           classMenuShown: "".concat(prefix, "--overflow-menu-options--open"),
           classMenuFlip: "".concat(prefix, "--overflow-menu--flip"),

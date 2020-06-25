@@ -1,0 +1,23 @@
+@import '../../globals/scss/vars';
+@import '../../globals/scss/helper-mixins';
+@import '../../globals/scss/layout';
+@import '../../globals/scss/layer';
+@import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
+@import '../../globals/scss/css--reset';
+
+@mixin footer-wrapper {
+  .#{$prefix}--footer-wrapper {
+    padding: $spacing-05 $spacing-07;
+    background: $ui-02;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid $interactive-01;
+  }
+  .#{$prefix}--footer-wrapper.in-zowe {
+    position: sticky;
+  }
+}
+@include exports('footer-wrapper') {
+  @include footer-wrapper();
+}

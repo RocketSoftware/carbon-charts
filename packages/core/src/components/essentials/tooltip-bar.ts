@@ -5,11 +5,11 @@ import {
 	TooltipPosition,
 	TooltipTypes,
 	CartesianOrientations,
-	Events,
+	Events
 } from "./../../interfaces";
 
 // import the settings for the css prefix
-import settings from "carbon-components/es/globals/js/settings";
+import settings from "@rocketsoftware/carbon-components/es/globals/js/settings";
 
 // D3 Imports
 import { select } from "d3-selection";
@@ -159,7 +159,7 @@ export class TooltipBar extends Tooltip {
 					barPosition.left -
 					holderPosition.left +
 					barPosition.width / 2,
-				top: barPosition.bottom - holderPosition.top + verticalOffset,
+				top: barPosition.bottom - holderPosition.top + verticalOffset
 			};
 
 			return { placement: TooltipPosition.BOTTOM, position: tooltipPos };
@@ -170,7 +170,7 @@ export class TooltipBar extends Tooltip {
 					barPosition.left -
 					holderPosition.left +
 					barPosition.width / 2,
-				top: barPosition.top - holderPosition.top - verticalOffset,
+				top: barPosition.top - holderPosition.top - verticalOffset
 			};
 
 			return { placement: TooltipPosition.TOP, position: tooltipPos };

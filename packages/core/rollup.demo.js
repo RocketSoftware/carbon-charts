@@ -10,8 +10,8 @@ export default {
 		format: "umd",
 		name: "ChartsDemoData",
 		globals: {
-			"@carbon/charts": "Charts",
-			"@carbon/charts/tools": "Charts",
+			"@rocketsoftware/charts": "Charts",
+			"@rocketsoftware/charts/tools": "Charts",
 			"d3-scale": "d3Scale",
 			"d3-selection": "d3Selection",
 			"d3-transition": "d3Transition",
@@ -20,8 +20,8 @@ export default {
 			"d3-interpolate": "d3Interpolate",
 			"d3-axis": "d3Axis",
 			"d3-array": "d3Array",
-			"d3-hierarchy": "d3Hierarchy",
-		},
+			"d3-hierarchy": "d3Hierarchy"
+		}
 	},
 	plugins: [resolve(), commonjs(), json(), terser()],
 	onwarn(warning, next) {
@@ -39,5 +39,5 @@ export default {
 
 		next(warning);
 	},
-	external: ["@carbon/charts"],
+	external: ["@rocketsoftware/charts"]
 };

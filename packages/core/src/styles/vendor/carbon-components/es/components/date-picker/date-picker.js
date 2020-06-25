@@ -238,6 +238,7 @@ var carbonFlatpickrMonthSelectPlugin = function carbonFlatpickrMonthSelectPlugin
 
     return {
       onMonthChange: updateCurrentMonth,
+      onValueUpdate: updateCurrentMonth,
       onOpen: updateCurrentMonth,
       onReady: [setupElements, updateCurrentMonth, register]
     };
@@ -320,6 +321,7 @@ function (_mixin) {
       var calendar = new Flatpickr(date, Object.assign(flattenOptions(_this.options), {
         allowInput: true,
         mode: type,
+        disableMobile: true,
         positionElement: type === 'range' && _this.element.querySelector(_this.options.selectorDatePickerInputFrom),
         onClose: function onClose(selectedDates) {
           // An attempt to disable Flatpickr's focus tracking system,

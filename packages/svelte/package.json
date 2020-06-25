@@ -1,6 +1,7 @@
 {
-	"name": "@carbon/charts-svelte",
-	"version": "0.32.9",
+	"name": "@rocketsoftware/charts-svelte",
+	"version": "0.0.1",
+	"private": true,
 	"description": "Carbon charting components for Svelte",
 	"main": "./bundle.js",
 	"module": "./index.js",
@@ -47,7 +48,7 @@
 	},
 	"homepage": "https://github.com/carbon-design-system/carbon-charts#readme",
 	"dependencies": {
-		"@carbon/charts": "^0.32.9"
+		"@rocketsoftware/charts": "0.0.1"
 	},
 	"peerDependencies": {
 		"svelte": "^3.20.x"

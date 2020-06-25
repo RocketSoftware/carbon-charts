@@ -100,13 +100,13 @@ function _objectSpread(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
@@ -137,7 +137,6 @@ function _defineProperty(obj, key, value) {
  */
 
 
-import debounce from 'lodash.debounce';
 import settings from '../../globals/js/settings';
 import mixin from '../../globals/js/misc/mixin';
 import createComponent from '../../globals/js/mixins/create-component';
@@ -185,6 +184,14 @@ var getMenuOffset = function getMenuOffset(menuBody, menuDirection) {
 
   return undefined;
 };
+/**
+ * Key codes for allowed keys that will trigger opening a tooltip
+ * @type {Integer[]}
+ * @private
+ */
+
+
+var allowedOpenKeys = [32, 13];
 
 var Tooltip =
 /*#__PURE__*/
@@ -205,7 +212,6 @@ function (_mixin) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Tooltip).call(this, element, options));
     _this._hasContextMenu = false;
-    _this._debouncedHandleClick = debounce(_this._handleClick, 200);
 
     _this._hookOn(element);
 
@@ -226,20 +232,23 @@ function (_mixin) {
      */
     value: function createdByEvent(event) {
       var relatedTarget = event.relatedTarget,
-          type = event.type;
+          type = event.type,
+          which = event.which;
 
-      this._debouncedHandleClick({
-        relatedTarget: relatedTarget,
-        type: type === 'focusin' ? 'focus' : type,
-        details: getLaunchingDetails(event)
-      });
+      if (type === 'click' || allowedOpenKeys.includes(which)) {
+        this._handleClick({
+          relatedTarget: relatedTarget,
+          type: type,
+          details: getLaunchingDetails(event)
+        });
+      }
     }
     /**
      * Changes the shown/hidden state.
      * @param {string} state The new state.
      * @param {object} detail The detail of the event trigging this action.
      * @param {Function} callback Callback called when change in state completes.
-     // */
+     */
 
   }, {
     key: "changeState",
@@ -255,7 +264,8 @@ function (_mixin) {
         this.tooltip = FloatingMenu.create(tooltip, {
           refNode: this.element,
           classShown: this.options.classShown,
-          offset: this.options.objMenuOffset
+          offset: this.options.objMenuOffset,
+          contentNode: tooltip.querySelector(this.options.selectorContent)
         });
 
         this._hookOn(tooltip);
@@ -270,7 +280,7 @@ function (_mixin) {
       }), callback);
     }
     /**
-     * Attaches event handlers to show/hide the tooltip.
+     * Attaches event handlers to show the tooltip.
      * @param {Element} element The element to attach the events to.
      * @private
      */
@@ -279,24 +289,39 @@ function (_mixin) {
     key: "_hookOn",
     value: function _hookOn(element) {
       var _this2 = this;
+      /**
+       * Setup the _handleClick function for displaying a tooltip
+       * @param {Event} evt - user initiated event
+       * @param {Integer[]} [allowedKeys] - allowed key codes the user may press to open the tooltip
+       * @private
+       */
 
-      var hasFocusin = 'onfocusin' in window;
-      var focusinEventName = hasFocusin ? 'focusin' : 'focus';
-      [focusinEventName, 'blur', 'touchleave', 'touchcancel'].forEach(function (name) {
-        _this2.manage(on(element, name, function (event) {
-          var relatedTarget = event.relatedTarget,
-              type = event.type;
+
+      var handleClickContextMenu = function handleClickContextMenu(evt, allowedKeys) {
+        var relatedTarget = evt.relatedTarget,
+            type = evt.type,
+            which = evt.which; // Allow user to use `space` or `enter` to open tooltip
+
+        if (typeof allowedKeys === 'undefined' || allowedKeys.includes(which)) {
           var hadContextMenu = _this2._hasContextMenu;
           _this2._hasContextMenu = type === 'contextmenu';
 
-          _this2._debouncedHandleClick({
+          _this2._handleClick({
             relatedTarget: relatedTarget,
-            type: type === 'focusin' ? 'focus' : type,
+            type: type,
             hadContextMenu: hadContextMenu,
-            details: getLaunchingDetails(event)
+            details: getLaunchingDetails(evt)
           });
-        }, name === focusinEventName && !hasFocusin));
-      });
+        }
+      };
+
+      this.manage(on(element, 'click', handleClickContextMenu, false));
+
+      if (this.element.tagName !== 'BUTTON') {
+        this.manage(on(this.element, 'keydown', function (event) {
+          handleClickContextMenu(event, allowedOpenKeys);
+        }, false));
+      }
     }
     /**
      * Handles click/focus events.
@@ -316,7 +341,8 @@ function (_mixin) {
           hadContextMenu = _ref2.hadContextMenu,
           details = _ref2.details;
       var state = {
-        focus: 'shown',
+        click: 'shown',
+        keydown: 'shown',
         blur: 'hidden',
         touchleave: 'hidden',
         touchcancel: 'hidden'
@@ -339,10 +365,11 @@ function (_mixin) {
       var prefix = settings.prefix;
       return {
         selectorInit: '[data-tooltip-trigger]',
+        selectorContent: ".".concat(prefix, "--tooltip__content"),
         classShown: "".concat(prefix, "--tooltip--shown"),
         attribTooltipTarget: 'data-tooltip-target',
         objMenuOffset: getMenuOffset,
-        initEventNames: ['focus']
+        initEventNames: ['click', 'keydown']
       };
     }
   }]);

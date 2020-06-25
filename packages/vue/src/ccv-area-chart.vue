@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { AreaChart } from '@carbon/charts';
+import { AreaChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {

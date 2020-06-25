@@ -1,5 +1,5 @@
 <script>
-  import { PieChart } from "@carbon/charts";
+  import { PieChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

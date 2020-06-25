@@ -10,7 +10,7 @@
     factory(mod.exports, global.navigationMenuPanel, global.on, global.eventMatches, global.settings);
     global.navigationMenu = mod.exports;
   }
-})(this, function (_exports, _navigationMenuPanel, _on, _eventMatches, _settings) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _navigationMenuPanel, _on, _eventMatches, _settings) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -362,7 +362,7 @@
        * Enum for navigating backward/forward.
        * @readonly
        * @member NavigationMenuPanel.NAVIGATE
-       * @type {Object}
+       * @type {object}
        * @property {number} BACKWARD Navigating backward.
        * @property {number} FORWARD Navigating forward.
        */

@@ -6,10 +6,10 @@
 //
 
 @import '../../globals/scss/vars';
-@import '../../globals/scss/layer';
 @import '../../globals/scss/helper-mixins';
+@import '../../globals/scss/layout';
 @import '../../globals/scss/tooltip';
-@import '../../globals/scss/vendor/@carbon/elements/scss/import-once/import-once';
+@import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
 @import '../../globals/scss/css--reset';
 
 // TODO: deprecate legacy tooltip mixins
@@ -53,7 +53,7 @@
   }
 
   &::after {
-    @include layer('overlay');
+    @include box-shadow;
     min-width: rem(24px);
     max-width: rem(208px);
     height: rem(24px);
@@ -164,7 +164,7 @@
 
   .#{$prefix}--tooltip--definition__bottom,
   .#{$prefix}--tooltip--definition__top {
-    @include layer('overlay');
+    @include box-shadow;
     position: absolute;
     z-index: 1;
     display: none;
@@ -308,6 +308,9 @@
 /// @access private
 /// @group tooltip
 @mixin tooltip {
+  // Caret's original size was 13.75px square
+  $caret-size: rem(6.875px);
+
   .#{$prefix}--tooltip__label {
     @include type-style('label-01');
     display: inline-flex;
@@ -316,10 +319,6 @@
 
     &:focus {
       @include focus-outline('border');
-    }
-
-    .#{$prefix}--tooltip__trigger {
-      margin-left: $carbon--spacing-03;
     }
   }
 
@@ -340,12 +339,17 @@
     }
   }
 
+  .#{$prefix}--tooltip__label .#{$prefix}--tooltip__trigger {
+    // Override `margin: 0` from button-reset mixin
+    margin-left: $carbon--spacing-03;
+  }
+
   .#{$prefix}--tooltip__label--bold {
     font-weight: 600;
   }
 
   .#{$prefix}--tooltip {
-    @include layer('overlay');
+    @include box-shadow;
     @include reset;
     position: absolute;
     display: none;
@@ -353,11 +357,17 @@
     max-width: rem(288px);
     background: $inverse-02;
     margin-top: $carbon--spacing-02;
-    padding: 1rem;
+    padding: $carbon--spacing-05;
     border-radius: rem(2px);
     z-index: z('floating');
     word-wrap: break-word;
     color: $inverse-01;
+
+    // @todo this can be deprecated in v11 since focus should always be on the content container not the tooltip
+    &:focus {
+      box-shadow: inset 0 0 0 1px $inverse-02, inset 0 0 0 2px $ui-background;
+      outline: 0;
+    }
 
     p {
       @include type-style('body-short-01');
@@ -367,9 +377,19 @@
       padding-right: $carbon--spacing-07;
     }
 
+    .#{$prefix}--btn:focus {
+      border-color: $inverse-focus-ui;
+      outline-color: $inverse-02;
+    }
+
     .#{$prefix}--link {
       color: $inverse-link;
       font-size: rem(14px);
+
+      &:focus {
+        outline: 1px solid $inverse-focus-ui;
+        outline-offset: 2px;
+      }
 
       &:active {
         color: $inverse-01;
@@ -380,15 +400,23 @@
       }
     }
 
+    // Tooltips need to be click focusable but not sequentially focusable so the user can click within
+    // the tooltip and not have it close. Because the element is not actionable it does not need
+    // to have a visible focus indicator (OK'd by IBMa)
+    .#{$prefix}--tooltip__content[tabindex='-1']:focus {
+      outline: none;
+    }
+
     .#{$prefix}--tooltip__caret {
+      border-left: $caret-size solid transparent;
+      border-right: $caret-size solid transparent;
+      border-bottom: $caret-size solid $inverse-02;
       position: absolute;
-      background: $inverse-02;
       left: 0;
-      top: rem(-4px);
+      top: calc(#{$caret-size * -1} + 1px);
       right: 0;
-      transform: rotate(-135deg);
-      width: 0.6rem;
-      height: 0.6rem;
+      width: 0;
+      height: 0;
       margin: 0 auto;
       content: '';
     }
@@ -404,27 +432,33 @@
       .#{$prefix}--tooltip__caret {
         left: auto;
         top: 50%;
-        right: rem(-4px);
-        transform: rotate(-45deg) translate(50%, -50%);
+        // left position has an additional space between caret and tooltip
+        right: calc(#{$caret-size * -1} + 1px);
+        transform: rotate(90deg) translate(50%, -50%);
       }
     }
 
     &[data-floating-menu-direction='top'] {
       .#{$prefix}--tooltip__caret {
         top: auto;
-        bottom: rem(-4px);
-        transform: rotate(45deg);
+        bottom: calc(#{$caret-size * -1} + 1px);
+        transform: rotate(180deg);
       }
     }
 
     &[data-floating-menu-direction='right'] {
       .#{$prefix}--tooltip__caret {
-        left: rem(-4px);
+        left: calc(#{$caret-size * -1} + 1px);
         top: 50%;
         right: auto;
-        transform: rotate(135deg) translate(-50%, 50%);
+        transform: rotate(270deg) translate(50%, -50%);
       }
     }
+  }
+
+  .#{$prefix}--tooltip__heading {
+    @include carbon--type-style('productive-heading-01');
+    margin-bottom: $spacing-03;
   }
 
   .#{$prefix}--tooltip--shown {
@@ -484,6 +518,23 @@
 
     &.#{$prefix}--tooltip--align-end {
       @include tooltip--placement('definition', 'bottom', 'end');
+    }
+  }
+
+  .#{$prefix}--tooltip__trigger.#{$prefix}--tooltip__trigger--definition.#{$prefix}--tooltip--middle {
+    @include tooltip--trigger('definition', 'middle');
+    @include tooltip--placement('definition', 'middle', 'start');
+
+    &.#{$prefix}--tooltip--align-start {
+      @include tooltip--placement('definition', 'middle', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-center {
+      @include tooltip--placement('definition', 'middle', 'start');
+    }
+
+    &.#{$prefix}--tooltip--align-end {
+      @include tooltip--placement('definition', 'middle', 'start');
     }
   }
 

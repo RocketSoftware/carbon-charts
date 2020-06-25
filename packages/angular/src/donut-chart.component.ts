@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { DonutChart } from "@carbon/charts";
+import { DonutChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `DonutChart` in carbon charts library

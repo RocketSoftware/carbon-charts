@@ -10,7 +10,7 @@
     factory(mod.exports, global.settings, global.mixin, global.createComponent, global.initComponentBySearch);
     global.progressIndicator = mod.exports;
   }
-})(this, function (_exports, _settings, _mixin2, _createComponent, _initComponentBySearch) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _settings, _mixin2, _createComponent, _initComponentBySearch) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -144,7 +144,7 @@
       _this = _possibleConstructorReturn(this, _getPrototypeOf(ProgressIndicator).call(this, element, options));
       /**
        * The component state.
-       * @type {Object}
+       * @type {object}
        */
 
       _this.state = {

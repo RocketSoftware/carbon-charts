@@ -2,7 +2,7 @@
 
 set -e
 
-GITHUB_UPSTREAM=git@github.com:carbon-design-system/carbon-charts.git
+GITHUB_UPSTREAM=https://github.com/RocketSoftware/carbon-charts.git
 
 lerna run lint
 

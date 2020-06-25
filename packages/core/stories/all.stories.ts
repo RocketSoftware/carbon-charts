@@ -28,7 +28,7 @@ introStories.add("Welcome", () => {
 		<span class="netlify">Deploys by <a href="https://netlify.com" target="_blank">Netlify</a></span>
 
 		<div class="links">
-			<a class="bx--btn bx--btn--primary" href="https://github.com/carbon-design-system/carbon-charts" target="_blank">
+			<a class="bx--btn bx--btn--primary" href="https://github.com/RocketSoftware/carbon-charts" target="_blank">
 				Repository
 			</a>
 
@@ -121,7 +121,7 @@ ${storyUtils.generateThemePickerHTML()}
 				container.querySelector("div#chart-demo"),
 				{
 					data: object("Data", demo.data),
-					options: object("Options", demo.options),
+					options: object("Options", demo.options)
 				}
 			);
 
@@ -179,7 +179,7 @@ if (process.env.NODE_ENV !== "production") {
 				column.setAttribute("id", demo.title);
 				const chart = new ClassToInitialize(column, {
 					data: demo.data,
-					options: demo.options,
+					options: demo.options
 				});
 
 				row.appendChild(column);

@@ -137,7 +137,9 @@ function (_mixin) {
     _this._handleKeydownListener = void 0;
 
     _this._handleFocusin = function (evt) {
-      if (_this.element.classList.contains(_this.options.classVisible) && !_this.element.contains(evt.target) && _this.options.selectorsFloatingMenus.every(function (selector) {
+      var focusWrapNode = _this.element.querySelector(_this.options.selectorModalContainer) || _this.element;
+
+      if (_this.element.classList.contains(_this.options.classVisible) && !focusWrapNode.contains(evt.target) && _this.options.selectorsFloatingMenus.every(function (selector) {
         return !eventMatches(evt, selector);
       })) {
         _this.element.querySelector(settings.selectorTabbable).focus();
@@ -290,6 +292,7 @@ function (_mixin) {
      * @property {string} [selectorPrimaryFocus] The CSS selector to determine the element to put focus when modal gets open.
      * @property {string} [selectorFocusOnClose] The CSS selector to determine the element to put focus when modal closes.
      *   If undefined, focus returns to the previously focused element prior to the modal opening.
+     * @property {string} [selectorModalContainer] The CSS selector for the content container of the modal for focus wrap feature.
      * @property {string} attribInitTarget The attribute name in the launcher buttons to find target modal dialogs.
      * @property {string[]} [selectorsFloatingMenu]
      *   The CSS selectors of floating menus.
@@ -317,6 +320,7 @@ function (_mixin) {
         selectorModalClose: '[data-modal-close]',
         selectorPrimaryFocus: '[data-modal-primary-focus]',
         selectorsFloatingMenus: [".".concat(prefix, "--overflow-menu-options"), ".".concat(prefix, "--tooltip"), '.flatpickr-calendar'],
+        selectorModalContainer: ".".concat(prefix, "--modal-container"),
         classVisible: 'is-visible',
         classBody: "".concat(prefix, "--body--with-modal-open"),
         attribInitTarget: 'data-modal-target',

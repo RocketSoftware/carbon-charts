@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GaugeChart as GC } from "@carbon/charts";
+import { GaugeChart as GC } from "@rocketsoftware/charts";
 import BaseChart from "./base-chart";
 
 export default class GaugeChart extends BaseChart {

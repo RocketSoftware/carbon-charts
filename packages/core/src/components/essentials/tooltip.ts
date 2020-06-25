@@ -8,7 +8,7 @@ import { ChartModel } from "../../model";
 import Position, { PLACEMENTS } from "@carbon/utils-position";
 
 // import the settings for the css prefix
-import settings from "carbon-components/es/globals/js/settings";
+import settings from "@rocketsoftware/carbon-components/es/globals/js/settings";
 
 // D3 Imports
 import { select, mouse, event } from "d3-selection";
@@ -233,7 +233,7 @@ export class Tooltip extends Component {
 				elementPosition.left -
 				holderPosition.left +
 				elementPosition.width / 2,
-			top: elementPosition.top - holderPosition.top - verticalOffset,
+			top: elementPosition.top - holderPosition.top - verticalOffset
 		};
 
 		return { placement: TooltipPosition.BOTTOM, position: tooltipPos };
@@ -263,23 +263,23 @@ export class Tooltip extends Component {
 			const bestPlacementOption = this.positionService.findBestPlacementAt(
 				{
 					left: mouseRelativePos[0],
-					top: mouseRelativePos[1],
+					top: mouseRelativePos[1]
 				},
 				target,
 				[
 					PLACEMENTS.RIGHT,
 					PLACEMENTS.LEFT,
 					PLACEMENTS.TOP,
-					PLACEMENTS.BOTTOM,
+					PLACEMENTS.BOTTOM
 				],
 				() => ({
 					width: holder.offsetWidth,
-					height: holder.offsetHeight,
+					height: holder.offsetHeight
 				})
 			);
 
 			let {
-				horizontalOffset,
+				horizontalOffset
 			} = this.model.getOptions().tooltip.datapoint;
 			if (bestPlacementOption === PLACEMENTS.LEFT) {
 				horizontalOffset *= -1;
@@ -289,7 +289,7 @@ export class Tooltip extends Component {
 			pos = this.positionService.findPositionAt(
 				{
 					left: mouseRelativePos[0] + horizontalOffset,
-					top: mouseRelativePos[1],
+					top: mouseRelativePos[1]
 				},
 				target,
 				bestPlacementOption

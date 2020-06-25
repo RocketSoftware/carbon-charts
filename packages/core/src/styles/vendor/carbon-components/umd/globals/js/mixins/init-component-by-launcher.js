@@ -10,7 +10,7 @@
     factory(mod.exports, global.eventMatches, global.on);
     global.initComponentByLauncher = mod.exports;
   }
-})(this, function (_exports, _eventMatches, _on) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _eventMatches, _on) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {

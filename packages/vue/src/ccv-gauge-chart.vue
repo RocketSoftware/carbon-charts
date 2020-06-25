@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { GaugeChart } from '@carbon/charts';
+import { GaugeChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {

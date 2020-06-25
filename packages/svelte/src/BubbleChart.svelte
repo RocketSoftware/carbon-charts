@@ -1,5 +1,5 @@
 <script>
-  import { BubbleChart } from "@carbon/charts";
+  import { BubbleChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

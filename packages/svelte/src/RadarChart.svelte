@@ -1,5 +1,5 @@
 <script>
-  import { RadarChart } from "@carbon/charts";
+  import { RadarChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

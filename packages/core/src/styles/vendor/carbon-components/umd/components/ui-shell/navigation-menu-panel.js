@@ -10,7 +10,7 @@
     factory(mod.exports, global.mixin, global.createComponent, global.initComponentByLauncher, global.eventedShowHideState, global.handles, global.eventedState, global.toggleAttribute, global.settings);
     global.navigationMenuPanel = mod.exports;
   }
-})(this, function (_exports, _mixin2, _createComponent, _initComponentByLauncher, _eventedShowHideState, _handles, _eventedState, _toggleAttribute, _settings) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _mixin2, _createComponent, _initComponentByLauncher, _eventedShowHideState, _handles, _eventedState, _toggleAttribute, _settings) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {

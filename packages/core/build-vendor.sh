@@ -2,10 +2,10 @@
 
 set -e
 
-cp -r ../../node_modules/@carbon/layout src/styles/vendor/@carbon
-cp -r ../../node_modules/@carbon/elements src/styles/vendor/@carbon
-cp -r ../../node_modules/@carbon/motion src/styles/vendor/@carbon
-cp -r ../../node_modules/@carbon/type src/styles/vendor/@carbon
-cp -r ../../node_modules/@carbon/themes src/styles/vendor/@carbon
-cp -r ../../node_modules/@carbon/colors src/styles/vendor/@carbon
-cp -r ../../node_modules/carbon-components src/styles/vendor
+cp -r ../../node_modules/@rocketsoftware/layout src/styles/vendor/@rocketsoftware
+cp -r ../../node_modules/@rocketsoftware/elements src/styles/vendor/@rocketsoftware
+cp -r ../../node_modules/@rocketsoftware/motion src/styles/vendor/@rocketsoftware
+cp -r ../../node_modules/@rocketsoftware/type src/styles/vendor/@rocketsoftware
+cp -r ../../node_modules/@rocketsoftware/themes src/styles/vendor/@rocketsoftware
+cp -r ../../node_modules/@rocketsoftware/colors src/styles/vendor/@rocketsoftware
+cp -r ../../node_modules/@rocketsoftware/carbon-components src/styles/vendor

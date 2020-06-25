@@ -312,7 +312,10 @@ const gaugeChart: GaugeChartOptions = Tools.merge({}, chart, {
 		numberSpacing: 10,
 		deltaFontSize: (radius) => radius / 8,
 		valueFontSize: (radius) => radius / 2.5,
-		numberFormatter: (number) => (number.toFixed(2) % 1 !== 0) ? number.toFixed(2).toLocaleString() : number.toFixed().toLocaleString()
+		numberFormatter: (number) =>
+			number.toFixed(2) % 1 !== 0
+				? number.toFixed(2).toLocaleString()
+				: number.toFixed().toLocaleString()
 	}
 } as GaugeChartOptions);
 

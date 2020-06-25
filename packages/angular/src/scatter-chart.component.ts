@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { ScatterChart } from "@carbon/charts";
+import { ScatterChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `ScatterChart` in carbon charts library

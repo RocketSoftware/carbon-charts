@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { LineChart } from "@carbon/charts";
+import { LineChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `LineChart` in carbon charts library

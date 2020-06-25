@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StackedAreaChart as SAC } from "@carbon/charts";
+import { StackedAreaChart as SAC } from "@rocketsoftware/charts";
 import BaseChart from "./base-chart";
 
 export default class StackedAreaChart extends BaseChart {

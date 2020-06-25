@@ -41,5 +41,5 @@ sass demo/styles.scss dist/demo/styles.min.css --style=compressed
 echo "linking local packages"
 yarn lerna link --force-local
 # also manually update the symlink ... lerna does a terrible job at this
-rm -f ../../node_modules/@carbon/charts
-ln -sf $(pwd)/dist ../../node_modules/@carbon/charts
+rm -f ../../node_modules/@rocketsoftware/charts
+ln -sf $(pwd)/dist ../../node_modules/@rocketsoftware/charts

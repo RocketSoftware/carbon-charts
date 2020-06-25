@@ -10,7 +10,7 @@
     factory(mod.exports, global.on, global.handles);
     global.trackBlur = mod.exports;
   }
-})(this, function (_exports, _on, _handles) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _on, _handles) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -130,9 +130,16 @@
         _this = _possibleConstructorReturn(this, _getPrototypeOf(TrackBlur).call(this, element, options));
         var hasFocusin = 'onfocusin' in window;
         var focusinEventName = hasFocusin ? 'focusin' : 'focus';
+        var focusoutEventName = hasFocusin ? 'focusout' : 'blur';
 
         _this.manage((0, _on.default)(_this.element.ownerDocument, focusinEventName, function (event) {
-          if (!_this.element.contains(event.target)) {
+          if (!(_this.options.contentNode || _this.element).contains(event.target)) {
+            _this.handleBlur(event);
+          }
+        }, !hasFocusin));
+
+        _this.manage((0, _on.default)(_this.element.ownerDocument, focusoutEventName, function (event) {
+          if (!event.relatedTarget) {
             _this.handleBlur(event);
           }
         }, !hasFocusin));

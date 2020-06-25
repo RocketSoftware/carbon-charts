@@ -10,7 +10,7 @@
     factory(mod.exports);
     global.createComponent = mod.exports;
   }
-})(this, function (_exports) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -151,7 +151,7 @@
         _this.element = element;
         /**
          * The component options.
-         * @type {Object}
+         * @type {object}
          */
 
         _this.options = Object.assign(Object.create(_this.constructor.options), options);

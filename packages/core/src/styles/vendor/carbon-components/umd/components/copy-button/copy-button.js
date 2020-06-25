@@ -10,7 +10,7 @@
     factory(mod.exports, global.settings, global.mixin, global.createComponent, global.initComponentBySearch, global.handles, global.on);
     global.copyButton = mod.exports;
   }
-})(this, function (_exports, _settings, _mixin2, _createComponent, _initComponentBySearch, _handles, _on) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _settings, _mixin2, _createComponent, _initComponentBySearch, _handles, _on) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -137,14 +137,30 @@
         return _this.handleClick();
       }));
 
+      _this.manage((0, _on.default)(_this.element, 'animationend', function (event) {
+        return _this.handleAnimationEnd(event);
+      }));
+
       return _this;
     }
     /**
-     * Show the feedback tooltip on click. Hide the feedback tooltip after specified timeout value.
+     * Cleanup animation classes
      */
 
 
     _createClass(CopyButton, [{
+      key: "handleAnimationEnd",
+      value: function handleAnimationEnd(event) {
+        if (event.animationName === 'hide-feedback') {
+          this.element.classList.remove(this.options.classAnimating);
+          this.element.classList.remove(this.options.classFadeOut);
+        }
+      }
+      /**
+       * Show the feedback tooltip on click. Hide the feedback tooltip after specified timeout value.
+       */
+
+    }, {
       key: "handleClick",
       value: function handleClick() {
         var _this2 = this;
@@ -155,6 +171,14 @@
           feedback.classList.add(this.options.classShowFeedback);
           setTimeout(function () {
             feedback.classList.remove(_this2.options.classShowFeedback);
+          }, this.options.timeoutValue);
+        } else {
+          this.element.classList.add(this.options.classAnimating);
+          this.element.classList.add(this.options.classFadeIn);
+          setTimeout(function () {
+            _this2.element.classList.remove(_this2.options.classFadeIn);
+
+            _this2.element.classList.add(_this2.options.classFadeOut);
           }, this.options.timeoutValue);
         }
       }
@@ -184,6 +208,9 @@
           selectorInit: '[data-copy-btn]',
           feedbackTooltip: '[data-feedback]',
           classShowFeedback: "".concat(prefix, "--btn--copy__feedback--displayed"),
+          classAnimating: "".concat(prefix, "--copy-btn--animating"),
+          classFadeIn: "".concat(prefix, "--copy-btn--fade-in"),
+          classFadeOut: "".concat(prefix, "--copy-btn--fade-out"),
           timeoutValue: 2000
         };
       }

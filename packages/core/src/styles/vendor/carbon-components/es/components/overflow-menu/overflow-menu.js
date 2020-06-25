@@ -137,7 +137,7 @@ import getLaunchingDetails from '../../globals/js/misc/get-launching-details';
 import on from '../../globals/js/misc/on';
 /**
  * The CSS property names of the arrow keyed by the floating menu direction.
- * @type {Object<string, string>}
+ * @type {object<string, string>}
  */
 
 var triggerButtonPositionProps =
@@ -149,7 +149,7 @@ function () {
 }();
 /**
  * Determines how the position of arrow should affect the floating menu position.
- * @type {Object<string, number>}
+ * @type {object<string, number>}
  */
 
 
@@ -300,15 +300,6 @@ function (_mixin) {
   _createClass(OverflowMenu, [{
     key: "changeState",
     value: function changeState(state, detail, callback) {
-      // @todo Can clean up to use `this.triggerNode` once non-compliant code is deprecated
-      var triggerElement = this.triggerNode ? 'triggerNode' : 'element';
-
-      if (state === 'hidden') {
-        this[triggerElement].setAttribute('aria-expanded', 'false');
-      } else {
-        this[triggerElement].setAttribute('aria-expanded', 'true');
-      }
-
       if (!this.optionMenu) {
         var optionMenu = this.element.querySelector(this.options.selectorOptionMenu);
 
@@ -322,7 +313,8 @@ function (_mixin) {
           classShown: this.options.classMenuShown,
           classRefShown: this.options.classShown,
           offset: this.options.objMenuOffset,
-          triggerNode: this.triggerNode
+          triggerNode: this.triggerNode,
+          contentNode: this.element.querySelector(this.options.selectorContent)
         });
         this.children.push(this.optionMenu);
       }
@@ -401,16 +393,7 @@ function (_mixin) {
       var triggerElement = triggerNode ? 'triggerNode' : 'element';
 
       switch (key) {
-        // Esc
-        case 27:
-          this.changeState('hidden', getLaunchingDetails(event), function () {
-            if (isOfMenu) {
-              _this3[triggerElement].focus();
-            }
-          });
-          break;
         // Enter || Space bar
-
         case 13:
         case 32:
           {
@@ -468,7 +451,8 @@ function (_mixin) {
         selectorInit: '[data-overflow-menu]',
         selectorOptionMenu: ".".concat(prefix, "--overflow-menu-options"),
         selectorTrigger: 'button[aria-haspopup]',
-        selectorItem: "\n        .".concat(prefix, "--overflow-menu-options--open >\n        .").concat(prefix, "--overflow-menu-options__option:not(.").concat(prefix, "--overflow-menu-options__option--disabled) >\n        .").concat(prefix, "--overflow-menu-options__btn\n      "),
+        selectorContent: ".".concat(prefix, "--overflow-menu-options__content"),
+        selectorItem: "\n        .".concat(prefix, "--overflow-menu-options--open\n        .").concat(prefix, "--overflow-menu-options__option:not(.").concat(prefix, "--overflow-menu-options__option--disabled) >\n        .").concat(prefix, "--overflow-menu-options__btn\n      "),
         classShown: "".concat(prefix, "--overflow-menu--open"),
         classMenuShown: "".concat(prefix, "--overflow-menu-options--open"),
         classMenuFlip: "".concat(prefix, "--overflow-menu--flip"),

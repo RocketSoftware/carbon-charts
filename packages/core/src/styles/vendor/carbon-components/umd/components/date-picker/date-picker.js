@@ -10,7 +10,7 @@
     factory(mod.exports, global.flatpickr, global.settings, global.mixin, global.createComponent, global.initComponentBySearch, global.handles, global.on);
     global.datePicker = mod.exports;
   }
-})(this, function (_exports, _flatpickr, _settings, _mixin2, _createComponent, _initComponentBySearch, _handles, _on) {
+})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (_exports, _flatpickr, _settings, _mixin2, _createComponent, _initComponentBySearch, _handles, _on) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -257,6 +257,7 @@
 
       return {
         onMonthChange: updateCurrentMonth,
+        onValueUpdate: updateCurrentMonth,
         onOpen: updateCurrentMonth,
         onReady: [setupElements, updateCurrentMonth, register]
       };
@@ -339,6 +340,7 @@
         var calendar = new _flatpickr.default(date, Object.assign(flattenOptions(_this.options), {
           allowInput: true,
           mode: type,
+          disableMobile: true,
           positionElement: type === 'range' && _this.element.querySelector(_this.options.selectorDatePickerInputFrom),
           onClose: function onClose(selectedDates) {
             // An attempt to disable Flatpickr's focus tracking system,

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { RadarChart as RC } from "@carbon/charts";
+import { RadarChart as RC } from "@rocketsoftware/charts";
 import BaseChart from "./base-chart";
 
 export default class RadarChart extends BaseChart {

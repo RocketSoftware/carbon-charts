@@ -112,9 +112,16 @@ function trackBlur(ToMix) {
       _this = _possibleConstructorReturn(this, _getPrototypeOf(TrackBlur).call(this, element, options));
       var hasFocusin = 'onfocusin' in window;
       var focusinEventName = hasFocusin ? 'focusin' : 'focus';
+      var focusoutEventName = hasFocusin ? 'focusout' : 'blur';
 
       _this.manage(on(_this.element.ownerDocument, focusinEventName, function (event) {
-        if (!_this.element.contains(event.target)) {
+        if (!(_this.options.contentNode || _this.element).contains(event.target)) {
+          _this.handleBlur(event);
+        }
+      }, !hasFocusin));
+
+      _this.manage(on(_this.element.ownerDocument, focusoutEventName, function (event) {
+        if (!event.relatedTarget) {
           _this.handleBlur(event);
         }
       }, !hasFocusin));

@@ -9,7 +9,7 @@ export default {
 		format: "umd",
 		name: "ChartsReact",
 		globals: {
-			"@carbon/charts": "Charts",
+			"@rocketsoftware/charts": "Charts",
 			"react": "React"
 		}
 	},
@@ -18,5 +18,5 @@ export default {
 		resolve(),
 		commonjs()
 	],
-	external: ["react", "react-dom", "@carbon/charts"]
+	external: ["react", "react-dom", "@rocketsoftware/charts"]
 };

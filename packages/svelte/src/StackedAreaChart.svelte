@@ -1,5 +1,5 @@
 <script>
-  import { StackedAreaChart } from "@carbon/charts";
+  import { StackedAreaChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 
