@@ -1,5 +1,6 @@
 {
 	"name": "@rocketsoftware/charts-react",
+	"private": true,
 	"version": "0.0.2",
 	"description": "Carbon charting components for React",
 	"main": "./bundle.js",
