@@ -41,7 +41,7 @@
 		"scss"
 	],
 	"dependencies": {
-		"@rocketsoftware/charts": "0.0.1"
+		"@rocketsoftware/charts": "0.0.2"
 	},
 	"peerDependencies": {
 		"@angular/common": "^6.0.0 || ^7.0.0 || ^8.0.0",
