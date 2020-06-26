@@ -46,7 +46,7 @@
 	},
 	"homepage": "https://github.com/carbon-design-system/carbon-charts#readme",
 	"dependencies": {
-		"@rocketsoftware/charts": "0.0.1"
+		"@rocketsoftware/charts": "0.0.2"
 	},
 	"peerDependencies": {
 		"react": "^16.6.3",
