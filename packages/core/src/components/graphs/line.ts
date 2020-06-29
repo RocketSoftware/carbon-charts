@@ -6,6 +6,7 @@ import { Tools } from "../../tools";
 
 // D3 Imports
 import { line } from "d3-shape";
+import { select } from "d3-selection";
 
 export class Line extends Component {
 	type = "line";
@@ -122,6 +123,9 @@ export class Line extends Component {
 				const { data: groupData } = group;
 				return lineGenerator(groupData);
 			});
+
+		// Add event listeners to elements drawn
+		this.addEventListeners();
 	}
 
 	handleLegendOnHover = (event: CustomEvent) => {
@@ -149,6 +153,46 @@ export class Line extends Component {
 			)
 			.attr("opacity", Configuration.lines.opacity.selected);
 	};
+
+	addEventListeners() {
+		const self = this;
+		this.parent
+			.selectAll("path.line")
+			.on("mouseover", function (datum) {
+				const hoveredElement = select(this);
+				hoveredElement.classed("hovered", true);
+
+				// Dispatch mouse event
+				self.services.events.dispatchEvent(Events.Line.LINE_MOUSEOVER, {
+					element: hoveredElement,
+					datum
+				});
+			})
+			.on("mousemove", function (datum) {
+				// Dispatch mouse event
+				self.services.events.dispatchEvent(Events.Line.LINE_MOUSEMOVE, {
+					element: select(this),
+					datum
+				});
+			})
+			.on("click", function (datum) {
+				// Dispatch mouse event
+				self.services.events.dispatchEvent(Events.Line.LINE_CLICK, {
+					element: select(this),
+					datum
+				});
+			})
+			.on("mouseout", function (datum) {
+				const hoveredElement = select(this);
+				hoveredElement.classed("hovered", false);
+
+				// Dispatch mouse event
+				self.services.events.dispatchEvent(Events.Line.LINE_MOUSEOUT, {
+					element: hoveredElement,
+					datum
+				});
+			});
+	}
 
 	destroy() {
 		// Remove event listeners
