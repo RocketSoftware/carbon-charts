@@ -84,7 +84,11 @@ export enum Line {
 	POINT_MOUSEOVER = "scatter-mouseover",
 	POINT_MOUSEMOVE = "scatter-mousemove",
 	POINT_CLICK = "scatter-click",
-	POINT_MOUSEOUT = "scatter-mouseout"
+	POINT_MOUSEOUT = "scatter-mouseout",
+	LINE_MOUSEOVER = "line-mouseover",
+	LINE_MOUSEMOVE = "line-mousemove",
+	LINE_CLICK = "line-click",
+	LINE_MOUSEOUT = "line-mouseout"
 }
 
 /**
