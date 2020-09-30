@@ -246,11 +246,11 @@ export class Gauge extends Component {
 		const deltaFontSize = delta
 			? Tools.getProperty(options, "gauge", "deltaFontSize")
 			: () => 0;
-		const numberFormatter = Tools.getProperty(
-			options,
-			"gauge",
-			"numberFormatter"
-		);
+
+		// use numberFormatter here only if there is a delta supplied
+		const numberFormatter = delta
+			? Tools.getProperty(options, "gauge", "numberFormatter")
+			: () => null;
 
 		const arrowSize = Tools.getProperty(
 			options,
@@ -275,15 +275,18 @@ export class Gauge extends Component {
 			`translate(0, ${deltaFontSize(radius) + numberSpacing})`
 		);
 
-		const deltaNumber = deltaGroup
-			.selectAll("text.gauge-delta-number")
-			.data(delta !== null ? [delta] : []);
+		const deltaNumber = DOMUtils.appendOrSelect(
+			deltaGroup,
+			"text.gauge-delta-number"
+		);
+
+		deltaNumber.data(delta === null ? [] : [delta]);
 
 		deltaNumber
 			.enter()
 			.append("text")
+			.classed("gauge-delta-number", true)
 			.merge(deltaNumber)
-			.attr("class", "gauge-delta-number")
 			.attr("text-anchor", "middle")
 			.style("font-size", `${deltaFontSize(radius)}px`)
 			.text((d) => `${numberFormatter(d)}%`);
@@ -327,7 +330,10 @@ export class Gauge extends Component {
 		// Draw the arrow with status
 		const status = Tools.getProperty(options, "gauge", "status");
 		DOMUtils.appendOrSelect(deltaArrow, "polygon.gauge-delta-arrow")
-			.classed(`status--${status}`, status !== null)
+			.attr(
+				"class",
+				status !== null ? `gauge-delta-arrow status--${status}` : ""
+			)
 			.attr("fill", () => (status === null ? "currentColor" : null))
 			.attr("points", self.getArrow(delta));
 

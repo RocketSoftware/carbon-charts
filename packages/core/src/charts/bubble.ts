@@ -15,7 +15,6 @@ import {
 	Tooltip,
 	Legend,
 	LayoutComponent,
-	TooltipScatter,
 	Skeleton
 } from "../components/index";
 
@@ -41,7 +40,7 @@ export class BubbleChart extends AxisChart {
 
 	getComponents() {
 		// Specify what to render inside the graph-frame
-		const graphFrameComponents = [
+		const graphFrameComponents: any[] = [
 			new TwoDimensionalAxes(this.model, this.services),
 			new Grid(this.model, this.services),
 			new Ruler(this.model, this.services),
@@ -54,7 +53,6 @@ export class BubbleChart extends AxisChart {
 		const components: any[] = this.getAxisChartComponents(
 			graphFrameComponents
 		);
-		components.push(new TooltipScatter(this.model, this.services));
 		return components;
 	}
 }

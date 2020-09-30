@@ -1,11 +1,10 @@
 // Internal Imports
 import { Component } from "../component";
 import * as Configuration from "../../configuration";
-import { Roles, ScaleTypes, Events, TooltipTypes } from "../../interfaces";
+import { Roles, ScaleTypes, Events } from "../../interfaces";
 
 // D3 Imports
 import { area } from "d3-shape";
-import { select, color } from "d3";
 
 export class StackedArea extends Component {
 	type = "area-stacked";
@@ -29,9 +28,10 @@ export class StackedArea extends Component {
 	}
 
 	render(animate = true) {
-		const svg = this.getContainerSVG();
+		const svg = this.getContainerSVG({ withinChartClip: true });
 		const self = this;
 		const options = this.model.getOptions();
+		const { groupMapsTo } = options.data;
 
 		const mainXScale = this.services.cartesianScales.getMainXScale();
 		const mainYScale = this.services.cartesianScales.getMainYScale();
@@ -53,7 +53,7 @@ export class StackedArea extends Component {
 
 		const areas = svg
 			.selectAll("path.area")
-			.data(stackedData, (d) => d[0].group);
+			.data(stackedData, (d) => d[0][groupMapsTo]);
 
 		// D3 area generator function
 		this.areaGenerator = area()
@@ -69,8 +69,8 @@ export class StackedArea extends Component {
 
 		enteringAreas
 			.merge(areas)
-			.data(stackedData, (d) => d[0].group)
-			.attr("fill", (d) => self.model.getFillColor(d[0].group))
+			.data(stackedData, (d) => d[0][groupMapsTo])
+			.attr("fill", (d) => self.model.getFillColor(d[0][groupMapsTo]))
 			.attr("role", Roles.GRAPHICS_SYMBOL)
 			.attr("aria-roledescription", "area")
 			.transition(
@@ -86,6 +86,8 @@ export class StackedArea extends Component {
 
 	handleLegendOnHover = (event: CustomEvent) => {
 		const { hoveredElement } = event.detail;
+		const options = this.model.getOptions();
+		const { groupMapsTo } = options.data;
 
 		this.parent
 			.selectAll("path.area")
@@ -93,7 +95,7 @@ export class StackedArea extends Component {
 				this.services.transitions.getTransition("legend-hover-area")
 			)
 			.attr("opacity", (d) => {
-				if (d[0].group !== hoveredElement.datum().name) {
+				if (d[0][groupMapsTo] !== hoveredElement.datum().name) {
 					return Configuration.area.opacity.unselected;
 				}
 

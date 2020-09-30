@@ -5,8 +5,6 @@ import { DOMUtils } from "../../services";
 
 // D3 Imports
 import { axisBottom, axisLeft } from "d3-axis";
-import { mouse, select } from "d3-selection";
-import { TooltipTypes, Events } from "../../interfaces";
 
 export class Grid extends Component {
 	type = "grid";
@@ -14,13 +12,34 @@ export class Grid extends Component {
 	backdrop: any;
 
 	render(animate = true) {
-		// Draw the backdrop
-		this.drawBackdrop();
-		DOMUtils.appendOrSelect(this.backdrop, "g.x.grid");
-		DOMUtils.appendOrSelect(this.backdrop, "g.y.grid");
+		const isXGridEnabled = Tools.getProperty(
+			this.model.getOptions(),
+			"grid",
+			"x",
+			"enabled"
+		);
+		const isYGridEnabled = Tools.getProperty(
+			this.model.getOptions(),
+			"grid",
+			"y",
+			"enabled"
+		);
 
-		this.drawXGrid(animate);
-		this.drawYGrid(animate);
+		if (!isXGridEnabled && !isYGridEnabled) {
+			return;
+		}
+		// Draw the backdrop
+		this.drawBackdrop(isXGridEnabled, isYGridEnabled);
+
+		if (isXGridEnabled) {
+			DOMUtils.appendOrSelect(this.backdrop, "g.x.grid");
+			this.drawXGrid(animate);
+		}
+
+		if (isYGridEnabled) {
+			DOMUtils.appendOrSelect(this.backdrop, "g.y.grid");
+			this.drawYGrid(animate);
+		}
 	}
 
 	drawXGrid(animate: boolean) {
@@ -186,7 +205,7 @@ export class Grid extends Component {
 		return xGridlines;
 	}
 
-	drawBackdrop() {
+	drawBackdrop(isXGridEnabled, isYGridEnabled) {
 		const svg = this.parent;
 
 		const mainXScale = this.services.cartesianScales.getMainXScale();
@@ -199,7 +218,9 @@ export class Grid extends Component {
 		this.backdrop = DOMUtils.appendOrSelect(svg, "svg.chart-grid-backdrop");
 		const backdropRect = DOMUtils.appendOrSelect(
 			this.backdrop,
-			"rect.chart-grid-backdrop"
+			isXGridEnabled || isYGridEnabled
+				? "rect.chart-grid-backdrop.stroked"
+				: "rect.chart-grid-backdrop"
 		);
 
 		this.backdrop
@@ -215,7 +236,6 @@ export class Grid extends Component {
 
 	cleanGrid(g) {
 		const options = this.model.getOptions();
-		g.selectAll("line").attr("stroke", options.grid.strokeColor);
 
 		// Remove extra elements
 		g.selectAll("text").remove();

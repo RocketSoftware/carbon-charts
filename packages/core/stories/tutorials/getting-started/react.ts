@@ -14,12 +14,12 @@ consistent markup, styles, and behavior in prototype and production work.
 
 **with yarn:**
 \`\`\`bash
-yarn add @rocketsoftware/charts-react d3
+yarn add @rocketsoftware/charts-react d3@5.x
 \`\`\`
 
 **with npm:**
 \`\`\`bash
-npm install --save @rocketsoftware/charts-react d3
+npm install --save @rocketsoftware/charts-react d3@5.x
 \`\`\`
 
 **Note:** you'd also need to install \`carbon-components\` if you're not using a bundled version of the library.

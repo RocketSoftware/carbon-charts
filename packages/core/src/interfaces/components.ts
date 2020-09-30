@@ -1,5 +1,11 @@
-import { LayoutGrowth, LegendPositions } from "./enums";
+import {
+	LayoutGrowth,
+	LegendPositions,
+	Alignments,
+	ZoomBarTypes
+} from "./enums";
 import { Component } from "../components/component";
+import { TruncationOptions } from "./truncation";
 
 /**
  * customize the overlay contents
@@ -27,31 +33,22 @@ export interface LayoutComponentChild {
  * customize the legend component
  */
 export interface LegendOptions {
+	enabled?: boolean;
 	position?: LegendPositions;
 	/**
 	 * the clickability of legend items
 	 */
 	clickable?: boolean;
-	/**
-	 * is the legend visible or not
-	 */
-	enabled?: boolean;
-	items?: {
-		status?: {
-			ACTIVE?: Number;
-			DISABLED?: Number;
-		};
-		horizontalSpace?: Number;
-		verticalSpace?: Number;
-		textYOffset?: Number;
-	};
-	checkbox?: {
-		radius?: Number;
-		spaceAfter?: Number;
-	};
+	truncation?: TruncationOptions;
+	alignment?: Alignments;
+	order?: string[];
 }
 
 export interface TooltipOptions {
+	/**
+	 * enable or disable tooltip
+	 */
+	enabled?: boolean;
 	/**
 	 * a function to format the tooltip values
 	 */
@@ -62,32 +59,10 @@ export interface TooltipOptions {
 	 */
 	customHTML?: Function;
 	/**
-	 *  options to configure the datapoint tooltip
+	 * show total of items
 	 */
-	datapoint?: {
-		/**
-		 * offset of the tooltip from the mouse position
-		 */
-		horizontalOffset?: number;
-		/**
-		 * toggles on/off datapoint tooltips.
-		 */
-		enabled?: boolean;
-		/**
-		 * vertical offset for tooltip placement
-		 */
-		verticalOffset?: number;
-	};
-	title?: {
-		/**
-		 * vertical offset for title tooltip placement. < 0 shifts the tooltip above title, > 0 shifts vertically down
-		 */
-		verticalOffset?: number;
-		/**
-		 * max width of title tooltip relative to the width of the chart-svg (percentage should be < 1)
-		 */
-		width?: number;
-	};
+	showTotal?: boolean;
+	truncation?: TruncationOptions;
 }
 
 /**
@@ -112,43 +87,22 @@ export interface ThresholdOptions {
 	label: string;
 }
 
-/**
- * extends tooltip options to provide support for multiple gridline tooltips
- */
-export interface AxisTooltipOptions extends TooltipOptions {
-	/** options for gridline event listeners */
-	gridline?: {
-		/**
-		 * controls whether the gridlines are active for tooltip support
-		 */
-		enabled?: boolean;
-		/**
-		 * optional set threshold (value between 0 and 1) for active gridlines
-		 */
-		threshold?: number;
-	};
-}
-
-/**
- * extends tooltip for bar tooltip
- */
-export interface BarTooltipOptions extends TooltipOptions {
-	datapoint: {
-		/**
-		 * padding between the bar items and the tooltip
-		 */
-		verticalOffset: number;
-	};
-}
-
 export interface GridOptions {
 	y?: {
+		enabled?: boolean;
 		numberOfTicks?: number;
 	};
 	x?: {
+		enabled?: boolean;
 		numberOfTicks?: number;
 	};
-	strokeColor?: string;
+}
+
+/**
+ * Ruler options
+ */
+export interface RulerOptions {
+	enabled?: boolean;
 }
 
 export interface BarOptions {
@@ -158,4 +112,41 @@ export interface BarOptions {
 
 export interface StackedBarOptions extends BarOptions {
 	dividerSize?: number;
+}
+
+/**
+ * customize the ZoomBars in a chart
+ */
+export interface ZoomBarsOptions {
+	/**
+	 * a variable to handle default zoom in ratio (0 ~ 1.0)
+	 * ex: shift click zoom in ratio
+	 */
+	zoomRatio?: number;
+	/**
+	 * currently only the top position is supported
+	 */
+	top?: ZoomBarOptions;
+}
+
+/**
+ * customize the ZoomBar component
+ */
+export interface ZoomBarOptions {
+	/**
+	 * is the zoom-bar visible or not
+	 */
+	enabled?: boolean;
+	/**
+	 * whether the zoom bar is showing a slider view or a graph view etc.
+	 */
+	type?: ZoomBarTypes;
+	/**
+	 * an two element array which represents the initial zoom domain
+	 */
+	initialZoomDomain?: Object[];
+	/**
+	 * options related to zoom bar data
+	 */
+	data?: Object[];
 }

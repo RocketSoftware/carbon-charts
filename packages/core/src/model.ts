@@ -5,8 +5,8 @@ import * as colorPalettes from "./services/colorPalettes";
 import { Events, ScaleTypes } from "./interfaces";
 
 // D3
-import { scaleOrdinal } from "d3-scale";
 import { map } from "d3-collection";
+import { scaleOrdinal } from "d3-scale";
 import { stack } from "d3-shape";
 
 /** The charting model layer which includes mainly the chart data and options,
@@ -39,12 +39,11 @@ export class ChartModel {
 		this.services = services;
 	}
 
-	getDisplayData() {
+	getAllDataFromDomain() {
 		if (!this.get("data")) {
 			return null;
 		}
 
-		const { ACTIVE } = Configuration.legend.items.status;
 		const dataGroups = this.getDataGroups();
 
 		// Remove datasets that have been disabled
@@ -77,11 +76,29 @@ export class ChartModel {
 		}
 
 		return displayData.filter((datum) => {
-			const group = dataGroups.find(
+			return dataGroups.find(
 				(group) => group.name === datum[groupMapsTo]
 			);
+		});
+	}
 
-			return group.status === ACTIVE;
+	getDisplayData() {
+		if (!this.get("data")) {
+			return null;
+		}
+
+		const { ACTIVE } = Configuration.legend.items.status;
+		const dataGroups = this.getDataGroups();
+		const { groupMapsTo } = this.getOptions().data;
+
+		const allDataFromDomain = this.getAllDataFromDomain();
+
+		return allDataFromDomain.filter((datum) => {
+			return dataGroups.find(
+				(dataGroup) =>
+					dataGroup.name === datum[groupMapsTo] &&
+					dataGroup.status === ACTIVE
+			);
 		});
 	}
 
@@ -110,6 +127,16 @@ export class ChartModel {
 	}
 
 	getDataGroups() {
+		const isDataLoading = Tools.getProperty(
+			this.getOptions(),
+			"data",
+			"loading"
+		);
+
+		// No data should be displayed while data is still loading
+		if (isDataLoading) {
+			return [];
+		}
 		return this.get("dataGroups");
 	}
 
@@ -164,6 +191,24 @@ export class ChartModel {
 			displayData,
 			(datum) => datum[domainIdentifier]
 		).keys();
+
+		const axisPosition = this.services.cartesianScales.domainAxisPosition;
+		const scaleType = options.axes[axisPosition].scaleType;
+
+		// Sort keys
+		if (scaleType === ScaleTypes.TIME) {
+			stackKeys.sort((a: any, b: any) => {
+				const dateA: any = new Date(a);
+				const dateB: any = new Date(b);
+				return dateA - dateB;
+			});
+		} else if (
+			scaleType === ScaleTypes.LOG ||
+			scaleType === ScaleTypes.LINEAR
+		) {
+			stackKeys.sort((a: any, b: any) => a - b);
+		}
+
 		const dataGroupNames = this.getDataGroupNames();
 
 		return stackKeys.map((key) => {
@@ -232,11 +277,14 @@ export class ChartModel {
 		return this.state.options;
 	}
 
-	set(newState: any, skipUpdate = false) {
+	set(newState: any, configs?: any) {
 		this.state = Object.assign({}, this.state, newState);
-
-		if (!skipUpdate) {
-			this.update();
+		const newConfig = Object.assign(
+			{ skipUpdate: false, animate: true }, // default configs
+			configs
+		);
+		if (!newConfig.skipUpdate) {
+			this.update(newConfig.animate);
 		}
 	}
 
@@ -263,7 +311,7 @@ export class ChartModel {
 	 * Updates miscellanous information within the model
 	 * such as the color scales, or the legend data labels
 	 */
-	update() {
+	update(animate = true) {
 		if (!this.getDisplayData()) {
 			return;
 		}
@@ -271,7 +319,7 @@ export class ChartModel {
 		this.updateAllDataGroups();
 
 		this.setColorScale();
-		this.services.events.dispatchEvent(Events.Model.UPDATE);
+		this.services.events.dispatchEvent(Events.Model.UPDATE, { animate });
 	}
 
 	setUpdateCallback(cb: Function) {
@@ -319,6 +367,26 @@ export class ChartModel {
 				dataGroups[i].status =
 					group.name === changedLabel ? ACTIVE : DISABLED;
 			});
+		}
+
+		// Updates selected groups
+		const updatedActiveItems = dataGroups.filter(
+			(group) => group.status === ACTIVE
+		);
+		const options = this.getOptions();
+
+		const hasUpdatedDeactivatedItems = dataGroups.some(
+			(group) => group.status === DISABLED
+		);
+
+		// If there are deactivated items, map the item name into selected groups
+		if (hasUpdatedDeactivatedItems) {
+			options.data.selectedGroups = updatedActiveItems.map(
+				(activeItem) => activeItem.name
+			);
+		} else {
+			// If every item is active, clear array
+			options.data.selectedGroups = [];
 		}
 
 		// dispatch legend filtering event with the status of all the dataLabels
@@ -370,6 +438,13 @@ export class ChartModel {
 
 	getFillScale() {
 		return this.colorScale;
+	}
+
+	/**
+	 * For charts that might hold an associated status for their dataset
+	 */
+	getStatus() {
+		return null;
 	}
 
 	/**
@@ -461,15 +536,34 @@ export class ChartModel {
 
 	protected generateDataGroups(data) {
 		const { groupMapsTo } = this.getOptions().data;
-		const { ACTIVE } = Configuration.legend.items.status;
+		const { ACTIVE, DISABLED } = Configuration.legend.items.status;
+		const options = this.getOptions();
 
 		const uniqueDataGroups = map(
 			data,
 			(datum) => datum[groupMapsTo]
 		).keys();
+
+		// check if selectedGroups can be applied to chart with current data groups
+		if (options.data.selectedGroups.length) {
+			const hasAllSelectedGroups = options.data.selectedGroups.every(
+				(groupName) => uniqueDataGroups.includes(groupName)
+			);
+			if (!hasAllSelectedGroups) {
+				options.data.selectedGroups = [];
+			}
+		}
+
+		// Get group status based on items in selected groups
+		const getStatus = (groupName) =>
+			!options.data.selectedGroups.length ||
+			options.data.selectedGroups.includes(groupName)
+				? ACTIVE
+				: DISABLED;
+
 		return uniqueDataGroups.map((groupName) => ({
 			name: groupName,
-			status: ACTIVE
+			status: getStatus(groupName)
 		}));
 	}
 
@@ -477,7 +571,7 @@ export class ChartModel {
 	 * Fill scales
 	 */
 	protected setColorScale() {
-		let defaultColors = colorPalettes.DEFAULT;
+		const defaultColors = colorPalettes.DEFAULT;
 
 		const options = this.getOptions();
 		const userProvidedScale = Tools.getProperty(options, "color", "scale");

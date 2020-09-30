@@ -36,6 +36,25 @@ export const groupedBarOptions = {
 	}
 };
 
+export const groupedBarSelectedGroupsData = groupedBarData;
+
+// Grouped bar with selected groups option
+export const groupedBarSelectedGroupsOptions = {
+	title: "Grouped bar (selected groups)",
+	data: {
+		selectedGroups: ["Dataset 1", "Dataset 3"]
+	},
+	axes: {
+		left: {
+			mapsTo: "value"
+		},
+		bottom: {
+			scaleType: "labels",
+			mapsTo: "key"
+		}
+	}
+};
+
 // Horizontal Grouped
 export const groupedHorizontalBarData = groupedBarData;
 
@@ -74,6 +93,107 @@ export const simpleBarOptions = {
 	}
 };
 
+export const simpleBarCustomLegendOrderOptions = {
+	title: "Simple bar (custom legend order)",
+	axes: {
+		left: {
+			mapsTo: "value"
+		},
+		bottom: {
+			mapsTo: "group",
+			scaleType: "labels"
+		}
+	},
+	legend: {
+		order: ["Restocking", "Misc", "Sold", "Qty", "More"]
+	}
+};
+
+// Simple bar with custom tick values
+export const simpleBarDataCustomTicks = [
+	{ group: "Group 1", value: 0.5 },
+	{ group: "Group 2", value: 2 }
+];
+
+export const simpleBarOptionsCustomTicks = {
+	title: "Simple bar (custom ticks)",
+	axes: {
+		left: {
+			mapsTo: "value",
+			ticks: {
+				values: [0, 1.2, 1.3, 2]
+			}
+		},
+		bottom: {
+			mapsTo: "group",
+			scaleType: "labels"
+		}
+	}
+};
+
+export const simpleBarCenteredLegendData = simpleBarData;
+
+export const simpleBarCenteredLegendOptions = {
+	title: "Simple bar (centered legend)",
+	axes: {
+		left: {
+			mapsTo: "value"
+		},
+		bottom: {
+			mapsTo: "group",
+			scaleType: "labels"
+		}
+	},
+	legend: {
+		alignment: "center"
+	}
+};
+
+// Simple bar with long labels
+export const simpleBarLongLabelData = [
+	{
+		group:
+			"6591DA8668C339B1B39297C61091E320C35391AB7AFC15B469F96B8A2DD0C231",
+		value: 65000
+	},
+	{
+		group:
+			"347FEDE2F7403759069E5F84B65B49D2467D8914B5184738699259AA310EB0F9",
+		value: 29123
+	},
+	{
+		group:
+			"232D788298773BB389DBB8FCE44D3FB4E878879BE7AFB0B303BCE0D56EBB92E2",
+		value: 35213
+	},
+	{
+		group:
+			"58B01AADFA87E5547A218B3C6CE3AF07B8DF7BAB9E12BF60FD2BBB739C46B86E",
+		value: 51213
+	},
+	{ group: "Qty", value: 16932 }
+];
+
+export const simpleBarLongLabelOptions = {
+	title: "Simple bar (truncated labels)",
+	axes: {
+		left: {
+			mapsTo: "value"
+		},
+		bottom: {
+			mapsTo: "group",
+			scaleType: "labels"
+		}
+	},
+	legend: {
+		truncation: {
+			type: "end_line",
+			threshold: 10,
+			numCharacter: 12
+		}
+	}
+};
+
 export const simpleBarFixedDomainOptions = {
 	title: "Simple bar (customized domain)",
 	axes: {
@@ -90,6 +210,7 @@ export const simpleBarFixedDomainOptions = {
 
 // Horizontal Simple
 export const simpleHorizontalBarData = simpleBarData;
+export const simpleHorizontalBarLongLabelData = simpleBarLongLabelData;
 
 export const simpleHorizontalBarOptions = {
 	title: "Simple horizontal bar (discrete)",
@@ -104,12 +225,75 @@ export const simpleHorizontalBarOptions = {
 	}
 };
 
+export const simpleHorizontalBarCenteredLegendData = simpleBarData;
+
+export const simpleHorizontalBarCenteredLegendOptions = {
+	title: "Simple horizontal bar (centered legend)",
+	axes: {
+		left: {
+			mapsTo: "group",
+			scaleType: "labels"
+		},
+		bottom: {
+			mapsTo: "value"
+		}
+	},
+	legend: {
+		alignment: "center"
+	}
+};
+
+export const simpleHorizontalBarLongLabelOptions = {
+	title: "Simple horizontal bar (truncated labels)",
+	axes: {
+		left: {
+			mapsTo: "group",
+			scaleType: "labels",
+			truncation: {
+				type: "mid_line",
+				threshold: 10,
+				numCharacter: 14
+			}
+		},
+		bottom: {
+			mapsTo: "value"
+		}
+	},
+	legend: {
+		truncation: {
+			type: "mid_line",
+			threshold: 15,
+			numCharacter: 12
+		}
+	}
+};
+
 export const simpleBarTimeSeriesData = [
 	{ group: "Qty", date: new Date(2019, 0, 1), value: 10000 },
 	{ group: "More", date: new Date(2019, 0, 2), value: 65000 },
 	{ group: "Sold", date: new Date(2019, 0, 3), value: 30000 },
 	{ group: "Restocking", date: new Date(2019, 0, 6), value: 49213 },
 	{ group: "Misc", date: new Date(2019, 0, 7), value: 51213 }
+];
+
+export const simpleBarTimeSeriesDenseData = [
+	{ group: "data", date: new Date(2019, 1, 1, 10, 10, 0), value: 10000 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 12, 4), value: 20001 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 14, 8), value: 10002 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 15, 8), value: 10062 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 17, 12), value: 30003 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 18, 16), value: 20004 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 19, 20), value: 10005 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 22, 24), value: 50006 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 24, 24), value: 20006 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 26, 28), value: 40007 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 27, 32), value: 30008 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 30, 36), value: 10000 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 32, 36), value: 10000 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 35, 40), value: 20000 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 36, 44), value: 10000 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 37, 48), value: 30000 },
+	{ group: "data", date: new Date(2019, 1, 1, 10, 40, 52), value: 10000 }
 ];
 
 export const simpleBarTimeSeriesOptions = {
@@ -138,6 +322,22 @@ export const simpleHorizontalBarTimeSeriesOptions = {
 			mapsTo: "value"
 		}
 	}
+};
+
+// Vertical simple time series with dense data
+export const simpleBarTimeSeriesDenseOptions = {
+	title: "Simple bar (time series) with dense data",
+	axes: {
+		left: {
+			mapsTo: "value"
+		},
+		bottom: {
+			mapsTo: "date",
+			scaleType: "time"
+		}
+	},
+	timeScale: { localeObject: trLocaleObject },
+	bars: { maxWidth: 200 }
 };
 
 export const simpleHorizontalBarTimeSeriesData = simpleBarTimeSeriesData;
@@ -232,6 +432,26 @@ export const stackedBarTimeSeriesOptions = {
 	}
 };
 
+// demo with custom ticks
+export const stackedBarTimeSeriesDataCustomTicks = stackedBarTimeSeriesData;
+
+export const stackedBarTimeSeriesOptionsCustomTicks = {
+	title: "Stacked bar (time series - custom ticks)",
+	axes: {
+		left: {
+			mapsTo: "value",
+			stacked: true
+		},
+		bottom: {
+			mapsTo: "date",
+			scaleType: "time",
+			ticks: {
+				values: [new Date(2019, 0, 17)]
+			}
+		}
+	}
+};
+
 // Stacked horizontal bar (time series)
 export const stackedHorizontalBarTimeSeriesOptions = {
 	title: "Stacked horizontal bar (time series)",
@@ -252,12 +472,9 @@ export const simpleBarEmptyStateData = [];
 export const simpleBarEmptyStateOptions = {
 	title: "Simple bar (empty state)",
 	axes: {
-		left: {
-			primary: true
-		},
+		left: {},
 		bottom: {
-			scaleType: "labels",
-			secondary: true
+			scaleType: "labels"
 		}
 	}
 };
@@ -267,12 +484,9 @@ export const simpleBarSkeletonData = [];
 export const simpleBarSkeletonOptions = {
 	title: "Simple bar (skeleton)",
 	axes: {
-		left: {
-			primary: true
-		},
+		left: {},
 		bottom: {
-			scaleType: "labels",
-			secondary: true
+			scaleType: "labels"
 		}
 	},
 	data: {
@@ -285,12 +499,9 @@ export const groupedBarEmptyStateData = [];
 export const groupedBarEmptyStateOptions = {
 	title: "Grouped bar (empty state)",
 	axes: {
-		left: {
-			primary: true
-		},
+		left: {},
 		bottom: {
-			scaleType: "labels",
-			secondary: true
+			scaleType: "labels"
 		}
 	}
 };
@@ -300,12 +511,9 @@ export const groupedBarSkeletonData = [];
 export const groupedBarSkeletonOptions = {
 	title: "Grouped bar (skeleton)",
 	axes: {
-		left: {
-			primary: true
-		},
+		left: {},
 		bottom: {
-			scaleType: "labels",
-			secondary: true
+			scaleType: "labels"
 		}
 	},
 	data: {
@@ -318,12 +526,9 @@ export const stackedBarEmptyStateData = [];
 export const stackedBarEmptyStateOptions = {
 	title: "Stacked bar (empty state)",
 	axes: {
-		left: {
-			primary: true
-		},
+		left: {},
 		bottom: {
-			scaleType: "labels",
-			secondary: true
+			scaleType: "labels"
 		}
 	}
 };
@@ -333,12 +538,9 @@ export const stackedBarSkeletonData = [];
 export const stackedBarSkeletonOptions = {
 	title: "Stacked bar (skeleton)",
 	axes: {
-		left: {
-			primary: true
-		},
+		left: {},
 		bottom: {
-			scaleType: "labels",
-			secondary: true
+			scaleType: "labels"
 		}
 	},
 	data: {
@@ -352,12 +554,9 @@ export const simpleHorizontalBarEmptyStateOptions = {
 	title: "Simple horizontal bar (empty state)",
 	axes: {
 		left: {
-			primary: true,
 			scaleType: "labels"
 		},
-		bottom: {
-			secondary: true
-		}
+		bottom: {}
 	}
 };
 
@@ -367,12 +566,9 @@ export const simpleHorizontalBarSkeletonOptions = {
 	title: "Simple horizontal bar (skeleton)",
 	axes: {
 		left: {
-			primary: true,
 			scaleType: "labels"
 		},
-		bottom: {
-			secondary: true
-		}
+		bottom: {}
 	},
 	data: {
 		loading: true
@@ -385,12 +581,9 @@ export const groupedHorizontalBarEmptyStateOptions = {
 	title: "Grouped horizontal bar (empty state)",
 	axes: {
 		left: {
-			primary: true,
 			scaleType: "labels"
 		},
-		bottom: {
-			secondary: true
-		}
+		bottom: {}
 	}
 };
 
@@ -400,12 +593,9 @@ export const groupedHorizontalBarSkeletonOptions = {
 	title: "Grouped horizontal bar (skeleton)",
 	axes: {
 		left: {
-			primary: true,
 			scaleType: "labels"
 		},
-		bottom: {
-			secondary: true
-		}
+		bottom: {}
 	},
 	data: {
 		loading: true
@@ -418,12 +608,9 @@ export const stackedHorizontalBarEmptyStateOptions = {
 	title: "Stacked horizontal bar (empty state)",
 	axes: {
 		left: {
-			primary: true,
 			scaleType: "labels"
 		},
-		bottom: {
-			secondary: true
-		}
+		bottom: {}
 	}
 };
 
@@ -433,12 +620,9 @@ export const stackedHorizontalBarSkeletonOptions = {
 	title: "Stacked horizontal bar (skeleton)",
 	axes: {
 		left: {
-			primary: true,
 			scaleType: "labels"
 		},
-		bottom: {
-			secondary: true
-		}
+		bottom: {}
 	},
 	data: {
 		loading: true

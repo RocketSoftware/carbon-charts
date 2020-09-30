@@ -2,7 +2,8 @@
 import {
 	AxisChartOptions,
 	CartesianOrientations,
-	ScaleTypes
+	ScaleTypes,
+	TruncationTypes
 } from "./interfaces";
 
 import {
@@ -20,6 +21,8 @@ import {
 	Cancelable,
 	DebounceSettings
 } from "lodash-es";
+
+import { mouse } from "d3-selection";
 import { Numeric } from "d3";
 
 // Functions
@@ -35,6 +38,24 @@ export namespace Tools {
 	export const kebabCase = lodashKebabCase;
 	export const fromPairs = lodashFromPairs;
 	export const some = lodashSome;
+
+	export function debounceWithD3MousePosition(fn, delay, element) {
+		var timer = null;
+		return function () {
+			const context = this;
+			const args = arguments;
+
+			//we get the D3 event here
+			context.mousePosition = mouse(element);
+
+			clearTimeout(timer);
+
+			timer = setTimeout(function () {
+				//and use the reference here
+				fn.apply(context, args);
+			}, delay);
+		};
+	}
 
 	/**
 	 * Returns default chart options merged with provided options,
@@ -215,6 +236,31 @@ export namespace Tools {
 		return percentage % 1 !== 0
 			? parseFloat(percentage.toFixed(1))
 			: percentage;
+	}
+
+	/**
+	 * Truncate the labels
+	 * @export
+	 * @param {any} fullText
+	 * @param {any} truncationType
+	 * @param {any} numCharacter
+	 * @returns Truncated text
+	 */
+	export function truncateLabel(fullText, truncationType, numCharacter) {
+		if (numCharacter > fullText.length) {
+			return fullText;
+		}
+		if (truncationType === TruncationTypes.MID_LINE) {
+			return (
+				fullText.substr(0, numCharacter / 2) +
+				"..." +
+				fullText.substr(-numCharacter / 2)
+			);
+		} else if (truncationType === TruncationTypes.FRONT_LINE) {
+			return "..." + fullText.substr(-numCharacter);
+		} else if (truncationType === TruncationTypes.END_LINE) {
+			return fullText.substr(0, numCharacter) + "...";
+		}
 	}
 
 	/**************************************

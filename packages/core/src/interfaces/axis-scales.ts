@@ -1,7 +1,8 @@
-import { ScaleTypes } from "./enums";
+import { ScaleTypes, TickRotations } from "./enums";
 import { AxisDomain } from "d3";
 import { Locale } from "date-fns";
 import { ThresholdOptions } from "./components";
+import { TruncationOptions } from "./truncation";
 
 /**
  * options to configure a scale. not all options are used by all scales
@@ -74,10 +75,23 @@ export interface AxisOptions {
 		 */
 		rotateIfSmallerThan?: number;
 		/**
+		 * when to rotate ticks
+		 */
+		rotation?: TickRotations;
+		/**
 		 * function to format the ticks
 		 */
 		formatter?: Function;
+		/**
+		 * optional custom array of tick values that is within the domain of data
+		 */
+		values?: any[];
 	};
+	truncation?: TruncationOptions;
+	/**
+	 * is axis visible or not
+	 */
+	visible?: boolean;
 }
 
 /**

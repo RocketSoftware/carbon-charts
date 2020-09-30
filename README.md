@@ -1,6 +1,6 @@
 <p align="center">
 	<a href="https://carbon-design-system.github.io/carbon-charts/">
-		<img src="assets/logo.png" alt="Carbon Charts" width=150 height=150 />
+		<img src="assets/logo.svg" alt="Carbon Charts" width=150 height=150 />
 	</a>
 	<h3 align="center">Carbon Charts</h3>
 	<p align="center">
@@ -9,7 +9,6 @@
 		<a href="https://www.npmjs.com/package/@rocketsoftware/charts">
 			<img src="https://img.shields.io/npm/v/@rocketsoftware/charts.svg" />
 		</a>
-		<img src="https://img.shields.io/badge/comp-IE11%2B-blue.svg" />
 		<img alt="semantic-versioning" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--ver-e10079.svg" />
 		<img alt="semantic-versioning" src="https://img.shields.io/badge/downloads-+20k%2Fweek-green" />
 	</p>
@@ -17,13 +16,21 @@
 
 ## Packages
 - [Vanilla](./packages/core)
-- [Angular](./packages/angular)
 - [React](./packages/react)
+- [Angular](./packages/angular)
 - [Vue](./packages/vue)
+- [Svelte](./packages/svelte)
 
 <a href="https://www.netlify.com" target="_blank">
-  <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"/>
+  <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" />
 </a>
+
+## Design specifications
+<a href="https://www.carbondesignsystem.com/resources#data-visualization" target="_blank">
+  <img src="./assets/dv_dark_theme.png" width=700 />
+</a>
+
+Carbon data visualization design specifications can be found [here](https://www.carbondesignsystem.com/resources#data-visualization).
 
 ## CHANGELOG
 Read the release change logs [here](./CHANGELOG.md)
@@ -31,22 +38,22 @@ Read the release change logs [here](./CHANGELOG.md)
 ## Component status
 :white_check_mark: Stable :hourglass_flowing_sand: In progress
 
-| Component   | Vanilla            | Angular                  | React | Vue |
-|-------------|--------------------|--------------------------|-------|-------|
-| Simple Bar  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Grouped Bar | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Stacked Bar | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Donut       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Line        | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Curved Line | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Pie         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Step        | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Scatter     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Radar     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
-| Area        | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: |
-| Gauge        | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: |
-| Meter        | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: |
-| Combo        | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: |
+| Component   | Vanilla            | Angular                  | React | Vue | Svelte |
+|-------------|--------------------|--------------------------|-------|-------| --- |
+| Simple Bar  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: 
+| Grouped Bar | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Stacked Bar | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Donut       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Line        | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Curved Line | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Pie         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Step        | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Scatter     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Radar     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Area        | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Gauge        | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Meter        | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:
+| Combo        | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: | :hourglass_flowing_sand: |
 
 ## Bugs and feature requests
 
