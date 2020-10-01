@@ -5,7 +5,6 @@ import {
 	AxisPositions,
 	CartesianOrientations,
 	ScaleTypes,
-	AxesOptions,
 	ThresholdOptions
 } from "../interfaces";
 import { Tools } from "../tools";
@@ -65,6 +64,20 @@ export class CartesianScales extends Service {
 		return this.rangeAxisPosition;
 	}
 
+	getAxisOptions(position: AxisPositions) {
+		return Tools.getProperty(this.model.getOptions(), "axes", position);
+	}
+
+	getDomainAxisOptions() {
+		const domainAxisPosition = this.getDomainAxisPosition();
+		return this.getAxisOptions(domainAxisPosition);
+	}
+
+	getRangeAxisOptions() {
+		const rangeAxisPosition = this.getRangeAxisPosition();
+		return this.getAxisOptions(rangeAxisPosition);
+	}
+
 	update(animate = true) {
 		this.findDomainAndRangeAxes();
 		this.determineOrientation();
@@ -117,6 +130,16 @@ export class CartesianScales extends Service {
 		return this.scaleTypes[axisPosition];
 	}
 
+	getDomainAxisScaleType() {
+		const domainAxisPosition = this.getDomainAxisPosition();
+		return this.getScaleTypeByPosition(domainAxisPosition);
+	}
+
+	getRangeAxisScaleType() {
+		const rangeAxisPosition = this.getRangeAxisPosition();
+		return this.getScaleTypeByPosition(rangeAxisPosition);
+	}
+
 	getDomainScale() {
 		return this.scales[this.domainAxisPosition];
 	}
@@ -157,33 +180,63 @@ export class CartesianScales extends Service {
 		return this.scales[this.getMainYAxisPosition()];
 	}
 
-	getValueFromScale(axisPosition: AxisPositions, datum: any, index?: number) {
+	getValueFromScale(
+		scale: any,
+		scaleType: ScaleTypes,
+		axisPosition: AxisPositions,
+		datum: any,
+		index?: number
+	) {
 		const options = this.model.getOptions();
-		const axisOptions = Tools.getProperty(options, "axes", axisPosition);
+		const axesOptions = Tools.getProperty(options, "axes");
+		const axisOptions = axesOptions[axisPosition];
+		const { mapsTo } = axisOptions;
+		const value = datum[mapsTo] !== undefined ? datum[mapsTo] : datum;
+		let scaledValue;
+		switch (scaleType) {
+			case ScaleTypes.LABELS:
+				scaledValue = scale(value) + scale.step() / 2;
+				break;
+			case ScaleTypes.TIME:
+				scaledValue = scale(new Date(value));
+				break;
+			default:
+				scaledValue = scale(value);
+		}
+		return scaledValue;
+	}
 
+	getValueThroughAxisPosition(
+		axisPosition: AxisPositions,
+		datum: any,
+		index?: number
+	) {
 		const scaleType = this.scaleTypes[axisPosition];
 		const scale = this.scales[axisPosition];
 
-		const { mapsTo } = axisOptions;
-		const value = datum[mapsTo] !== undefined ? datum[mapsTo] : datum;
-
-		if (scaleType === ScaleTypes.LABELS) {
-			return scale(value) + scale.step() / 2;
-		}
-
-		if (scaleType === ScaleTypes.TIME) {
-			return scale(new Date(value));
-		}
-
-		return scale(value);
+		return this.getValueFromScale(
+			scale,
+			scaleType,
+			axisPosition,
+			datum,
+			index
+		);
 	}
 
 	getDomainValue(d, i) {
-		return this.getValueFromScale(this.domainAxisPosition, d, i);
+		return this.getValueThroughAxisPosition(this.domainAxisPosition, d, i);
 	}
 
 	getRangeValue(d, i) {
-		return this.getValueFromScale(this.rangeAxisPosition, d, i);
+		return this.getValueThroughAxisPosition(this.rangeAxisPosition, d, i);
+	}
+
+	getMainXScaleType() {
+		return this.getScaleTypeByPosition(this.getMainXAxisPosition());
+	}
+
+	getMainYScaleType() {
+		return this.getScaleTypeByPosition(this.getMainYAxisPosition());
 	}
 
 	getDomainIdentifier() {
@@ -208,7 +261,7 @@ export class CartesianScales extends Service {
 		return axisOptions.mapsTo;
 	}
 
-	/** Uses the primary Y Axis to get data items associated with that value. */
+	/** Uses the Y Axis to get data items associated with that value. */
 	getDataFromDomain(domainValue) {
 		const displayData = this.model.getDisplayData();
 		const domainIdentifier = this.getDomainIdentifier();
@@ -409,7 +462,7 @@ export class CartesianScales extends Service {
 		return scale;
 	}
 
-	getHighestDomainThreshold(): null | {
+	protected getHighestDomainThreshold(): null | {
 		threshold: ThresholdOptions;
 		scaleValue: number;
 	} {
@@ -443,7 +496,7 @@ export class CartesianScales extends Service {
 		};
 	}
 
-	getHighestRangeThreshold(): null | {
+	protected getHighestRangeThreshold(): null | {
 		threshold: ThresholdOptions;
 		scaleValue: number;
 	} {

@@ -26,7 +26,7 @@ export class Line extends Component {
 	}
 
 	render(animate = true) {
-		const svg = this.getContainerSVG();
+		const svg = this.getContainerSVG({ withinChartClip: true });
 		const { cartesianScales, curves } = this.services;
 
 		const getDomainValue = (d, i) => cartesianScales.getDomainValue(d, i);
@@ -52,7 +52,6 @@ export class Line extends Component {
 				if (value === null || value === undefined) {
 					return false;
 				}
-
 				return true;
 			});
 
@@ -61,14 +60,17 @@ export class Line extends Component {
 			const percentage = Object.keys(options.axes).some(
 				(axis) => options.axes[axis].percentage
 			);
+			const { groupMapsTo } = options.data;
 			const stackedData = this.model.getStackedData({ percentage });
+			const domainIdentifier = this.services.cartesianScales.getDomainIdentifier();
+			const rangeIdentifier = this.services.cartesianScales.getRangeIdentifier();
 
 			data = stackedData.map((d) => ({
-				name: d[0].group,
+				name: d[0][groupMapsTo],
 				data: d.map((datum) => ({
-					date: datum.data.sharedStackKey,
-					group: datum.group,
-					value: datum[1]
+					[domainIdentifier]: datum.data.sharedStackKey,
+					[groupMapsTo]: datum[groupMapsTo],
+					[rangeIdentifier]: datum[1]
 				})),
 				hidden: !Tools.some(d, (datum) => datum[0] !== datum[1])
 			}));

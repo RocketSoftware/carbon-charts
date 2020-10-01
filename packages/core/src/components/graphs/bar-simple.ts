@@ -1,6 +1,6 @@
 // Internal Imports
 import { Bar } from "./bar";
-import { Events, Roles, TooltipTypes } from "../../interfaces";
+import { Events, Roles } from "../../interfaces";
 import { Tools } from "../../tools";
 
 // D3 Imports
@@ -31,7 +31,7 @@ export class SimpleBar extends Bar {
 		const { groupMapsTo } = options.data;
 
 		// Grab container SVG
-		const svg = this.getContainerSVG();
+		const svg = this.getContainerSVG({ withinChartClip: true });
 
 		// Update data on all bars
 		const bars = svg
@@ -69,6 +69,11 @@ export class SimpleBar extends Bar {
 				const x1 = x0 + barWidth;
 				const y0 = this.services.cartesianScales.getRangeValue(0);
 				const y1 = this.services.cartesianScales.getRangeValue(d, i);
+
+				// don't show if part of bar is out of zoom domain
+				if (this.isOutsideZoomedDomain(x0, x1)) {
+					return;
+				}
 
 				return Tools.generateSVGPathString(
 					{ x0, x1, y0, y1 },
@@ -142,15 +147,19 @@ export class SimpleBar extends Bar {
 
 				self.services.events.dispatchEvent(Events.Tooltip.SHOW, {
 					hoveredElement,
-					type: TooltipTypes.DATAPOINT
+					data: [datum]
 				});
 			})
 			.on("mousemove", function (datum) {
+				const hoveredElement = select(this);
+
 				// Dispatch mouse event
 				self.services.events.dispatchEvent(Events.Bar.BAR_MOUSEMOVE, {
 					element: select(this),
 					datum
 				});
+
+				self.services.events.dispatchEvent(Events.Tooltip.MOVE);
 			})
 			.on("click", function (datum) {
 				// Dispatch mouse event

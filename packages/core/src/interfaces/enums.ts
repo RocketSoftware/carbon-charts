@@ -22,6 +22,24 @@ export enum AxisPositions {
 }
 
 /**
+ * enum of all possible axis positions
+ */
+export enum ZoomBarTypes {
+	GRAPH_VIEW = "graph_view",
+	SLIDER_VIEW = "slider_view"
+}
+
+/**
+ * enum of all possible truncation types
+ */
+export enum TruncationTypes {
+	END_LINE = "end_line",
+	MID_LINE = "mid_line",
+	FRONT_LINE = "front_line",
+	NONE = "none"
+}
+
+/**
  * enum of all possible cartesian orientations
  * to be used for determining the orientation
  * of graphs being draw over
@@ -43,24 +61,6 @@ export enum ScaleTypes {
 }
 
 /**
- * enum of supported tooltip position relative to
- */
-export enum TooltipPosition {
-	MOUSE = "mouse",
-	TOP = "top",
-	BOTTOM = "bottom"
-}
-
-/**
- * enum of tooltip types for custom tooltip event
- */
-export enum TooltipTypes {
-	DATAPOINT = "datapoint",
-	GRIDLINE = "gridline",
-	TITLE = "title"
-}
-
-/**
  * enum of all possible legend positions
  */
 export enum LegendPositions {
@@ -68,6 +68,15 @@ export enum LegendPositions {
 	LEFT = "left",
 	TOP = "top",
 	BOTTOM = "bottom"
+}
+
+/**
+ * enum of all possible alignments
+ */
+export enum Alignments {
+	LEFT = "left",
+	CENTER = "center",
+	RIGHT = "right"
 }
 
 /**
@@ -153,4 +162,13 @@ export enum Statuses {
 	SUCCESS = "success",
 	WARNING = "warning",
 	DANGER = "danger"
+}
+
+/**
+ * enum of axis ticks rotation
+ */
+export enum TickRotations {
+	ALWAYS = "always",
+	AUTO = "auto",
+	NEVER = "never"
 }

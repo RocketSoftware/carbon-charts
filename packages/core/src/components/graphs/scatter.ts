@@ -1,10 +1,10 @@
 // Internal Imports
 import { Component } from "../component";
-import { TooltipTypes, Roles, Events } from "../../interfaces";
+import { Roles, Events } from "../../interfaces";
 import { Tools } from "../../tools";
 
 // D3 Imports
-import { select, Selection, event as d3Event } from "d3-selection";
+import { select, Selection } from "d3-selection";
 
 export class Scatter extends Component {
 	type = "scatter";
@@ -37,9 +37,29 @@ export class Scatter extends Component {
 		}
 	}
 
+	filterBasedOnZoomDomain(data) {
+		const domainIdentifier = this.services.cartesianScales.getDomainIdentifier();
+		const zoomDomain = this.model.get("zoomDomain");
+		if (zoomDomain !== undefined) {
+			return data.filter(
+				(d) =>
+					d[domainIdentifier] > zoomDomain[0] &&
+					d[domainIdentifier] < zoomDomain[1]
+			);
+		}
+		return data;
+	}
+
 	render(animate: boolean) {
+		const isScatterEnabled =
+			Tools.getProperty(this.model.getOptions(), "points", "enabled") ||
+			Tools.getProperty(this.model.getOptions(), "bubble", "enabled");
+		if (!isScatterEnabled) {
+			return;
+		}
+
 		// Grab container SVG
-		const svg = this.getContainerSVG();
+		const svg = this.getContainerSVG({ withinChartClip: true });
 
 		const options = this.model.getOptions();
 		const { groupMapsTo } = options.data;
@@ -63,6 +83,9 @@ export class Scatter extends Component {
 						d[rangeIdentifier] !== null
 				);
 		}
+
+		// filter out datapoints that aren't part of the zoomed domain
+		scatterData = this.filterBasedOnZoomDomain(scatterData);
 
 		// Update data on dot groups
 		const circles = svg
@@ -144,7 +167,7 @@ export class Scatter extends Component {
 	styleCircles(selection: Selection<any, any, any, any>, animate: boolean) {
 		// Chart options mixed with the internal configurations
 		const options = this.model.getOptions();
-		const { filled } = options.points;
+		const { filled, fillOpacity } = options.points;
 		const { cartesianScales, transitions } = this.services;
 
 		const { groupMapsTo } = options.data;
@@ -210,7 +233,7 @@ export class Scatter extends Component {
 					);
 				}
 			})
-			.attr("fill-opacity", filled ? 0.2 : 1)
+			.attr("fill-opacity", filled ? fillOpacity : 1)
 			.attr("stroke", (d) =>
 				this.model.getStrokeColor(
 					d[groupMapsTo],
@@ -276,6 +299,15 @@ export class Scatter extends Component {
 			.attr("opacity", 1);
 	};
 
+	getTooltipData(hoveredX, hoveredY) {
+		return this.model.getDisplayData().filter((d) => {
+			return (
+				hoveredX === this.services.cartesianScales.getDomainValue(d) &&
+				hoveredY === this.services.cartesianScales.getRangeValue(d)
+			);
+		});
+	}
+
 	addEventListeners() {
 		const self = this;
 		const { groupMapsTo } = this.model.getOptions().data;
@@ -283,7 +315,7 @@ export class Scatter extends Component {
 
 		this.parent
 			.selectAll("circle")
-			.on("mouseover mousemove", function (datum) {
+			.on("mouseover", function (datum) {
 				const hoveredElement = select(this);
 
 				hoveredElement
@@ -302,36 +334,35 @@ export class Scatter extends Component {
 				const hoveredY = self.services.cartesianScales.getRangeValue(
 					datum
 				);
-				const overlappingData = self.model
-					.getDisplayData()
-					.filter((d) => {
-						return (
-							hoveredX ===
-								self.services.cartesianScales.getDomainValue(
-									d
-								) &&
-							hoveredY ===
-								self.services.cartesianScales.getRangeValue(d)
-						);
-					});
-
+				const tooltipData = self.getTooltipData(hoveredX, hoveredY);
 				// Show tooltip
 				self.services.events.dispatchEvent(Events.Tooltip.SHOW, {
 					hoveredElement,
-					multidata:
-						overlappingData.length > 1 ? overlappingData : null,
-					type: TooltipTypes.DATAPOINT
+					data: tooltipData
 				});
 
-				const eventNameToDispatch =
-					d3Event.type === "mouseover"
-						? Events.Scatter.SCATTER_MOUSEOVER
-						: Events.Scatter.SCATTER_MOUSEMOVE;
 				// Dispatch mouse event
-				self.services.events.dispatchEvent(eventNameToDispatch, {
-					element: hoveredElement,
-					datum
-				});
+				self.services.events.dispatchEvent(
+					Events.Scatter.SCATTER_MOUSEOVER,
+					{
+						element: hoveredElement,
+						datum
+					}
+				);
+			})
+			.on("mousemove", function (datum) {
+				const hoveredElement = select(this);
+
+				// Dispatch mouse event
+				self.services.events.dispatchEvent(
+					Events.Scatter.SCATTER_MOUSEMOVE,
+					{
+						element: hoveredElement,
+						datum
+					}
+				);
+
+				self.services.events.dispatchEvent(Events.Tooltip.MOVE);
 			})
 			.on("click", function (datum) {
 				// Dispatch mouse event

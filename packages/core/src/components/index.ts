@@ -4,11 +4,9 @@ export * from "./component";
 export * from "./essentials/legend";
 export * from "./essentials/threshold";
 export * from "./essentials/title";
+export * from "./essentials/title-meter";
 export * from "./essentials/tooltip";
-export * from "./essentials/tooltip-bar";
-export * from "./essentials/tooltip-pie";
-export * from "./essentials/tooltip-scatter";
-export * from "./essentials/tooltip-radar";
+export * from "./essentials/tooltip-axis";
 
 // GRAPHS
 export * from "./graphs/area";
@@ -32,6 +30,10 @@ export * from "./layout/layout";
 // MISC
 export * from "./axes/two-dimensional-axes";
 export * from "./axes/axis";
+export * from "./axes/grid-brush";
+export * from "./axes/chart-clip";
 export * from "./axes/grid";
 export * from "./axes/ruler";
+export * from "./axes/ruler-stacked-bar";
 export * from "./axes/zero-line";
+export * from "./axes/zoom-bar";

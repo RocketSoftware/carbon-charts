@@ -3,6 +3,294 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.38.7](https://github.com/carbon-design-system/carbon-charts/compare/v0.38.6...v0.38.7) (2020-09-23)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.38.6](https://github.com/carbon-design-system/carbon-charts/compare/v0.38.5...v0.38.6) (2020-09-22)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.38.5](https://github.com/carbon-design-system/carbon-charts/compare/v0.38.4...v0.38.5) (2020-09-22)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.38.4](https://github.com/carbon-design-system/carbon-charts/compare/v0.38.3...v0.38.4) (2020-09-21)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.38.3](https://github.com/carbon-design-system/carbon-charts/compare/v0.38.2...v0.38.3) (2020-09-21)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.38.2](https://github.com/carbon-design-system/carbon-charts/compare/v0.38.1...v0.38.2) (2020-09-17)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.38.1](https://github.com/carbon-design-system/carbon-charts/compare/v0.38.0...v0.38.1) (2020-09-17)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+# [0.38.0](https://github.com/carbon-design-system/carbon-charts/compare/v0.37.1...v0.38.0) (2020-09-15)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.37.1](https://github.com/carbon-design-system/carbon-charts/compare/v0.37.0...v0.37.1) (2020-09-14)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+# [0.37.0](https://github.com/carbon-design-system/carbon-charts/compare/v0.36.4...v0.37.0) (2020-09-11)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.36.4](https://github.com/carbon-design-system/carbon-charts/compare/v0.36.3...v0.36.4) (2020-09-10)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.36.3](https://github.com/carbon-design-system/carbon-charts/compare/v0.36.2...v0.36.3) (2020-09-10)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.36.2](https://github.com/carbon-design-system/carbon-charts/compare/v0.36.1...v0.36.2) (2020-09-02)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.36.1](https://github.com/carbon-design-system/carbon-charts/compare/v0.36.0...v0.36.1) (2020-09-01)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+# [0.36.0](https://github.com/carbon-design-system/carbon-charts/compare/v0.35.3...v0.36.0) (2020-08-25)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.35.3](https://github.com/carbon-design-system/carbon-charts/compare/v0.35.2...v0.35.3) (2020-08-21)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.35.2](https://github.com/carbon-design-system/carbon-charts/compare/v0.35.1...v0.35.2) (2020-08-21)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.35.1](https://github.com/carbon-design-system/carbon-charts/compare/v0.35.0...v0.35.1) (2020-08-18)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+# [0.35.0](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.11...v0.35.0) (2020-08-13)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.11](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.10...v0.34.11) (2020-08-12)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.10](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.9...v0.34.10) (2020-08-11)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.9](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.8...v0.34.9) (2020-08-06)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.8](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.7...v0.34.8) (2020-07-30)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.7](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.6...v0.34.7) (2020-07-29)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.6](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.5...v0.34.6) (2020-07-27)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.5](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.4...v0.34.5) (2020-07-22)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.4](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.3...v0.34.4) (2020-07-21)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.3](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.2...v0.34.3) (2020-07-20)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.2](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.1...v0.34.2) (2020-07-15)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.34.1](https://github.com/carbon-design-system/carbon-charts/compare/v0.34.0...v0.34.1) (2020-07-14)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+# [0.34.0](https://github.com/carbon-design-system/carbon-charts/compare/v0.33.1...v0.34.0) (2020-07-14)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.33.1](https://github.com/carbon-design-system/carbon-charts/compare/v0.33.0...v0.33.1) (2020-07-08)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+# [0.33.0](https://github.com/carbon-design-system/carbon-charts/compare/v0.32.12...v0.33.0) (2020-07-07)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.32.12](https://github.com/carbon-design-system/carbon-charts/compare/v0.32.11...v0.32.12) (2020-06-26)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.32.11](https://github.com/carbon-design-system/carbon-charts/compare/v0.32.10...v0.32.11) (2020-06-24)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
+## [0.32.10](https://github.com/carbon-design-system/carbon-charts/compare/v0.32.9...v0.32.10) (2020-06-24)
+
+**Note:** Version bump only for package @carbon/charts-react
+
+
+
+
+
 ## [0.32.9](https://github.com/carbon-design-system/carbon-charts/compare/v0.32.8...v0.32.9) (2020-06-23)
 
 **Note:** Version bump only for package @carbon/charts-react
