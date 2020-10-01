@@ -4,7 +4,7 @@ import {
 } from "@angular/core";
 
 import { BaseChart } from "./base-chart.component";
-import { MeterChart } from "@carbon/charts";
+import { MeterChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `MeterChart` in carbon charts library

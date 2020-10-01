@@ -1,5 +1,5 @@
 <script>
-  import { MeterChart } from "@carbon/charts";
+  import { MeterChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

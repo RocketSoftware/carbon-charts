@@ -1,5 +1,5 @@
 <script>
-  import { GaugeChart } from "@carbon/charts";
+  import { GaugeChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

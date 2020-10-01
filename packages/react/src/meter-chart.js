@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MeterChart as MC } from "@carbon/charts";
+import { MeterChart as MC } from "@rocketsoftware/charts";
 import BaseChart from "./base-chart";
 
 export default class MeterChart extends BaseChart {
