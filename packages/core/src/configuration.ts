@@ -304,6 +304,7 @@ const gaugeChart: GaugeChartOptions = Tools.merge({}, chart, {
 		},
 		status: null,
 		numberSpacing: 10,
+		minMaxFontSize: (radius) => radius / 10,
 		deltaFontSize: (radius) => radius / 8,
 		valueFontSize: (radius) => radius / 2.5,
 		numberFormatter: (number) =>
