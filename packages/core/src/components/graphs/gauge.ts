@@ -31,17 +31,15 @@ export class Gauge extends Component {
 
 	getValueRatio(): number {
 		const options = this.model.getOptions();
-		var value = Tools.clamp(this.getValue(), 0, 100);
+		let value = Tools.clamp(this.getValue(), 0, 100);
 		const min = Tools.getProperty(options, "min");
 		const max = Tools.getProperty(options, "max");
 
-		if ((value - min) < min) {
+		if (value - min < min) {
 			value = min;
-		}else if ((value - min) > max) {
+		} else if (value - min > max) {
 			value = max;
 		}
-
-
 
 		if (min != null && max != null) {
 			return (value - min) / (max - min);
