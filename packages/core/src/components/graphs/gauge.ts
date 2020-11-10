@@ -31,11 +31,20 @@ export class Gauge extends Component {
 
 	getValueRatio(): number {
 		const options = this.model.getOptions();
-		const value = Tools.clamp(this.getValue(), 0, 100);
+		var value = Tools.clamp(this.getValue(), 0, 100);
 		const min = Tools.getProperty(options, "min");
 		const max = Tools.getProperty(options, "max");
+
+		if ((value - min) < min) {
+			value = min;
+		}else if ((value - min) > max) {
+			value = max;
+		}
+
+
+
 		if (min != null && max != null) {
-			return value / (max - min);
+			return (value - min) / (max - min);
 		} else {
 			return value / 100;
 		}
@@ -166,7 +175,10 @@ export class Gauge extends Component {
 		const options = this.model.getOptions();
 
 		const arcType = Tools.getProperty(options, "gauge", "type");
-		const disablePercentage = Tools.getProperty(options, "disablePercentage");
+		const disablePercentage = Tools.getProperty(
+			options,
+			"disablePercentage"
+		);
 		const value = this.getValue();
 		const delta = this.getDelta();
 
@@ -252,7 +264,10 @@ export class Gauge extends Component {
 		const svg = this.getContainerSVG();
 		const options = this.model.getOptions();
 		const delta = this.getDelta();
-		const disablePercentage = Tools.getProperty(options, "disablePercentage");
+		const disablePercentage = Tools.getProperty(
+			options,
+			"disablePercentage"
+		);
 
 		// Sizing and positions relative to the radius
 		const radius = this.computeRadius();
@@ -302,7 +317,10 @@ export class Gauge extends Component {
 			.merge(deltaNumber)
 			.attr("text-anchor", "middle")
 			.style("font-size", `${deltaFontSize(radius)}px`)
-			.text((d) => `${numberFormatter(d)}` + `${disablePercentage ? "" : "?"}`);
+			.text(
+				(d) =>
+					`${numberFormatter(d)}` + `${disablePercentage ? "" : "?"}`
+			);
 
 		// Add the caret for the delta number
 		const {
@@ -353,7 +371,7 @@ export class Gauge extends Component {
 		deltaArrow.exit().remove();
 		deltaNumber.exit().remove();
 	}
-	
+
 	drawMinMax() {
 		const svg = this.getContainerSVG();
 		const radius = this.computeRadius();
@@ -361,58 +379,59 @@ export class Gauge extends Component {
 		const options = this.model.getOptions();
 		const min = Tools.getProperty(options, "min");
 		const max = Tools.getProperty(options, "max");
-		const minMaxFontSize = Tools.getProperty(options, "gauge", "minMaxFontSize");
+		const minMaxFontSize = Tools.getProperty(
+			options,
+			"gauge",
+			"minMaxFontSize"
+		);
 
-		const numberFormatter = Tools.getProperty(options, "gauge", "numberFormatter");
-		
+		const numberFormatter = Tools.getProperty(
+			options,
+			"gauge",
+			"numberFormatter"
+		);
+
 		const numbersGroup = DOMUtils.appendOrSelect(svg, "g.guage-min-max");
 
 		const minGroup = DOMUtils.appendOrSelect(
 			numbersGroup,
 			"g.gauge-min"
-		).attr(
-			"transform",
-			`translate(-150, 0)`
-		);
+		).attr("transform", `translate(-150, 0)`);
 
 		const minNumber = DOMUtils.appendOrSelect(
 			minGroup,
 			"text.min-group-number"
-		)
+		);
 
 		minNumber.data(min === null ? [] : [min]);
-		
+
 		minNumber
 			.enter()
 			.append("text")
 			.merge(minNumber)
 			.attr("text-anchor", "middle")
-			.style("font-size", `${minMaxFontSize(radius)/1.5}px`)
+			.style("font-size", `${minMaxFontSize(radius) / 1.5}px`)
 			.text((d) => `${numberFormatter(d)}`);
 
 		const maxGroup = DOMUtils.appendOrSelect(
 			numbersGroup,
 			"g.gauge-max"
-		).attr(
-			"transform",
-			`translate(150, 0)`
-		);
+		).attr("transform", `translate(150, 0)`);
 
 		const maxNumber = DOMUtils.appendOrSelect(
 			maxGroup,
 			"text.max-group-number"
-		)
+		);
 
 		maxNumber.data(max === null ? [] : [max]);
-		
+
 		maxNumber
 			.enter()
 			.append("text")
 			.merge(maxNumber)
 			.attr("text-anchor", "middle")
-			.style("font-size", `${minMaxFontSize(radius)/1.5}px`)
+			.style("font-size", `${minMaxFontSize(radius) / 1.5}px`)
 			.text((d) => `${numberFormatter(d)}`);
-
 	}
 
 	getInnerRadius() {
