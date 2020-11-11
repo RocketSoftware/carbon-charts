@@ -249,8 +249,12 @@ export interface GaugeChartOptions extends PieChartOptions {
 			size?: Function;
 			enabled: Boolean;
 		};
+		min?: number;
+		max?: number;
+		disablePercentage?: Boolean;
 		status?: Statuses;
 		deltaFontSize?: Function;
+		minMaxFontSize?: Function;
 		numberSpacing?: number;
 		numberFormatter?: Function;
 		valueFontSize?: Function;

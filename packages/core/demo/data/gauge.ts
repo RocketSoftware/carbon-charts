@@ -11,6 +11,9 @@ export const gaugeOptionsSemi = {
 	resizable: true,
 	height: "250px",
 	width: "100%",
+	min: 0,
+	max: 100,
+	disablePercentage: true,
 	gauge: {
 		type: "semi",
 		status: "danger"
