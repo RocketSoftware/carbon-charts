@@ -249,6 +249,7 @@ export interface GaugeChartOptions extends PieChartOptions {
 			size?: Function;
 			enabled: Boolean;
 		};
+		subranges?: Array<Object>;
 		min?: number;
 		max?: number;
 		disablePercentage?: Boolean;
