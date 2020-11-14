@@ -129,11 +129,11 @@ export class Gauge extends Component {
 			this.drawSubranges(this.mapSubranges(subranges));
 		}
 
-			// draw the container
+		// draw the container
 		DOMUtils.appendOrSelect(svg, "path.arc-background")
 			.attr("d", this.backgroundArc)
 			.attr("role", Roles.GROUP);
-		
+
 		// Add data arc
 		const arcValue = svg.selectAll("path.arc-foreground").data([value]);
 
@@ -446,24 +446,24 @@ export class Gauge extends Component {
 			let endRotationAngle;
 			if (min != null && max != null) {
 				let newBegin = Tools.clamp(obj.begin, min, max);
-				let newEnd = Tools.clamp(obj.end, min, max)
+				let newEnd = Tools.clamp(obj.end, min, max);
 				let rotationRatio = (newBegin - min) / (max - min);
 				let endRatio = (newEnd - min) / (max - min);
-				
-				rotationAngle = rotationRatio * arcSize
+
+				rotationAngle = rotationRatio * arcSize;
 				endRotationAngle = endRatio * arcSize;
 			} else {
 				let newBegin = Tools.clamp(obj.begin, 0, 100) / 100;
 				let newEnd = Tools.clamp(obj.end, 0, 100) / 100;
 
-				rotationAngle = newBegin * arcSize
+				rotationAngle = newBegin * arcSize;
 				endRotationAngle = newEnd * arcSize;
 			}
-			
+
 			let currentAngle = startAngle + rotationAngle;
 			let endAngle = startAngle + endRotationAngle;
 
-			return {begin: currentAngle, end: endAngle, color: obj.color};
+			return { begin: currentAngle, end: endAngle, color: obj.color };
 		});
 		return newArray;
 	}
@@ -476,18 +476,25 @@ export class Gauge extends Component {
 		const subrangeArc = arc()
 			.innerRadius(innerRadius - 10)
 			.outerRadius(radius + 10)
-			.startAngle(function (d:any) {return d.begin})
-			.endAngle(function (d:any) {return d.end})
+			.startAngle(function (d: any) {
+				return d.begin;
+			})
+			.endAngle(function (d: any) {
+				return d.end;
+			});
 
-		const subRangeGroup = DOMUtils.appendOrSelect(svg, "path.subrange-path");
+		const subRangeGroup = DOMUtils.appendOrSelect(
+			svg,
+			"path.subrange-path"
+		);
 		subRangeGroup.data(subranges);
 
-		subRangeGroup.enter()
+		subRangeGroup
+			.enter()
 			.append("path")
 			.merge(subRangeGroup)
 			.attr("d", subrangeArc)
 			.attr("fill", (d) => d.color);
-
 	}
 
 	getInnerRadius() {

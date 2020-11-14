@@ -13,7 +13,7 @@ export const gaugeOptionsSemi = {
 	width: "100%",
 	min: 0,
 	max: 100,
-	subranges: [{begin: 20, end: 40, color: "#ffffff"}],
+	subranges: [{ begin: 20, end: 40, color: "#ffffff" }],
 	disablePercentage: true,
 	gauge: {
 		type: "semi",
