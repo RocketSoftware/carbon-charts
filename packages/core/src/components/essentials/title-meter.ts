@@ -143,7 +143,9 @@ export class MeterTitle extends Title {
 			.append("text")
 			.classed("percent-value", true)
 			.merge(percentage)
-			.text((d) =>{ return `${d}` + (removePercentSymbol ? `` : `%`)})
+			.text((d) => {
+				return `${d}` + (removePercentSymbol ? `` : `%`);
+			})
 			.attr(
 				"x",
 				+title.attr("x") + title.node().getComputedTextLength() + offset

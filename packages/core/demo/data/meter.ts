@@ -59,8 +59,8 @@ export const meterOptionsSubranges = {
 		min: 0,
 		max: 100,
 		subranges: [
-			{begin: 85, end: 95, color: 'orange'},
-			{begin: 95, end: 100, color: 'red'}
+			{ begin: 85, end: 95, color: "orange" },
+			{ begin: 95, end: 100, color: "red" }
 		]
 	},
 	height: "100px"

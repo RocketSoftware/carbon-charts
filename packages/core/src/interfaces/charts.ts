@@ -288,12 +288,12 @@ export interface MeterChartOptions extends BaseChartOptions {
 				 * rendering of the percentage value relative to the dataset within title
 				 */
 				enabled?: boolean;
-				removePercentage?: boolean
+				removePercentage?: boolean;
 			};
 		};
 		min?: number;
 		max?: number;
-		subranges?: Array<Object>
+		subranges?: Array<Object>;
 	};
 }
 
