@@ -35,13 +35,8 @@ export class Gauge extends Component {
 		const min = Tools.getProperty(options, "min");
 		const max = Tools.getProperty(options, "max");
 
-		if (value - min < min) {
-			value = min;
-		} else if (value - min > max) {
-			value = max;
-		}
-
 		if (min != null && max != null) {
+			value = Tools.clamp(this.getValue(), min, max);
 			return (value - min) / (max - min);
 		} else {
 			return value / 100;
@@ -127,6 +122,12 @@ export class Gauge extends Component {
 			.outerRadius(radius)
 			.startAngle(startAngle)
 			.endAngle(currentAngle);
+
+		const subranges = Tools.getProperty(options, "subranges");
+		//draw the subranges
+		if (subranges != null) {
+			this.drawSubranges(this.mapSubranges(subranges));
+		}
 
 		// draw the container
 		DOMUtils.appendOrSelect(svg, "path.arc-background")
@@ -430,6 +431,74 @@ export class Gauge extends Component {
 			.attr("text-anchor", "middle")
 			.style("font-size", `${minMaxFontSize(radius) / 1.5}px`)
 			.text((d) => `${numberFormatter(d)}`);
+	}
+
+	mapSubranges(array) {
+		const options = this.model.getOptions();
+		const min = Tools.getProperty(options, "min");
+		const max = Tools.getProperty(options, "max");
+
+		const startAngle = this.getStartAngle();
+		const arcSize = this.getArcSize();
+
+		let newArray = array.map((obj) => {
+			let rotationAngle;
+			let endRotationAngle;
+			if (min != null && max != null) {
+				let newBegin = Tools.clamp(obj.begin, min, max);
+				let newEnd = Tools.clamp(obj.end, min, max);
+				let rotationRatio = (newBegin - min) / (max - min);
+				let endRatio = (newEnd - min) / (max - min);
+
+				rotationAngle = rotationRatio * arcSize;
+				endRotationAngle = endRatio * arcSize;
+			} else {
+				let newBegin = Tools.clamp(obj.begin, 0, 100) / 100;
+				let newEnd = Tools.clamp(obj.end, 0, 100) / 100;
+
+				rotationAngle = newBegin * arcSize;
+				endRotationAngle = newEnd * arcSize;
+			}
+
+			let currentAngle = startAngle + rotationAngle;
+			let endAngle = startAngle + endRotationAngle;
+
+			return { begin: currentAngle, end: endAngle, color: obj.color };
+		});
+		return newArray;
+	}
+
+	drawSubranges(subranges) {
+		const svg = this.getContainerSVG();
+		const radius = this.computeRadius();
+		const innerRadius = this.getInnerRadius();
+
+		const subrangeArc = arc()
+			.innerRadius(innerRadius - 10)
+			.outerRadius(radius + 10)
+			.startAngle(function (d: any) {
+				return d.begin;
+			})
+			.endAngle(function (d: any) {
+				return d.end;
+			});
+
+		const subRangeGroup = DOMUtils.appendOrSelect(svg, "g.subrange-group");
+
+		const subRange = subRangeGroup
+			.selectAll("path.subrange")
+			.data(subranges);
+
+		subRange
+			.enter()
+			.append("path")
+			.merge(subRange)
+			.attr("class", "subrange")
+			.attr("d", subrangeArc)
+			.attr("fill", (d) => d.color)
+			.attr("data", function (d) {
+				return d.begin;
+			});
 	}
 
 	getInnerRadius() {
