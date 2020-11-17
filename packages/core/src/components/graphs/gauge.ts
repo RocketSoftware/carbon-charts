@@ -485,16 +485,20 @@ export class Gauge extends Component {
 
 		const subRangeGroup = DOMUtils.appendOrSelect(
 			svg,
-			"path.subrange-path"
-		);
-		subRangeGroup.data(subranges);
+			"g.subrange-group");
+			
+		const subRange = subRangeGroup.selectAll('path.subrange').data(subranges);
 
-		subRangeGroup
+		subRange
 			.enter()
 			.append("path")
-			.merge(subRangeGroup)
+			.merge(subRange)
+			.attr("class", "subrange")
 			.attr("d", subrangeArc)
-			.attr("fill", (d) => d.color);
+			.attr("fill", (d) => d.color)
+			.attr("data", function (d) {
+				return d.begin; });
+
 	}
 
 	getInnerRadius() {
