@@ -282,14 +282,18 @@ export interface DonutChartOptions extends PieChartOptions {
 export interface MeterChartOptions extends BaseChartOptions {
 	meter?: {
 		height?: number;
-		title?: {
+		statusBar?: {
 			percentageIndicator?: {
 				/**
 				 * rendering of the percentage value relative to the dataset within title
 				 */
 				enabled?: boolean;
+				removePercentage?: boolean
 			};
 		};
+		min?: number;
+		max?: number;
+		subranges?: Array<Object>
 	};
 }
 

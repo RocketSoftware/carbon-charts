@@ -634,6 +634,12 @@ let allDemoGroups = [
 				data: meterDemos.meterData,
 				chartType: chartTypes.MeterChart,
 				isDemoExample: true
+			},
+			{
+				options: meterDemos.meterOptionsSubranges,
+				data: meterDemos.meterData,
+				chartType: chartTypes.MeterChart,
+				isDemoExample: true
 			}
 		]
 	},

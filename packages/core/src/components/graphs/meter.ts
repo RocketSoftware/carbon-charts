@@ -6,6 +6,7 @@ import { Tools } from "../../tools";
 // D3 Imports
 import { scaleLinear } from "d3-scale";
 import { Roles } from "../../interfaces";
+import { defaultMaxListeners } from "stream";
 
 export class Meter extends Component {
 	type = "meter";
@@ -16,14 +17,22 @@ export class Meter extends Component {
 		const options = this.model.getOptions();
 		const data = this.model.getDisplayData();
 		const status = this.model.getStatus();
-
 		const { width } = DOMUtils.getSVGElementSize(this.parent, {
 			useAttrs: true
 		});
 		const { groupMapsTo } = options.data;
 
+		const min = Tools.getProperty(options, "meter", "min");
+		const max = Tools.getProperty(options, "meter", "max");
+		const subranges = Tools.getProperty(options, "meter", "subranges");
+		
+		if (subranges != null){
+			this.drawSubrange();
+		}
+
 		// each meter has a scale for the value but no visual axis
-		const xScale = scaleLinear().domain([0, 100]).range([0, width]);
+		const xScale = scaleLinear().domain([min != null? min : 0,
+			max != null ? max : 100]).range([0, width]);
 
 		// draw the container to hold the value
 		DOMUtils.appendOrSelect(svg, "rect.container")
@@ -33,7 +42,7 @@ export class Meter extends Component {
 			.attr("height", Tools.getProperty(options, "meter", "height"));
 
 		// value larger than 100 will display as 100% on meter chart
-		const maximumBarWidth = data.value >= 100;
+		const maximumBarWidth = data.value >= (max != null ? max : 100);
 
 		// rect with the value binded
 		const value = svg.selectAll("rect.value").data([data]);
@@ -106,8 +115,69 @@ export class Meter extends Component {
 			.attr("aria-label", (d) => d);
 
 		peak.exit().remove();
+		
+		if (min != null && max != null) {
+			const minText = DOMUtils.appendOrSelect(svg, "text.minimum");
+			minText.data(min);
+			
+			minText.enter()
+			.append("text")
+			.attr("class", "minimum")
+			.merge(minText)
+			.text(min)
+			.attr("x", 0)
+			.attr("y", subranges != null? 30 : 20);
+
+			const maxText = DOMUtils.appendOrSelect(svg, "text.maximum");
+			maxText.data(max);
+			
+			maxText.enter()
+			.append("text")
+			.attr("class", "maximum")
+			.merge(maxText)
+			.text(max)
+			.attr("x", xScale(max) - maxText.node().getComputedTextLength())
+			.attr("y", subranges != null? 30 : 20);
+		}
 
 		// this forces the meter chart to only take up as much height as needed (if no height is provided)
 		this.services.domUtils.setSVGMaxHeight();
+	}
+
+	drawSubrange() {
+		const options = this.model.getOptions();
+		const subranges = Tools.getProperty(options, "meter", "subranges")
+		const min = Tools.getProperty(options, "meter", "min");
+		const max = Tools.getProperty(options, "meter", "max");
+		const data = this.model.getDisplayData();
+		const svg = this.getContainerSVG();
+		const { width } = DOMUtils.getSVGElementSize(this.parent, {
+			useAttrs: true
+		});
+
+
+		const xScale = scaleLinear().domain([min != null? min : 0,
+			max != null ? max : 100]).range([0, width]);
+		
+		const maximumBarWidth = data.value >= (max != null ? max : 100);
+		
+		const subrange = svg.selectAll("rect.subrange").data(subranges);
+		
+		subrange
+			.enter()
+			.append("rect")
+			.classed("subrange", true)
+			.merge(subrange)
+			.attr("x", (d) => xScale(d.begin))
+			.attr("y", 5)
+			.attr("height", Tools.getProperty(options, "meter", "height") + 5)
+			.attr("width", (d) =>
+				maximumBarWidth ? xScale(100) : xScale(d.end - d.begin)
+			)
+			.attr("fill", (d) => d.color)
+			// a11y
+			.attr("role", Roles.GRAPHICS_SYMBOL)
+			.attr("aria-roledescription", "value")
+			.attr("aria-label", (d) => d.value);
 	}
 }

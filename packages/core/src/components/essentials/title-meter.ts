@@ -113,6 +113,12 @@ export class MeterTitle extends Title {
 		// use the title's position to append the percentage to the end
 		const svg = this.getContainerSVG();
 		const title = DOMUtils.appendOrSelect(svg, "text.meter-title");
+		const removePercentSymbol = Tools.getProperty(
+			this.model.getOptions(),
+			"meter",
+			"statusBar",
+			"removePercentage"
+		);
 
 		// check if it is enabled
 		const data =
@@ -137,7 +143,7 @@ export class MeterTitle extends Title {
 			.append("text")
 			.classed("percent-value", true)
 			.merge(percentage)
-			.text((d) => `${d}%`)
+			.text((d) =>{ return `${d}` + (removePercentSymbol ? `` : `%`)})
 			.attr(
 				"x",
 				+title.attr("x") + title.node().getComputedTextLength() + offset
