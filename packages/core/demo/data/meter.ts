@@ -47,3 +47,21 @@ export const meterOptionsNoStatus = {
 	},
 	height: "100px"
 };
+
+export const meterOptionsSubranges = {
+	title: "Meter Chart - subranges",
+	meter: {
+		statusBar: {
+			percentageIndicator: {
+				removePercentage: true
+			}
+		},
+		min: 0,
+		max: 100,
+		subranges: [
+			{ begin: 85, end: 95, color: "orange" },
+			{ begin: 95, end: 100, color: "red" }
+		]
+	},
+	height: "100px"
+};
