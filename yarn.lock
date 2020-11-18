@@ -2483,17 +2483,6 @@
     lodash.debounce "^4.0.8"
     warning "^3.0.0"
 
-"@rocketsoftware/charts@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@rocketsoftware/charts/-/charts-0.0.3.tgz#5014f69c6c0ac6d5b2d36f70c2725ac05912a9fe"
-  integrity sha512-7bOOvnk56zNpqXwEMDYE16X16a6g6suVOSKKEIAh+CaGngiucDXt/+i40dUHR9NXIsLqx/vVV7YHUnAsEGdzdA==
-  dependencies:
-    "@carbon/utils-position" "1.1.1"
-    "@rocketsoftware/colors" "0.6.0"
-    date-fns "2.8.1"
-    lodash-es "4.17.15"
-    resize-observer-polyfill "1.5.0"
-
 "@rocketsoftware/colors@0.6.0", "@rocketsoftware/colors@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@rocketsoftware/colors/-/colors-0.6.0.tgz#ee0ae521e719d5a112c6767bffe87a7f31b36d72"

@@ -1,6 +1,6 @@
 {
 	"name": "@rocketsoftware/charts-react",
-	"version": "0.1.1",
+	"version": "1.0.0",
 	"description": "Carbon charting components for React",
 	"main": "./bundle.js",
 	"module": "./index.js",
@@ -46,7 +46,7 @@
 	},
 	"homepage": "https://github.com/carbon-design-system/carbon-charts#readme",
 	"dependencies": {
-		"@rocketsoftware/charts": "0.1.0"
+		"@rocketsoftware/charts": "1.0.0"
 	},
 	"peerDependencies": {
 		"react": "^16.6.3",

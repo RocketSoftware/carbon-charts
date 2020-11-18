@@ -117,6 +117,7 @@ export class MeterTitle extends Title {
 			this.model.getOptions(),
 			"meter",
 			"statusBar",
+			"percentageIndicator",
 			"removePercentage"
 		);
 

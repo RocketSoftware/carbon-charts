@@ -15,7 +15,7 @@
 		"clean": "rm -rf dist demo/bundle"
 	},
 	"dependencies": {
-		"@rocketsoftware/charts": "0.1.0",
+		"@rocketsoftware/charts": "1.0.0",
 		"vue": "2.5.21"
 	},
 	"devDependencies": {
