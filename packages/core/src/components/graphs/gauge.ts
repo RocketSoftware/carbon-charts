@@ -393,10 +393,7 @@ export class Gauge extends Component {
 
 		const numbersGroup = DOMUtils.appendOrSelect(svg, "g.guage-min-max");
 
-		const minGroup = DOMUtils.appendOrSelect(
-			numbersGroup,
-			"g.gauge-min"
-		);
+		const minGroup = DOMUtils.appendOrSelect(numbersGroup, "g.gauge-min");
 
 		const minNumber = DOMUtils.appendOrSelect(
 			minGroup,
@@ -412,13 +409,13 @@ export class Gauge extends Component {
 			.attr("text-anchor", "middle")
 			.style("font-size", `${minMaxFontSize(radius) / 1.5}px`)
 			.text((d) => `${numberFormatter(d)}`)
-			.attr("x", -innerRadius + arcWidth + (minNumber.node().getBBox().width/2))
+			.attr(
+				"x",
+				-innerRadius + arcWidth + minNumber.node().getBBox().width / 2
+			)
 			.attr("y", 0);
 
-		const maxGroup = DOMUtils.appendOrSelect(
-			numbersGroup,
-			"g.gauge-max"
-		);
+		const maxGroup = DOMUtils.appendOrSelect(numbersGroup, "g.gauge-max");
 
 		const maxNumber = DOMUtils.appendOrSelect(
 			maxGroup,
@@ -434,7 +431,10 @@ export class Gauge extends Component {
 			.attr("text-anchor", "middle")
 			.style("font-size", `${minMaxFontSize(radius) / 1.5}px`)
 			.text((d) => `${numberFormatter(d)}`)
-			.attr("x", innerRadius - arcWidth - (maxNumber.node().getBBox().width/2))
+			.attr(
+				"x",
+				innerRadius - arcWidth - maxNumber.node().getBBox().width / 2
+			)
 			.attr("y", 0);
 	}
 
