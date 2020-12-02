@@ -374,7 +374,8 @@ export class Gauge extends Component {
 	drawMinMax() {
 		const svg = this.getContainerSVG();
 		const radius = this.computeRadius();
-
+		const innerRadius = this.getInnerRadius();
+		const arcWidth = radius - innerRadius;
 		const options = this.model.getOptions();
 		const min = Tools.getProperty(options, "min");
 		const max = Tools.getProperty(options, "max");
@@ -395,7 +396,7 @@ export class Gauge extends Component {
 		const minGroup = DOMUtils.appendOrSelect(
 			numbersGroup,
 			"g.gauge-min"
-		).attr("transform", `translate(-150, 0)`);
+		);
 
 		const minNumber = DOMUtils.appendOrSelect(
 			minGroup,
@@ -410,12 +411,14 @@ export class Gauge extends Component {
 			.merge(minNumber)
 			.attr("text-anchor", "middle")
 			.style("font-size", `${minMaxFontSize(radius) / 1.5}px`)
-			.text((d) => `${numberFormatter(d)}`);
+			.text((d) => `${numberFormatter(d)}`)
+			.attr("x", -innerRadius + arcWidth + (minNumber.node().getBBox().width/2))
+			.attr("y", 0);
 
 		const maxGroup = DOMUtils.appendOrSelect(
 			numbersGroup,
 			"g.gauge-max"
-		).attr("transform", `translate(150, 0)`);
+		);
 
 		const maxNumber = DOMUtils.appendOrSelect(
 			maxGroup,
@@ -430,7 +433,9 @@ export class Gauge extends Component {
 			.merge(maxNumber)
 			.attr("text-anchor", "middle")
 			.style("font-size", `${minMaxFontSize(radius) / 1.5}px`)
-			.text((d) => `${numberFormatter(d)}`);
+			.text((d) => `${numberFormatter(d)}`)
+			.attr("x", innerRadius - arcWidth - (maxNumber.node().getBBox().width/2))
+			.attr("y", 0);
 	}
 
 	mapSubranges(array) {
@@ -482,7 +487,10 @@ export class Gauge extends Component {
 			.endAngle(function (d: any) {
 				return d.end;
 			});
-
+		console.log("INNER RADIUS");
+		console.log(innerRadius);
+		console.log("OUTER RADIUS");
+		console.log(radius);
 		const subRangeGroup = DOMUtils.appendOrSelect(svg, "g.subrange-group");
 
 		const subRange = subRangeGroup
