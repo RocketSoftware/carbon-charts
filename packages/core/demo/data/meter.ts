@@ -53,7 +53,8 @@ export const meterOptionsSubranges = {
 	meter: {
 		statusBar: {
 			percentageIndicator: {
-				removePercentage: true
+				removePercentage: true,
+				fontSize: "24px"
 			}
 		},
 		min: 0,
