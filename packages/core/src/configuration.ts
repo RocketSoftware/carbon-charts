@@ -340,7 +340,7 @@ const meterChart: MeterChartOptions = Tools.merge({}, chart, {
 			percentageIndicator: {
 				enabled: true,
 				removePercentage: false,
-				fontSize: "16px"
+				fontSize: "32px"
 			}
 		}
 	}
