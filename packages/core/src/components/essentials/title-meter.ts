@@ -32,6 +32,29 @@ export class MeterTitle extends Title {
 
 		// appends the associated percentage after title
 		this.appendPercentage();
+		const useValueColor = Tools.getProperty(
+			options,
+			"meter",
+			"statusBar",
+			"percentageIndicator",
+			"useValueColor"
+		);
+		const useStatusColor = Tools.getProperty(
+			options,
+			"meter",
+			"statusBar",
+			"percentageIndicator",
+			"useStatusColor"
+		);
+		if (useValueColor && useStatusColor != true) {
+			const percentage = DOMUtils.appendOrSelect(
+				svg,
+				"text.percent-value"
+			);
+			percentage.style("fill", () => {
+				return this.model.getFillColor(dataset[groupMapsTo]);
+			});
+		}
 
 		// if status ranges are provided (custom or default), display indicator
 		this.displayStatus();
@@ -108,6 +131,16 @@ export class MeterTitle extends Title {
 	 * Appends the associated percentage to the end of the title
 	 */
 	appendPercentage() {
+		const options = this.model.getOptions();
+		const status = this.model.getStatus();
+		const userProvidedScale = Tools.getProperty(options, "color", "scale");
+		const useStatusColor = Tools.getProperty(
+			options,
+			"meter",
+			"statusBar",
+			"percentageIndicator",
+			"useStatusColor"
+		);
 		const dataValue = this.model.getDisplayData().value;
 
 		// use the title's position to append the percentage to the end
@@ -147,6 +180,13 @@ export class MeterTitle extends Title {
 			.text((d) => {
 				return `${d}` + (removePercentSymbol ? `` : `%`);
 			})
+			.attr(
+				"class",
+				useStatusColor === true &&
+					(status != null || !userProvidedScale)
+					? `percent-value ${status}`
+					: "percent-value"
+			)
 			.attr(
 				"x",
 				+title.attr("x") + title.node().getComputedTextLength() + offset
