@@ -172,8 +172,8 @@ export class Meter extends Component {
 			.classed("subrange", true)
 			.merge(subrange)
 			.attr("x", (d) => xScale(d.begin))
-			.attr("y", 5)
-			.attr("height", Tools.getProperty(options, "meter", "height") + 5)
+			.attr("y", -5)
+			.attr("height", Tools.getProperty(options, "meter", "height") + 10)
 			.attr("width", (d) =>
 				maximumBarWidth ? xScale(100) : xScale(d.end - d.begin)
 			)
