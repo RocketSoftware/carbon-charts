@@ -14,6 +14,14 @@ export class MeterTitle extends Title {
 		const svg = this.getContainerSVG();
 		const { groupMapsTo } = options.data;
 
+		const valueFontSize = parseFloat(
+			getComputedStyle(
+				DOMUtils.appendOrSelect(svg, "text.percent-value").node()
+			).fontSize
+		)
+			.toString()
+			.replace(/[^0-9]/g, "");
+
 		// the title for a meter, is the label for that dataset
 		const title = svg
 			.selectAll("text.meter-title")
@@ -55,6 +63,8 @@ export class MeterTitle extends Title {
 				return this.model.getFillColor(dataset[groupMapsTo]);
 			});
 		}
+
+		title.attr("y", valueFontSize);
 
 		// if status ranges are provided (custom or default), display indicator
 		this.displayStatus();
@@ -154,6 +164,14 @@ export class MeterTitle extends Title {
 			"removePercentage"
 		);
 
+		const valueFontSize = Tools.getProperty(
+			this.model.getOptions(),
+			"meter",
+			"statusBar",
+			"percentageIndicator",
+			"fontSize"
+		);
+
 		// check if it is enabled
 		const data =
 			Tools.getProperty(
@@ -180,6 +198,7 @@ export class MeterTitle extends Title {
 			.text((d) => {
 				return `${d}` + (removePercentSymbol ? `` : `%`);
 			})
+			.style("font-size", valueFontSize)
 			.attr(
 				"class",
 				useStatusColor === true &&
