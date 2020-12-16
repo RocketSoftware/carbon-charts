@@ -23,6 +23,12 @@ export const meterOptionsWithStatus = {
 export const meterOptionsCustomColor = {
 	title: "Meter Chart - statuses and custom color",
 	meter: {
+		statusBar: {
+			percentageIndicator: {
+				useStatusColor: true,
+				useValueColor: true
+			}
+		},
 		peak: 70,
 		status: {
 			ranges: [
@@ -53,7 +59,8 @@ export const meterOptionsSubranges = {
 	meter: {
 		statusBar: {
 			percentageIndicator: {
-				removePercentage: true
+				removePercentage: true,
+				useValueColor: true
 			}
 		},
 		min: 0,

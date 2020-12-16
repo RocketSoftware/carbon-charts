@@ -2,6 +2,15 @@
 	text.meter-title,
 	text.percent-value {
 		fill: $text-01;
+		&.danger {
+			fill: $support-01;
+		}
+		&.warning {
+			fill: $support-03;
+		}
+		&.success {
+			fill: $support-02;
+		}
 	}
 
 	g.status-indicator {
