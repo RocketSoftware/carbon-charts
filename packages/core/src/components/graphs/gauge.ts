@@ -480,13 +480,13 @@ export class Gauge extends Component {
 	}
 
 	drawSubranges(subranges) {
+		const options = this.model.getOptions();
 		const svg = this.getContainerSVG();
 		const radius = this.computeRadius();
 		const innerRadius = this.getInnerRadius();
-		console.log("RADIUS");
-		console.log(radius);
-		console.log("INNER RADIUS");
-		console.log(innerRadius);
+		const min = Tools.getProperty(options, "min");
+		const max = Tools.getProperty(options, "max");
+
 		const subrangeArc = arc()
 			.innerRadius(innerRadius - 10)
 			.outerRadius(radius + 10)
@@ -519,6 +519,7 @@ export class Gauge extends Component {
 			.append("text")
 			.attr("class", "subrange-label-begin")
 			.merge(subRangeLabelBegin)
+			.style("fill", (d) => (d.beginLabel === min ? "#00000000" : ""))
 			.attr("transform", (d) => {
 				let rotAngle = (d.begin * 180) / Math.PI;
 				let marginValue = -innerRadius + 25;
@@ -543,6 +544,7 @@ export class Gauge extends Component {
 			.append("text")
 			.attr("class", "subrange-label-end")
 			.merge(subRangeLabelEnd)
+			.style("fill", (d) => (d.endLabel === max ? "#00000000" : ""))
 			.attr("transform", (d) => {
 				let rotAngle = (d.end * 180) / Math.PI;
 				let marginValue = -innerRadius + 25;
