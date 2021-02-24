@@ -130,6 +130,8 @@ export class Meter extends Component {
 				.attr("x", 0)
 				.attr("y", subranges != null ? 30 : 20);
 
+			minText.exit().remove();
+
 			const maxText = DOMUtils.appendOrSelect(svg, "text.maximum");
 			maxText.data(max);
 
@@ -139,8 +141,38 @@ export class Meter extends Component {
 				.attr("class", "maximum")
 				.merge(maxText)
 				.text(max)
-				.attr("x", xScale(max) - maxText.node().getComputedTextLength())
+				.attr("x", xScale(max) - 15)
 				.attr("y", subranges != null ? 30 : 20);
+
+			maxText.exit().remove();
+		}
+
+		if (subranges != null) {
+			const subrangeLabelBegin = svg
+				.selectAll("text.subrange-label-begin")
+				.data(subranges);
+
+			subrangeLabelBegin
+				.enter()
+				.append("text")
+				.merge(subrangeLabelBegin)
+				.attr("class", "subrange-label-begin")
+				.attr("x", (d) => xScale(d.begin) - 15)
+				.attr("y", 30)
+				.text((d) => d.begin);
+
+			const subrangeLabelEnd = svg
+				.selectAll("text.subrange-label-end")
+				.data(subranges);
+
+			subrangeLabelEnd
+				.enter()
+				.append("text")
+				.merge(subrangeLabelEnd)
+				.attr("class", "subrange-label-end")
+				.attr("x", (d) => xScale(d.end) - 15)
+				.attr("y", 30)
+				.text((d) => d.end);
 		}
 
 		// this forces the meter chart to only take up as much height as needed (if no height is provided)
@@ -164,7 +196,11 @@ export class Meter extends Component {
 
 		const maximumBarWidth = data.value >= (max != null ? max : 100);
 
-		const subrange = svg.selectAll("rect.subrange").data(subranges);
+		const subrangeGroup = DOMUtils.appendOrSelect(svg, "g.subrange-group");
+
+		const subrange = subrangeGroup
+			.selectAll("rect.subrange")
+			.data(subranges);
 
 		subrange
 			.enter()
@@ -180,7 +216,7 @@ export class Meter extends Component {
 			.attr("fill", (d) => d.color)
 			// a11y
 			.attr("role", Roles.GRAPHICS_SYMBOL)
-			.attr("aria-roledescription", "value")
+			.attr("aria-roledescription", "subrange")
 			.attr("aria-label", (d) => d.value);
 	}
 }

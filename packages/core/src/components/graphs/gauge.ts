@@ -446,7 +446,7 @@ export class Gauge extends Component {
 		const startAngle = this.getStartAngle();
 		const arcSize = this.getArcSize();
 
-		let newArray = array.map((obj) => {
+		let newArray = array.map((obj, i) => {
 			let rotationAngle;
 			let endRotationAngle;
 			if (min != null && max != null) {
@@ -468,15 +468,24 @@ export class Gauge extends Component {
 			let currentAngle = startAngle + rotationAngle;
 			let endAngle = startAngle + endRotationAngle;
 
-			return { begin: currentAngle, end: endAngle, color: obj.color };
+			return {
+				begin: currentAngle,
+				end: endAngle,
+				color: obj.color,
+				beginLabel: obj.begin,
+				endLabel: obj.end
+			};
 		});
 		return newArray;
 	}
 
 	drawSubranges(subranges) {
+		const options = this.model.getOptions();
 		const svg = this.getContainerSVG();
 		const radius = this.computeRadius();
 		const innerRadius = this.getInnerRadius();
+		const min = Tools.getProperty(options, "min");
+		const max = Tools.getProperty(options, "max");
 
 		const subrangeArc = arc()
 			.innerRadius(innerRadius - 10)
@@ -487,10 +496,6 @@ export class Gauge extends Component {
 			.endAngle(function (d: any) {
 				return d.end;
 			});
-		console.log("INNER RADIUS");
-		console.log(innerRadius);
-		console.log("OUTER RADIUS");
-		console.log(radius);
 		const subRangeGroup = DOMUtils.appendOrSelect(svg, "g.subrange-group");
 
 		const subRange = subRangeGroup
@@ -503,10 +508,57 @@ export class Gauge extends Component {
 			.merge(subRange)
 			.attr("class", "subrange")
 			.attr("d", subrangeArc)
-			.attr("fill", (d) => d.color)
-			.attr("data", function (d) {
-				return d.begin;
-			});
+			.attr("fill", (d) => d.color);
+
+		const subRangeLabelBegin = subRangeGroup
+			.selectAll("text.subrange-label-begin")
+			.data(subranges);
+
+		subRangeLabelBegin
+			.enter()
+			.append("text")
+			.attr("class", "subrange-label-begin")
+			.merge(subRangeLabelBegin)
+			.style("fill", (d) => (d.beginLabel === min ? "#00000000" : ""))
+			.attr("transform", (d) => {
+				let rotAngle = (d.begin * 180) / Math.PI;
+				let marginValue = -innerRadius + 25;
+				return (
+					"rotate(" +
+					rotAngle +
+					") translate(0, " +
+					marginValue +
+					") rotate(" +
+					-rotAngle +
+					")"
+				);
+			})
+			.text((d) => d.beginLabel);
+
+		const subRangeLabelEnd = subRangeGroup
+			.selectAll("text.subrange-label-end")
+			.data(subranges);
+
+		subRangeLabelEnd
+			.enter()
+			.append("text")
+			.attr("class", "subrange-label-end")
+			.merge(subRangeLabelEnd)
+			.style("fill", (d) => (d.endLabel === max ? "#00000000" : ""))
+			.attr("transform", (d) => {
+				let rotAngle = (d.end * 180) / Math.PI;
+				let marginValue = -innerRadius + 25;
+				return (
+					"rotate(" +
+					rotAngle +
+					") translate(0, " +
+					marginValue +
+					") rotate(" +
+					-rotAngle +
+					")"
+				);
+			})
+			.text((d) => d.endLabel);
 	}
 
 	getInnerRadius() {
