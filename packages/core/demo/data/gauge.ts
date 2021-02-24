@@ -15,7 +15,7 @@ export const gaugeOptionsSemi = {
 	max: 100,
 	subranges: [
 		{
-			begin: 0,
+			begin: 10,
 			end: 20,
 			color: "green"
 		},
