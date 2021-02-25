@@ -1,69 +1,69 @@
 export const gaugeData = [
-	{ group: "value", value: 42 },
-	{ group: "delta", value: -13.37 }
+	{ group: 'value', value: 42 },
+	{ group: 'delta', value: -13.37 },
 ];
 
-export const gaugeDataNoDelta = [{ group: "value", value: 67 }];
+export const gaugeDataNoDelta = [{ group: 'value', value: 67 }];
 
 // guage no custom color
 export const gaugeOptionsSemi = {
-	title: "Gauge semicircular -- danger status",
+	title: 'Gauge semicircular -- danger status',
 	resizable: true,
-	height: "250px",
-	width: "100%",
+	height: '250px',
+	width: '100%',
 	min: 0,
 	max: 100,
 	subranges: [
 		{
 			begin: 0,
 			end: 20,
-			color: "green"
+			color: 'green',
 		},
 		{
 			begin: 20,
 			end: 40,
-			color: "yellow"
+			color: 'yellow',
 		},
 		{
 			begin: 40,
 			end: 60,
-			color: "orange"
+			color: 'orange',
 		},
 		{
 			begin: 60,
 			end: 65,
-			color: "red"
-		}
+			color: 'red',
+		},
 	],
 	disablePercentage: true,
 	gauge: {
-		type: "semi",
-		status: "danger"
-	}
+		type: 'semi',
+		status: 'danger',
+	},
 };
 
 // guage with custom color
 export const gaugeOptionsCircular = {
-	title: "Gauge circular -- warning status",
+	title: 'Gauge circular -- warning status',
 	resizable: true,
-	height: "250px",
+	height: '250px',
 	gauge: {
-		status: "warning",
-		type: "full"
-	}
+		status: 'warning',
+		type: 'full',
+	},
 };
 
 // guage with custom color
 export const gaugeOptionsCircularNoDelta = {
-	title: "Gauge circular without delta",
+	title: 'Gauge circular without delta -- custom color',
 	resizable: true,
-	height: "250px",
+	height: '250px',
 	gauge: {
-		type: "full"
+		type: 'full',
 	},
 	color: {
 		scale: {
-			value: "#891EE8"
-		}
-	}
+			value: '#FFE5B4',
+		},
+	},
 };
