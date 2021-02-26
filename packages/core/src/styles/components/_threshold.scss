@@ -7,7 +7,7 @@
 		pointer-events: none;
 	}
 
-	&.active line.threshold-line {
+	line.threshold-line.active {
 		stroke-width: 2;
 	}
 
@@ -33,7 +33,7 @@
 	position: absolute;
 	word-wrap: break-word;
 	z-index: 1059;
-	font-family: carbon--font-family("sans-condensed");
+	font-family: carbon--font-family('sans-condensed');
 
 	color: $text-01;
 	line-height: 16px;

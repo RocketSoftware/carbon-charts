@@ -9,8 +9,8 @@ echo "linking local packages (non-lerna)"
 rm -f node_modules/@rocketsoftware/charts
 ln -sf $(pwd)/../core/dist node_modules/@rocketsoftware/charts
 
-echo "compiling js to js"
-babel src --out-dir dist
+echo "compiling ts to js"
+tsc
 
 echo "bundling..."
 rollup -c

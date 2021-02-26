@@ -16,6 +16,7 @@
 	},
 	"dependencies": {
 		"@rocketsoftware/charts": "1.0.0",
+		"@carbon/telemetry": "0.0.0-alpha.6",
 		"vue": "2.5.21"
 	},
 	"devDependencies": {

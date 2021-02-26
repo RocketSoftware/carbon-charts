@@ -1,14 +1,14 @@
 // Internal Imports
-import { Component } from "../component";
-import { AxisPositions, ScaleTypes, AxesOptions } from "../../interfaces";
-import { Axis } from "./axis";
-import { Tools } from "../../tools";
-import { DOMUtils } from "../../services";
-import { Threshold } from "../essentials/threshold";
-import { Events } from "./../../interfaces";
+import { Component } from '../component';
+import { AxisPositions, ScaleTypes, AxesOptions } from '../../interfaces';
+import { Axis } from './axis';
+import { Tools } from '../../tools';
+import { DOMUtils } from '../../services';
+import { Threshold } from '../essentials/threshold';
+import { Events } from './../../interfaces';
 
 export class TwoDimensionalAxes extends Component {
-	type = "2D-axes";
+	type = '2D-axes';
 
 	children: any = {};
 
@@ -18,13 +18,13 @@ export class TwoDimensionalAxes extends Component {
 		top: 0,
 		right: 0,
 		bottom: 0,
-		left: 0
+		left: 0,
 	};
 
 	render(animate = false) {
 		const axes = {};
 		const axisPositions = Object.keys(AxisPositions);
-		const axesOptions = Tools.getProperty(this.model.getOptions(), "axes");
+		const axesOptions = Tools.getProperty(this.getOptions(), 'axes');
 
 		axisPositions.forEach((axisPosition) => {
 			const axisOptions = axesOptions[AxisPositions[axisPosition]];
@@ -45,7 +45,7 @@ export class TwoDimensionalAxes extends Component {
 				const axisComponent = new Axis(this.model, this.services, {
 					position: axisPosition,
 					axes: this.configs.axes,
-					margins: this.margins
+					margins: this.margins,
 				});
 
 				// Set model, services & parent for the new axis component
@@ -76,7 +76,7 @@ export class TwoDimensionalAxes extends Component {
 			const invisibleAxisRef = child.getInvisibleAxisRef();
 			const {
 				width,
-				height
+				height,
 			} = DOMUtils.getSVGElementSize(invisibleAxisRef, { useBBox: true });
 
 			let offset;
@@ -84,8 +84,15 @@ export class TwoDimensionalAxes extends Component {
 				offset = 0;
 			} else {
 				offset = DOMUtils.getSVGElementSize(child.getTitleRef(), {
-					useBBox: true
+					useBBox: true,
 				}).height;
+
+				if (
+					axisPosition === AxisPositions.LEFT ||
+					axisPosition === AxisPositions.RIGHT
+				) {
+					offset += 5;
+				}
 			}
 
 			switch (axisPosition) {
@@ -102,9 +109,6 @@ export class TwoDimensionalAxes extends Component {
 					margins.right = width + offset;
 					break;
 			}
-
-			// Add thresholds
-			this.addAxisThresholds(animate, axisPosition);
 		});
 
 		// If the new margins are different than the existing ones
@@ -125,31 +129,6 @@ export class TwoDimensionalAxes extends Component {
 			});
 
 			this.render(true);
-		}
-	}
-
-	addAxisThresholds(animate, axisPosition) {
-		const axesOptions = Tools.getProperty(
-			this.model.getOptions(),
-			"axes",
-			axisPosition
-		);
-		const { thresholds } = axesOptions;
-
-		if (thresholds) {
-			thresholds.forEach((thresholdConfig, i) => {
-				const thresholdComponent = new Threshold(
-					this.model,
-					this.services,
-					{ ...thresholdConfig, axisPosition, index: i }
-				);
-				this.thresholds.push(thresholdComponent);
-			});
-
-			this.thresholds.forEach((threshold) => {
-				threshold.setParent(this.parent);
-				threshold.render(animate);
-			});
 		}
 	}
 }
