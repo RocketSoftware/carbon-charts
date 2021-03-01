@@ -50,8 +50,8 @@
 	},
 	"homepage": "https://github.com/carbon-design-system/carbon-charts#readme",
 	"dependencies": {
-		"@rocketsoftware/charts": "1.0.0",
-		"@carbon/telemetry": "0.0.0-alpha.6"
+		"@carbon/telemetry": "0.0.0-alpha.6",
+		"@rocketsoftware/charts": "1.1.0"
 	},
 	"peerDependencies": {
 		"carbon-components": "^10.5.x",

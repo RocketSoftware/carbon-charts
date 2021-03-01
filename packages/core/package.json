@@ -1,6 +1,6 @@
 {
 	"name": "@rocketsoftware/charts",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Carbon charting components",
 	"main": "./bundle.js",
 	"module": "./index.js",
@@ -48,9 +48,9 @@
 	"author": "IBM",
 	"license": "Apache-2.0",
 	"dependencies": {
-		"@rocketsoftware/colors": "0.6.0",
 		"@carbon/telemetry": "0.0.0-alpha.6",
 		"@carbon/utils-position": "1.1.1",
+		"@rocketsoftware/colors": "0.6.0",
 		"date-fns": "2.8.1",
 		"lodash-es": "4.17.15",
 		"resize-observer-polyfill": "1.5.0"
@@ -59,8 +59,9 @@
 		"d3": ">=5.0.0 <=5.14.2"
 	},
 	"devDependencies": {
-		"@rocketsoftware/elements": "0.6.0",
 		"@carbon/import-once": "10.3.0",
+		"@rocketsoftware/carbon-components": "0.6.0",
+		"@rocketsoftware/elements": "0.6.0",
 		"@rocketsoftware/layout": "0.6.0",
 		"@rocketsoftware/motion": "0.6.0",
 		"@rocketsoftware/themes": "0.6.0",
@@ -77,7 +78,6 @@
 		"babel-core": "6.26.0",
 		"babel-loader": "7.1.2",
 		"babel-polyfill": "6.26.0",
-		"@rocketsoftware/carbon-components": "0.6.0",
 		"codesandbox": "2.1.11",
 		"concurrently": "5.1.0",
 		"copy-webpack-plugin": "4.5.2",
