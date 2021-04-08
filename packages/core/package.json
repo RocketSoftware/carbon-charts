@@ -1,6 +1,6 @@
 {
 	"name": "@rocketsoftware/charts",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Carbon charting components",
 	"main": "./bundle.js",
 	"module": "./index.js",

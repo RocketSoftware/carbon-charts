@@ -291,6 +291,7 @@ export interface GaugeChartOptions extends BaseChartOptions {
 		min?: number;
 		max?: number;
 		disablePercentage?: Boolean;
+		showPercentageSymbol?: Boolean;
 		status?: Statuses;
 		deltaFontSize?: Function;
 		minMaxFontSize?: Function;

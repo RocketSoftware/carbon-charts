@@ -73,11 +73,13 @@ export const grid: GridOptions = {
 		// set enable to false will not draw grid and stroke of grid backdrop
 		enabled: true,
 		numberOfTicks: 15,
+		alignWithAxisTicks: false
 	},
 	y: {
 		// set enable to false will not draw grid and stroke of grid backdrop
 		enabled: true,
 		numberOfTicks: 5,
+		alignWithAxisTicks: false
 	},
 };
 
@@ -95,7 +97,6 @@ export const ruler: RulerOptions = {
 export const baseTooltip: TooltipOptions = {
 	enabled: true,
 	showTotal: true,
-	valueFormatter: (d) => d.toLocaleString(),
 	truncation: standardTruncationOptions,
 };
 
@@ -337,6 +338,7 @@ const gaugeChart: GaugeChartOptions = Tools.merge({}, chart, {
 			size: (radius) => radius / 8,
 			enabled: true,
 		},
+		showPercentageSymbol: true,
 		status: null,
 		numberSpacing: 10,
 		minMaxFontSize: (radius) => radius / 10,
