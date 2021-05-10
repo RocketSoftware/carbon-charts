@@ -1,4 +1,4 @@
-<!--alex disable color white -->
+<!-- alex disable white -->
 
 # @rocketsoftware/themes
 
@@ -110,11 +110,12 @@ import {
 } from '@carbon/themes';
 ```
 
-## 📖 API Documentation
+## 📚 Examples
 
-If you're looking for `@rocketsoftware/themes` API documentation, check out:
+If you're looking for more examples on how to use `@rocketsoftware/themes`, we
+have some examples that you can check out:
 
-- [Sass](./docs/sass.md)
+- [sass-modules](./examples/sass-modules)
 
 ## 🙌 Contributing
 

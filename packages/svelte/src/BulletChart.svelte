@@ -2,7 +2,7 @@
   export let chart = null;
   export let ref = null;
 
-  import { BulletChart } from "@carbon/charts";
+  import { BulletChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

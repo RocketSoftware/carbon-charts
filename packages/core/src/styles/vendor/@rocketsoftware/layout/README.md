@@ -1,7 +1,6 @@
 # @rocketsoftware/layout
 
-> Layout helpers for digital and software products using the Carbon Design
-> System
+> Layout helpers
 
 ## Getting started
 
@@ -40,12 +39,6 @@ checkout the [`@carbon/grid`](../grid) package.
 `@carbon/layout` provides the above features in both Sass and JavaScript. If
 you're looking for support in a different language, feel free to file an issue
 proposing the new addition!
-
-## 📖 API Documentation
-
-If you're looking for `@rocketsoftware/layout` API documentation, check out:
-
-- [Sass](./docs/sass.md)
 
 ## 🙌 Contributing
 

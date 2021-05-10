@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { BulletChart } from "@carbon/charts";
+import { BulletChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `BulletChart` in carbon charts library

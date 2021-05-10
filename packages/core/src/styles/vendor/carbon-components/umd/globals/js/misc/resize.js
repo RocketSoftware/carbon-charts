@@ -25,9 +25,7 @@
    */
   // mdn resize function
 
-  var optimizedResize =
-  /* #__PURE__ */
-  function optimizedResize() {
+  var optimizedResize = /* #__PURE__ */function optimizedResize() {
     var callbacks = [];
     var running = false; // run the actual callbacks
 

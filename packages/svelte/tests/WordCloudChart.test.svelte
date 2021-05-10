@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { WordCloudChart } from '../types';
-	import type { WordCloudChart as WC } from '@carbon/charts';
+	import type { WordCloudChart as WC } from '@rocketsoftware/charts';
 	import {
 		wordCloudData as data,
 		wordCloudOptions,
-	} from '@carbon/charts/demo/data';
+	} from '@rocketsoftware/charts/demo/data';
 
 	let chart: WC = null;
 	let ref = null;

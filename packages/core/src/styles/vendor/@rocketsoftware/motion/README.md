@@ -1,7 +1,6 @@
 # @rocketsoftware/motion
 
-> Motion helpers for digital and software products using the Carbon Design
-> System
+> Motion helpers
 
 ## Getting started
 
@@ -68,12 +67,6 @@ import { easings, motion } from '@carbon/motion';
 
 motion('standard', 'productive'); // Returns a string `cubic-bezier()` function
 ```
-
-## 📖 API Documentation
-
-If you're looking for `@rocketsoftware/motion` API documentation, check out:
-
-- [Sass](./docs/sass.md)
 
 ## 🙌 Contributing
 

@@ -1,4 +1,6 @@
 function _typeof(obj) {
+  "@babel/helpers - typeof";
+
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function _typeof(obj) {
       return typeof obj;
@@ -34,22 +36,6 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
 function _get(target, property, receiver) {
   if (typeof Reflect !== "undefined" && Reflect.get) {
     _get = Reflect.get;
@@ -80,13 +66,6 @@ function _superPropBase(object, property) {
   return object;
 }
 
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -111,16 +90,71 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (_typeof(call) === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
 import NavigationMenuPanel from './navigation-menu-panel';
 import on from '../../globals/js/misc/on';
 import settings from '../../globals/js/settings';
 import onFocusOutByKeyboard from '../../globals/js/misc/on-focus-by-keyboard';
 var seq = 0;
 
-var ProductSwitcher =
-/*#__PURE__*/
-function (_NavigationMenuPanel) {
+var ProductSwitcher = /*#__PURE__*/function (_NavigationMenuPanel) {
   _inherits(ProductSwitcher, _NavigationMenuPanel);
+
+  var _super = _createSuper(ProductSwitcher);
   /**
    * A navigation menu.
    * @extends NavigationMenuPanel
@@ -140,7 +174,7 @@ function (_NavigationMenuPanel) {
 
     _classCallCheck(this, ProductSwitcher);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ProductSwitcher).call(this, element, options));
+    _this = _super.call(this, element, options);
     _this.current = '';
     _this.triggerButtonIds = new Set();
 
@@ -252,7 +286,7 @@ function (_NavigationMenuPanel) {
 
   }], [{
     key: "options",
-
+    get:
     /**
      * The component options.
      * If `options` is specified in the constructor,
@@ -268,7 +302,7 @@ function (_NavigationMenuPanel) {
      * @property {string[]} initEventNames The events that the component
      * will handles
      */
-    get: function get() {
+    function get() {
       var prefix = settings.prefix;
       return Object.assign(Object.create(NavigationMenuPanel.options), {
         selectorInit: '[data-product-switcher]',

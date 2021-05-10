@@ -1,3 +1,19 @@
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
     define(["exports", "../../globals/js/settings", "../../globals/js/misc/event-matches", "../../globals/js/misc/mixin", "../../globals/js/mixins/create-component", "../../globals/js/mixins/init-component-by-search", "../../globals/js/mixins/evented-show-hide-state", "../../globals/js/mixins/handles", "../floating-menu/floating-menu", "../../globals/js/misc/get-launching-details", "../../globals/js/misc/on"], factory);
@@ -86,40 +102,39 @@
     };
   }
 
-  function _typeof(obj) {
-    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-      _typeof = function _typeof(obj) {
-        return typeof obj;
-      };
-    } else {
-      _typeof = function _typeof(obj) {
-        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-      };
-    }
-
-    return _typeof(obj);
-  }
-
   function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
   function _nonIterableSpread() {
-    throw new TypeError("Invalid attempt to spread non-iterable instance");
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
   }
 
   function _iterableToArray(iter) {
-    if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+    if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
   }
 
   function _arrayWithoutHoles(arr) {
-    if (Array.isArray(arr)) {
-      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
-        arr2[i] = arr[i];
-      }
+    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+  }
 
-      return arr2;
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+
+    for (var i = 0, arr2 = new Array(len); i < len; i++) {
+      arr2[i] = arr[i];
     }
+
+    return arr2;
   }
 
   function _classCallCheck(instance, Constructor) {
@@ -142,29 +157,6 @@
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
     return Constructor;
-  }
-
-  function _possibleConstructorReturn(self, call) {
-    if (call && (_typeof(call) === "object" || typeof call === "function")) {
-      return call;
-    }
-
-    return _assertThisInitialized(self);
-  }
-
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-    }
-
-    return self;
-  }
-
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
   }
 
   function _inherits(subClass, superClass) {
@@ -191,6 +183,61 @@
     return _setPrototypeOf(o, p);
   }
 
+  function _createSuper(Derived) {
+    var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+    return function _createSuperInternal() {
+      var Super = _getPrototypeOf(Derived),
+          result;
+
+      if (hasNativeReflectConstruct) {
+        var NewTarget = _getPrototypeOf(this).constructor;
+
+        result = Reflect.construct(Super, arguments, NewTarget);
+      } else {
+        result = Super.apply(this, arguments);
+      }
+
+      return _possibleConstructorReturn(this, result);
+    };
+  }
+
+  function _possibleConstructorReturn(self, call) {
+    if (call && (_typeof(call) === "object" || typeof call === "function")) {
+      return call;
+    }
+
+    return _assertThisInitialized(self);
+  }
+
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return self;
+  }
+
+  function _isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+
+    try {
+      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function _getPrototypeOf(o) {
+    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+      return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _getPrototypeOf(o);
+  }
+
   function _defineProperty(obj, key, value) {
     if (key in obj) {
       Object.defineProperty(obj, key, {
@@ -211,9 +258,7 @@
    */
 
 
-  var triggerButtonPositionProps =
-  /* #__PURE__ */
-  function () {
+  var triggerButtonPositionProps = /* #__PURE__ */function () {
     var _ref;
 
     return _ref = {}, _defineProperty(_ref, _floatingMenu.DIRECTION_TOP, 'bottom'), _defineProperty(_ref, _floatingMenu.DIRECTION_BOTTOM, 'top'), _defineProperty(_ref, _floatingMenu.DIRECTION_LEFT, 'left'), _defineProperty(_ref, _floatingMenu.DIRECTION_RIGHT, 'right'), _ref;
@@ -224,9 +269,7 @@
    */
 
 
-  var triggerButtonPositionFactors =
-  /* #__PURE__ */
-  function () {
+  var triggerButtonPositionFactors = /* #__PURE__ */function () {
     var _ref2;
 
     return _ref2 = {}, _defineProperty(_ref2, _floatingMenu.DIRECTION_TOP, -2), _defineProperty(_ref2, _floatingMenu.DIRECTION_BOTTOM, -1), _defineProperty(_ref2, _floatingMenu.DIRECTION_LEFT, -2), _defineProperty(_ref2, _floatingMenu.DIRECTION_RIGHT, -1), _ref2;
@@ -280,10 +323,10 @@
 
   _exports.getMenuOffset = getMenuOffset;
 
-  var OverflowMenu =
-  /*#__PURE__*/
-  function (_mixin) {
+  var OverflowMenu = /*#__PURE__*/function (_mixin) {
     _inherits(OverflowMenu, _mixin);
+
+    var _super = _createSuper(OverflowMenu);
     /**
      * Overflow menu.
      * @extends CreateComponent
@@ -306,7 +349,7 @@
 
       _classCallCheck(this, OverflowMenu);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(OverflowMenu).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this.getCurrentNavigation = function () {
         var focused = _this.element.ownerDocument.activeElement;
@@ -446,13 +489,13 @@
 
     }, {
       key: "_handleKeyPress",
-
+      value:
       /**
        * Handles key press on document.
        * @param {Event} event The triggering event.
        * @private
        */
-      value: function _handleKeyPress(event) {
+      function _handleKeyPress(event) {
         var _this3 = this;
 
         var key = event.which;

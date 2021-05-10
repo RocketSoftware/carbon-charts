@@ -8,6 +8,7 @@
 // @import '../../globals/scss/css--typography';
 
 @include exports('cloud-resource-header') {
+  /* stylelint-disable declaration-empty-line-before */
   .#{$prefix}--resource-header {
     width: 100%;
     background-color: $ui-02;
@@ -56,11 +57,9 @@
   .#{$prefix}--resource-header__title {
     display: inline-flex;
     align-items: center;
-  }
-
-  .#{$prefix}--resource-header__title {
     @include type-style('productive-heading-04');
     color: $text-02;
+
     .#{$prefix}--resource-header__status-item {
       margin-left: 0.5rem;
     }
@@ -70,6 +69,7 @@
     @include type-style('body-short-01');
     color: $text-01;
     padding-top: $spacing-04;
+
     span {
       font-size: 0.75rem;
       color: $text-01;
@@ -90,10 +90,6 @@
   .#{$prefix}--resource-header__status {
     display: flex;
     margin-bottom: rem(8px);
-  }
-
-  .#{$prefix}--resource-header__status-item {
-    margin-right: rem(8px);
   }
 
   .#{$prefix}--resource-header__actions {
@@ -127,10 +123,11 @@
   .#{$prefix}--resource-header__status-item {
     font-size: 0.875rem;
     color: $text-02;
+    margin-right: rem(8px);
     font-weight: 600;
     position: relative;
 
-    &:before {
+    &::before {
       content: '';
       display: inline-block;
       margin-right: rem(4px);

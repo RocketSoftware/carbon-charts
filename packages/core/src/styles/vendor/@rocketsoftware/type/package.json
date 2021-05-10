@@ -1,12 +1,16 @@
 {
   "name": "@rocketsoftware/type",
   "description": "Typography for digital and software products using the Carbon Design System",
-  "version": "0.6.0",
+  "version": "0.8.0",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "repository": "https://github.com/RocketSoftware/carbon/tree/master/packages/type",
-  "bugs": "https://github.com/RocketSoftware/carbon/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carbon-design-system/carbon.git",
+    "directory": "packages/type"
+  },
+  "bugs": "https://github.com/carbon-design-system/carbon/issues",
   "files": [
     "es",
     "lib",
@@ -22,22 +26,23 @@
     "carbon-elements",
     "carbon-design-system",
     "components",
-    "react"
+    "react",
+    "ibm"
   ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "yarn clean && bundler bundle src/index.js --name CarbonType && bundler sassdoc \"scss/**/*.scss\" -i \"**/{_inlined,vendor}**\" && bundler inline && bundler check \"scss/*.scss\"",
+    "build": "yarn clean && carbon-cli bundle src/index.js --name CarbonType && carbon-cli inline && carbon-cli check \"scss/*.scss\"",
     "clean": "rimraf css es lib umd scss/_inlined scss/vendor"
   },
   "dependencies": {
-    "@carbon/import-once": "10.3.0",
-    "@rocketsoftware/layout": "^0.6.0"
+    "@carbon/import-once": "^10.6.0",
+    "@rocketsoftware/layout": "^0.8.0"
   },
   "devDependencies": {
-    "@carbon/bundler": "^10.7.0",
-    "@carbon/test-utils": "^10.8.2",
+    "@carbon/cli": "^10.20.0",
+    "@carbon/test-utils": "^10.15.0",
     "change-case": "^4.1.1",
     "rimraf": "^3.0.0"
   },
@@ -47,5 +52,5 @@
     "sassDir": "scss",
     "needs": "^1.3.0"
   },
-  "gitHead": "866e4770171bf4be9f60bd83122375763108ecea"
+  "gitHead": "99689b74301cdc2c0adb67b5f6ccd71a6bc08868"
 }

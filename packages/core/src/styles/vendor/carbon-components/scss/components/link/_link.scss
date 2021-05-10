@@ -24,10 +24,11 @@
   .#{$prefix}--link {
     @include reset;
     @include type-style('body-short-01');
+
     color: $link-01;
     text-decoration: none;
     outline: none;
-    transition: $duration--fast-01 motion(standard, productive);
+    transition: color $duration--fast-01 motion(standard, productive);
 
     &:hover {
       color: $hover-primary-text;
@@ -45,13 +46,6 @@
       @include focus-outline;
     }
 
-    &:not([href]):not(button) {
-      color: $disabled-02;
-      cursor: not-allowed;
-      pointer-events: none;
-      touch-action: none;
-    }
-
     &:visited {
       color: $link-01;
     }
@@ -61,12 +55,15 @@
     }
   }
 
-  .#{$prefix}--link--disabled {
+  .#{$prefix}--link--disabled,
+  .#{$prefix}--link--disabled:hover {
     @include reset;
     @include type-style('body-short-01');
+
     display: inline;
     color: $disabled-02;
     font-weight: 400;
+    text-decoration: none;
     cursor: not-allowed;
   }
 
@@ -81,14 +78,7 @@
   .#{$prefix}--link.#{$prefix}--link--inline {
     text-decoration: underline;
 
-    &:hover {
-      color: $hover-primary-text;
-    }
-
-    &:focus {
-      text-decoration: none;
-    }
-
+    &:focus,
     &:visited {
       text-decoration: none;
     }
@@ -96,6 +86,14 @@
 
   .#{$prefix}--link--disabled.#{$prefix}--link--inline {
     text-decoration: underline;
+  }
+
+  .#{$prefix}--link--sm {
+    @include type-style('helper-text-01');
+  }
+
+  .#{$prefix}--link--lg {
+    @include type-style('body-short-02');
   }
 }
 

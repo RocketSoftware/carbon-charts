@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { WordCloudChart } from "@carbon/charts";
+import { WordCloudChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `WordCloudChart` in carbon charts library

@@ -1,12 +1,16 @@
 {
   "name": "@rocketsoftware/elements",
   "description": "A collection of design elements in code for the IBM Design Language",
-  "version": "0.6.0",
+  "version": "0.8.0",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "repository": "https://github.com/RocketSoftware/carbon/tree/master/packages/elements",
-  "bugs": "https://github.com/RocketSoftware/carbon/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carbon-design-system/carbon.git",
+    "directory": "packages/elements"
+  },
+  "bugs": "https://github.com/carbon-design-system/carbon/issues",
   "files": [
     "es",
     "lib",
@@ -21,31 +25,32 @@
     "carbon-elements",
     "carbon-design-system",
     "components",
-    "react"
+    "react",
+    "ibm"
   ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "yarn clean && bundler bundle src/index.js --name CarbonElements && node tasks/build.js && bundler check \"scss/*.scss\" && bundler sassdoc \"scss/**/*.scss\" -i \"**/{_inlined,vendor}/**\"",
+    "build": "yarn clean && carbon-cli bundle src/index.js --name CarbonElements && node tasks/build.js && carbon-cli check \"scss/*.scss\"",
     "clean": "rimraf es lib umd && node tasks/clean.js"
   },
   "dependencies": {
-    "@carbon/import-once": "10.3.0",
-    "@rocketsoftware/colors": "^0.6.0",
-    "@rocketsoftware/grid": "^0.6.0",
-    "@rocketsoftware/icons": "^0.6.0",
-    "@rocketsoftware/layout": "^0.6.0",
-    "@rocketsoftware/motion": "^0.6.0",
-    "@rocketsoftware/themes": "^0.6.0",
-    "@rocketsoftware/type": "^0.6.0"
+    "@carbon/import-once": "^10.6.0",
+    "@rocketsoftware/colors": "^0.8.0",
+    "@rocketsoftware/grid": "^0.8.0",
+    "@rocketsoftware/icons": "^0.8.0",
+    "@rocketsoftware/layout": "^0.8.0",
+    "@rocketsoftware/motion": "^0.8.0",
+    "@rocketsoftware/themes": "^0.8.0",
+    "@rocketsoftware/type": "^0.8.0"
   },
   "devDependencies": {
-    "@carbon/bundler": "^10.7.0",
+    "@carbon/cli": "^10.20.0",
     "fs-extra": "^8.1.0",
     "klaw-sync": "^6.0.0",
     "replace-in-file": "^3.4.2",
     "rimraf": "^3.0.0"
   },
-  "gitHead": "866e4770171bf4be9f60bd83122375763108ecea"
+  "gitHead": "99689b74301cdc2c0adb67b5f6ccd71a6bc08868"
 }

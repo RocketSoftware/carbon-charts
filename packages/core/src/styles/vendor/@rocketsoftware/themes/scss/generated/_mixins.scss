@@ -58,6 +58,7 @@
   $icon-02: map-get($theme, 'icon-02') !global;
   $icon-03: map-get($theme, 'icon-03') !global;
   $link-01: map-get($theme, 'link-01') !global;
+  $link-02: map-get($theme, 'link-02') !global;
   $inverse-link: map-get($theme, 'inverse-link') !global;
   $field-01: map-get($theme, 'field-01') !global;
   $field-02: map-get($theme, 'field-02') !global;
@@ -72,7 +73,8 @@
   $inverse-support-03: map-get($theme, 'inverse-support-03') !global;
   $inverse-support-04: map-get($theme, 'inverse-support-04') !global;
   $overlay-01: map-get($theme, 'overlay-01') !global;
-  $danger: map-get($theme, 'danger') !global;
+  $danger-01: map-get($theme, 'danger-01') !global;
+  $danger-02: map-get($theme, 'danger-02') !global;
   $focus: map-get($theme, 'focus') !global;
   $inverse-focus-ui: map-get($theme, 'inverse-focus-ui') !global;
   $hover-primary: map-get($theme, 'hover-primary') !global;
@@ -83,10 +85,12 @@
   $hover-tertiary: map-get($theme, 'hover-tertiary') !global;
   $active-tertiary: map-get($theme, 'active-tertiary') !global;
   $hover-ui: map-get($theme, 'hover-ui') !global;
+  $hover-light-ui: map-get($theme, 'hover-light-ui') !global;
+  $hover-selected-ui: map-get($theme, 'hover-selected-ui') !global;
   $active-ui: map-get($theme, 'active-ui') !global;
+  $active-light-ui: map-get($theme, 'active-light-ui') !global;
   $selected-ui: map-get($theme, 'selected-ui') !global;
   $selected-light-ui: map-get($theme, 'selected-light-ui') !global;
-  $hover-selected-ui: map-get($theme, 'hover-selected-ui') !global;
   $inverse-hover-ui: map-get($theme, 'inverse-hover-ui') !global;
   $hover-danger: map-get($theme, 'hover-danger') !global;
   $active-danger: map-get($theme, 'active-danger') !global;
@@ -97,6 +101,7 @@
   $disabled-03: map-get($theme, 'disabled-03') !global;
   $highlight: map-get($theme, 'highlight') !global;
   $decorative-01: map-get($theme, 'decorative-01') !global;
+  $button-separator: map-get($theme, 'button-separator') !global;
   $skeleton-01: map-get($theme, 'skeleton-01') !global;
   $skeleton-02: map-get($theme, 'skeleton-02') !global;
   $brand-01: map-get($theme, 'brand-01') !global;
@@ -104,6 +109,7 @@
   $brand-03: map-get($theme, 'brand-03') !global;
   $active-01: map-get($theme, 'active-01') !global;
   $hover-field: map-get($theme, 'hover-field') !global;
+  $danger: map-get($theme, 'danger') !global;
   $caption-01: map-get($theme, 'caption-01') !global;
   $label-01: map-get($theme, 'label-01') !global;
   $helper-text-01: map-get($theme, 'helper-text-01') !global;
@@ -249,6 +255,10 @@
       --#{$custom-property-prefix}-link-01,
       map-get($theme, 'link-01')
     ) !global;
+    $link-02: var(
+      --#{$custom-property-prefix}-link-02,
+      map-get($theme, 'link-02')
+    ) !global;
     $inverse-link: var(
       --#{$custom-property-prefix}-inverse-link,
       map-get($theme, 'inverse-link')
@@ -305,9 +315,13 @@
       --#{$custom-property-prefix}-overlay-01,
       map-get($theme, 'overlay-01')
     ) !global;
-    $danger: var(
-      --#{$custom-property-prefix}-danger,
-      map-get($theme, 'danger')
+    $danger-01: var(
+      --#{$custom-property-prefix}-danger-01,
+      map-get($theme, 'danger-01')
+    ) !global;
+    $danger-02: var(
+      --#{$custom-property-prefix}-danger-02,
+      map-get($theme, 'danger-02')
     ) !global;
     $focus: var(
       --#{$custom-property-prefix}-focus,
@@ -349,9 +363,21 @@
       --#{$custom-property-prefix}-hover-ui,
       map-get($theme, 'hover-ui')
     ) !global;
+    $hover-light-ui: var(
+      --#{$custom-property-prefix}-hover-light-ui,
+      map-get($theme, 'hover-light-ui')
+    ) !global;
+    $hover-selected-ui: var(
+      --#{$custom-property-prefix}-hover-selected-ui,
+      map-get($theme, 'hover-selected-ui')
+    ) !global;
     $active-ui: var(
       --#{$custom-property-prefix}-active-ui,
       map-get($theme, 'active-ui')
+    ) !global;
+    $active-light-ui: var(
+      --#{$custom-property-prefix}-active-light-ui,
+      map-get($theme, 'active-light-ui')
     ) !global;
     $selected-ui: var(
       --#{$custom-property-prefix}-selected-ui,
@@ -360,10 +386,6 @@
     $selected-light-ui: var(
       --#{$custom-property-prefix}-selected-light-ui,
       map-get($theme, 'selected-light-ui')
-    ) !global;
-    $hover-selected-ui: var(
-      --#{$custom-property-prefix}-hover-selected-ui,
-      map-get($theme, 'hover-selected-ui')
     ) !global;
     $inverse-hover-ui: var(
       --#{$custom-property-prefix}-inverse-hover-ui,
@@ -405,6 +427,10 @@
       --#{$custom-property-prefix}-decorative-01,
       map-get($theme, 'decorative-01')
     ) !global;
+    $button-separator: var(
+      --#{$custom-property-prefix}-button-separator,
+      map-get($theme, 'button-separator')
+    ) !global;
     $skeleton-01: var(
       --#{$custom-property-prefix}-skeleton-01,
       map-get($theme, 'skeleton-01')
@@ -432,6 +458,10 @@
     $hover-field: var(
       --#{$custom-property-prefix}-hover-field,
       map-get($theme, 'hover-field')
+    ) !global;
+    $danger: var(
+      --#{$custom-property-prefix}-danger,
+      map-get($theme, 'danger')
     ) !global;
     $spacing-01: var(
       --#{$custom-property-prefix}-spacing-01,
@@ -686,6 +716,10 @@
       @include custom-property('link-01', map-get($theme, 'link-01'));
     }
 
+    @if should-emit($theme, $parent-carbon-theme, 'link-02', $emit-difference) {
+      @include custom-property('link-02', map-get($theme, 'link-02'));
+    }
+
     @if should-emit(
       $theme,
       $parent-carbon-theme,
@@ -828,8 +862,14 @@
       @include custom-property('overlay-01', map-get($theme, 'overlay-01'));
     }
 
-    @if should-emit($theme, $parent-carbon-theme, 'danger', $emit-difference) {
-      @include custom-property('danger', map-get($theme, 'danger'));
+    @if should-emit($theme, $parent-carbon-theme, 'danger-01', $emit-difference)
+    {
+      @include custom-property('danger-01', map-get($theme, 'danger-01'));
+    }
+
+    @if should-emit($theme, $parent-carbon-theme, 'danger-02', $emit-difference)
+    {
+      @include custom-property('danger-02', map-get($theme, 'danger-02'));
     }
 
     @if should-emit($theme, $parent-carbon-theme, 'focus', $emit-difference) {
@@ -945,9 +985,48 @@
       @include custom-property('hover-ui', map-get($theme, 'hover-ui'));
     }
 
+    @if should-emit(
+      $theme,
+      $parent-carbon-theme,
+      'hover-light-ui',
+      $emit-difference
+    )
+    {
+      @include custom-property(
+        'hover-light-ui',
+        map-get($theme, 'hover-light-ui')
+      );
+    }
+
+    @if should-emit(
+      $theme,
+      $parent-carbon-theme,
+      'hover-selected-ui',
+      $emit-difference
+    )
+    {
+      @include custom-property(
+        'hover-selected-ui',
+        map-get($theme, 'hover-selected-ui')
+      );
+    }
+
     @if should-emit($theme, $parent-carbon-theme, 'active-ui', $emit-difference)
     {
       @include custom-property('active-ui', map-get($theme, 'active-ui'));
+    }
+
+    @if should-emit(
+      $theme,
+      $parent-carbon-theme,
+      'active-light-ui',
+      $emit-difference
+    )
+    {
+      @include custom-property(
+        'active-light-ui',
+        map-get($theme, 'active-light-ui')
+      );
     }
 
     @if should-emit(
@@ -970,19 +1049,6 @@
       @include custom-property(
         'selected-light-ui',
         map-get($theme, 'selected-light-ui')
-      );
-    }
-
-    @if should-emit(
-      $theme,
-      $parent-carbon-theme,
-      'hover-selected-ui',
-      $emit-difference
-    )
-    {
-      @include custom-property(
-        'hover-selected-ui',
-        map-get($theme, 'hover-selected-ui')
       );
     }
 
@@ -1088,6 +1154,19 @@
     @if should-emit(
       $theme,
       $parent-carbon-theme,
+      'button-separator',
+      $emit-difference
+    )
+    {
+      @include custom-property(
+        'button-separator',
+        map-get($theme, 'button-separator')
+      );
+    }
+
+    @if should-emit(
+      $theme,
+      $parent-carbon-theme,
       'skeleton-01',
       $emit-difference
     )
@@ -1133,6 +1212,10 @@
     )
     {
       @include custom-property('hover-field', map-get($theme, 'hover-field'));
+    }
+
+    @if should-emit($theme, $parent-carbon-theme, 'danger', $emit-difference) {
+      @include custom-property('danger', map-get($theme, 'danger'));
     }
 
     @if should-emit(

@@ -1,7 +1,10 @@
 import React from 'react';
-import { BulletChart as BC } from '@carbon/charts';
+import { BulletChart as BC } from '@rocketsoftware/charts';
 import BaseChart from './base-chart';
-import { ChartConfig, BulletChartOptions } from '@carbon/charts/interfaces';
+import {
+	ChartConfig,
+	BulletChartOptions,
+} from '@rocketsoftware/charts/interfaces';
 
 type BulletChartProps = ChartConfig<BulletChartOptions>;
 

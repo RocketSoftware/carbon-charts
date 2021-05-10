@@ -1,7 +1,10 @@
 import React from 'react';
-import { WordCloudChart as WCC } from '@carbon/charts';
+import { WordCloudChart as WCC } from '@rocketsoftware/charts';
 import BaseChart from './base-chart';
-import { ChartConfig, WorldCloudChartOptions } from '@carbon/charts/interfaces';
+import {
+	ChartConfig,
+	WorldCloudChartOptions,
+} from '@rocketsoftware/charts/interfaces';
 
 type WordCloudChartProps = ChartConfig<WorldCloudChartOptions>;
 

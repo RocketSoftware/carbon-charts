@@ -1,7 +1,7 @@
 # @rocketsoftware/carbon-components
 
-> The Carbon Design System is IBM’s open-source design system for products and
-> experiences.
+> Rocket Software's open source design system based on the Carbon Design System
+> by IBM.
 
 ## Getting started
 
@@ -21,14 +21,8 @@ yarn add @rocketsoftware/carbon-components
 
 ## 📖 API Documentation
 
-- See our
-  [documentation site](https://www.carbondesignsystem.com/get-started/develop/vanilla)
-  for full how-to docs and guidelines
-- [Contributing](/.github/CONTRIBUTING.md): Guidelines for making contributions
-  to this repo.
-- [🏃‍♀️ Migration Guides](./docs/migration)
-
-  - [v9 to v10](./docs/migration/migrate-to-10.x.md)
+If you're looking for `@rocketsoftware/carbon-components` API documentation,
+check out:
 
 - [Accessibility](./docs/accessibility.md)
 - [Deploying-changes](./docs/deploying-changes.md)
@@ -44,7 +38,6 @@ We're always looking for contributors to help us fix bugs, build new features,
 or help us improve the project documentation. If you're interested, definitely
 check out our [Contributing Guide](/.github/CONTRIBUTING.md)! 👀
 
-Thanks goes to these
-[wonderful people :key:](https://github.com/kentcdodds/all-contributors#emoji-key):
+## 📝 License
 
 Licensed under the [Apache 2.0 License](/LICENSE).

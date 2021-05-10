@@ -2,7 +2,7 @@
   export let chart = null;
   export let ref = null;
 
-  import { WordCloudChart } from "@carbon/charts";
+  import { WordCloudChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

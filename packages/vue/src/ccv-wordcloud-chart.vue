@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { WordCloudChart } from '@carbon/charts';
+import { WordCloudChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {

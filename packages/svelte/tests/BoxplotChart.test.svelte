@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { BoxplotChart } from '../types';
-	import type { BoxplotChart as BC } from '@carbon/charts';
+	import type { BoxplotChart as BC } from '@rocketsoftware/charts';
 	import {
 		simpleBoxplotData as data,
 		simpleBoxplotOptions,
-	} from '@carbon/charts/demo/data';
+	} from '@rocketsoftware/charts/demo/data';
 
 	let chart: BC = null;
 	let ref = null;

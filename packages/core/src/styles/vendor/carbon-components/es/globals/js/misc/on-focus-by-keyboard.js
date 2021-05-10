@@ -6,7 +6,7 @@
  * @returns {Handle} The handle to release the attached event handler
  */
 export default function onFocusByKeyboard(node, name, callback) {
-  var hasFocusout = 'onfocusout' in window;
+  var hasFocusout = ('onfocusout' in window);
   var focusinEventName = hasFocusout ? 'focusin' : 'focus';
   var focusoutEventName = hasFocusout ? 'focusout' : 'blur';
   /**

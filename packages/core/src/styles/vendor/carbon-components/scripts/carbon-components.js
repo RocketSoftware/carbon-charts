@@ -24,9 +24,13 @@ var CarbonComponents = (function (exports) {
    * // @todo given that the default value is so long, is it appropriate to put in the JSDoc?
    * @property {string} [selectorTabbable]
    *   A selector selecting tabbable/focusable nodes.
-   *   By default selectorTabbable refereneces links, areas, inputs, buttons, selects, textareas,
+   *   By default selectorTabbable references links, areas, inputs, buttons, selects, textareas,
    *   iframes, objects, embeds, or elements explicitly using tabindex or contenteditable attributes
    *   as long as the element is not `disabled` or the `tabindex="-1"`.
+   * @property {string} [selectorFocusable]
+   *   CSS selector that selects major nodes that are click focusable
+   *   This property is identical to selectorTabbable with the exception of
+   *   the `:not([tabindex='-1'])` pseudo class
    */
   var settings = {
     prefix: 'bx',
@@ -137,6 +141,19 @@ var CarbonComponents = (function (exports) {
     return _setPrototypeOf(o, p);
   }
 
+  function _isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+
+    try {
+      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   function _assertThisInitialized(self) {
     if (self === void 0) {
       throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -151,6 +168,25 @@ var CarbonComponents = (function (exports) {
     }
 
     return _assertThisInitialized(self);
+  }
+
+  function _createSuper(Derived) {
+    var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+    return function _createSuperInternal() {
+      var Super = _getPrototypeOf(Derived),
+          result;
+
+      if (hasNativeReflectConstruct) {
+        var NewTarget = _getPrototypeOf(this).constructor;
+
+        result = Reflect.construct(Super, arguments, NewTarget);
+      } else {
+        result = Super.apply(this, arguments);
+      }
+
+      return _possibleConstructorReturn(this, result);
+    };
   }
 
   function _superPropBase(object, property) {
@@ -184,19 +220,15 @@ var CarbonComponents = (function (exports) {
   }
 
   function _slicedToArray(arr, i) {
-    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
   }
 
   function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
   }
 
   function _arrayWithoutHoles(arr) {
-    if (Array.isArray(arr)) {
-      for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-      return arr2;
-    }
+    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
   }
 
   function _arrayWithHoles(arr) {
@@ -204,14 +236,11 @@ var CarbonComponents = (function (exports) {
   }
 
   function _iterableToArray(iter) {
-    if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+    if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
   }
 
   function _iterableToArrayLimit(arr, i) {
-    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-      return;
-    }
-
+    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
     var _arr = [];
     var _n = true;
     var _d = false;
@@ -237,12 +266,29 @@ var CarbonComponents = (function (exports) {
     return _arr;
   }
 
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+    return arr2;
+  }
+
   function _nonIterableSpread() {
-    throw new TypeError("Invalid attempt to spread non-iterable instance");
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
 
   function _nonIterableRest() {
-    throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
 
   /**
@@ -288,9 +334,7 @@ var CarbonComponents = (function (exports) {
 
     return flatten(mixinfns).reduce(function (Class, mixinfn) {
       return mixinfn(Class);
-    },
-    /*#__PURE__*/
-    function () {
+    }, /*#__PURE__*/function () {
       function _class() {
         _classCallCheck(this, _class);
       }
@@ -306,10 +350,10 @@ var CarbonComponents = (function (exports) {
    * LICENSE file in the root directory of this source tree.
    */
   function createComponent (ToMix) {
-    var CreateComponent =
-    /*#__PURE__*/
-    function (_ToMix) {
+    var CreateComponent = /*#__PURE__*/function (_ToMix) {
       _inherits(CreateComponent, _ToMix);
+
+      var _super = _createSuper(CreateComponent);
 
       /**
        * The component instances managed by this component.
@@ -332,7 +376,7 @@ var CarbonComponents = (function (exports) {
 
         _classCallCheck(this, CreateComponent);
 
-        _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateComponent).call(this, element, options));
+        _this = _super.call(this, element, options);
 
         _defineProperty(_assertThisInitialized(_this), "children", []);
 
@@ -365,11 +409,11 @@ var CarbonComponents = (function (exports) {
 
       _createClass(CreateComponent, [{
         key: "release",
-
+        value:
         /**
          * Releases this component's instance from the associated element.
          */
-        value: function release() {
+        function release() {
           for (var child = this.children.pop(); child; child = this.children.pop()) {
             child.release();
           }
@@ -401,20 +445,20 @@ var CarbonComponents = (function (exports) {
      * Mix-in class to instantiate components by searching for their root elements.
      * @class InitComponentBySearch
      */
-    var InitComponentBySearch =
-    /*#__PURE__*/
-    function (_ToMix) {
+    var InitComponentBySearch = /*#__PURE__*/function (_ToMix) {
       _inherits(InitComponentBySearch, _ToMix);
+
+      var _super = _createSuper(InitComponentBySearch);
 
       function InitComponentBySearch() {
         _classCallCheck(this, InitComponentBySearch);
 
-        return _possibleConstructorReturn(this, _getPrototypeOf(InitComponentBySearch).apply(this, arguments));
+        return _super.apply(this, arguments);
       }
 
       _createClass(InitComponentBySearch, null, [{
         key: "init",
-
+        value:
         /**
          * Instantiates component in the given node.
          * If the given element indicates that it's an component of this class, instantiates it.
@@ -423,7 +467,7 @@ var CarbonComponents = (function (exports) {
          * @param {object} [options] The component options.
          * @param {boolean} [options.selectorInit] The CSS selector to find components.
          */
-        value: function init() {
+        function init() {
           var _this = this;
 
           var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
@@ -463,14 +507,12 @@ var CarbonComponents = (function (exports) {
      * @class Handles
      * @implements Handle
      */
-    var Handles =
-    /*#__PURE__*/
-    function (_ToMix) {
+    var Handles = /*#__PURE__*/function (_ToMix) {
       _inherits(Handles, _ToMix);
 
-      function Handles() {
-        var _getPrototypeOf2;
+      var _super = _createSuper(Handles);
 
+      function Handles() {
         var _this;
 
         _classCallCheck(this, Handles);
@@ -479,7 +521,7 @@ var CarbonComponents = (function (exports) {
           args[_key] = arguments[_key];
         }
 
-        _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Handles)).call.apply(_getPrototypeOf2, [this].concat(args)));
+        _this = _super.call.apply(_super, [this].concat(args));
 
         _defineProperty(_assertThisInitialized(_this), "handles", new Set());
 
@@ -488,13 +530,13 @@ var CarbonComponents = (function (exports) {
 
       _createClass(Handles, [{
         key: "manage",
-
+        value:
         /**
          * Manages the given handle.
          * @param {Handle} handle The handle to manage.
          * @returns {Handle} The given handle.
          */
-        value: function manage(handle) {
+        function manage(handle) {
           this.handles.add(handle);
           return handle;
         }
@@ -556,10 +598,10 @@ var CarbonComponents = (function (exports) {
     mixed: 'mixed'
   };
 
-  var Checkbox =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Checkbox = /*#__PURE__*/function (_mixin) {
     _inherits(Checkbox, _mixin);
+
+    var _super = _createSuper(Checkbox);
 
     /**
      * Checkbox UI.
@@ -573,7 +615,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Checkbox);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Checkbox).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this.manage(on(_this.element, 'click', function (event) {
         _this._handleClick(event);
@@ -713,7 +755,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode Checkbox.create .create()}, or {@linkcode Checkbox.init .init()},
@@ -729,7 +771,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} attribContainedCheckboxState The attribute name for the checked state of contained checkbox.
        * @property {string} attribContainedCheckboxDisabled The attribute name for the disabled state of contained checkbox.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: ".".concat(prefix, "--checkbox"),
@@ -765,20 +807,20 @@ var CarbonComponents = (function (exports) {
      * Mix-in class to manage events associated with states.
      * @class EventedState
      */
-    var EventedState =
-    /*#__PURE__*/
-    function (_ToMix) {
+    var EventedState = /*#__PURE__*/function (_ToMix) {
       _inherits(EventedState, _ToMix);
+
+      var _super = _createSuper(EventedState);
 
       function EventedState() {
         _classCallCheck(this, EventedState);
 
-        return _possibleConstructorReturn(this, _getPrototypeOf(EventedState).apply(this, arguments));
+        return _super.apply(this, arguments);
       }
 
       _createClass(EventedState, [{
         key: "_changeState",
-
+        value:
         /* eslint-disable jsdoc/check-param-names */
 
         /**
@@ -790,7 +832,7 @@ var CarbonComponents = (function (exports) {
          * @param {EventedState~changeStateCallback} callback The callback called once changing state is finished or is canceled.
          * @private
          */
-        value: function _changeState() {
+        function _changeState() {
           throw new Error('_changeState() should be overriden to perform actual change in state.');
         }
         /**
@@ -936,10 +978,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var FileUploader =
-  /*#__PURE__*/
-  function (_mixin) {
+  var FileUploader = /*#__PURE__*/function (_mixin) {
     _inherits(FileUploader, _mixin);
+
+    var _super = _createSuper(FileUploader);
 
     /**
      * File uploader.
@@ -957,7 +999,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, FileUploader);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(FileUploader).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_changeState", function (state, detail, callback) {
         if (state === 'delete-filename-fileuploader') {
@@ -1197,10 +1239,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var ContentSwitcher =
-  /*#__PURE__*/
-  function (_mixin) {
+  var ContentSwitcher = /*#__PURE__*/function (_mixin) {
     _inherits(ContentSwitcher, _mixin);
+
+    var _super = _createSuper(ContentSwitcher);
 
     /**
      * Set of content switcher buttons.
@@ -1223,7 +1265,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, ContentSwitcher);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(ContentSwitcher).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this.manage(on(_this.element, 'click', function (event) {
         _this._handleClick(event);
@@ -1334,7 +1376,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -1351,7 +1393,7 @@ var CarbonComponents = (function (exports) {
        *   Cancellation of this event stops selection of content switcher button.
        * @property {string} [eventAfterSelected] The name of the custom event fired after a switcher button is selected.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-content-switcher]',
@@ -1374,10 +1416,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var Tab =
-  /*#__PURE__*/
-  function (_ContentSwitcher) {
+  var Tab = /*#__PURE__*/function (_ContentSwitcher) {
     _inherits(Tab, _ContentSwitcher);
+
+    var _super = _createSuper(Tab);
 
     /**
      * Container of tabs.
@@ -1403,7 +1445,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Tab);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Tab).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this.manage(on(_this.element, 'keydown', function (event) {
         _this._handleKeyDown(event);
@@ -1577,7 +1619,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode ContentSwitcher.create .create()}, or {@linkcode Tab.init .init()},
@@ -1599,7 +1641,7 @@ var CarbonComponents = (function (exports) {
        *   Cancellation of this event stops selection of tab.
        * @property {string} [eventAfterSelected] The name of the custom event fired after a tab is selected.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return Object.assign(Object.create(ContentSwitcher.options), {
           selectorInit: '[data-tabs]',
@@ -1679,20 +1721,20 @@ var CarbonComponents = (function (exports) {
      * Mix-in class to launch a floating menu.
      * @class EventedShowHideState
      */
-    var EventedShowHideState =
-    /*#__PURE__*/
-    function (_ToMix) {
+    var EventedShowHideState = /*#__PURE__*/function (_ToMix) {
       _inherits(EventedShowHideState, _ToMix);
+
+      var _super = _createSuper(EventedShowHideState);
 
       function EventedShowHideState() {
         _classCallCheck(this, EventedShowHideState);
 
-        return _possibleConstructorReturn(this, _getPrototypeOf(EventedShowHideState).apply(this, arguments));
+        return _super.apply(this, arguments);
       }
 
       _createClass(EventedShowHideState, [{
         key: "show",
-
+        value:
         /**
          */
 
@@ -1701,7 +1743,7 @@ var CarbonComponents = (function (exports) {
          * @param [evtOrElem] The launching event or element.
          * @param {EventedState~changeStateCallback} [callback] The callback.
          */
-        value: function show(evtOrElem, callback) {
+        function show(evtOrElem, callback) {
           if (!evtOrElem || typeof evtOrElem === 'function') {
             callback = evtOrElem; // eslint-disable-line no-param-reassign
           }
@@ -1734,10 +1776,10 @@ var CarbonComponents = (function (exports) {
   var exports$1 = [eventedState, eventedShowHideState];
 
   function trackBlur(ToMix) {
-    var TrackBlur =
-    /*#__PURE__*/
-    function (_ToMix) {
+    var TrackBlur = /*#__PURE__*/function (_ToMix) {
       _inherits(TrackBlur, _ToMix);
+
+      var _super = _createSuper(TrackBlur);
 
       /**
        * Mix-in class to add an handler for losing focus.
@@ -1750,8 +1792,8 @@ var CarbonComponents = (function (exports) {
 
         _classCallCheck(this, TrackBlur);
 
-        _this = _possibleConstructorReturn(this, _getPrototypeOf(TrackBlur).call(this, element, options));
-        var hasFocusin = 'onfocusin' in window;
+        _this = _super.call(this, element, options);
+        var hasFocusin = ('onfocusin' in window);
         var focusinEventName = hasFocusin ? 'focusin' : 'focus';
         var focusoutEventName = hasFocusin ? 'focusout' : 'blur';
 
@@ -1797,9 +1839,7 @@ var CarbonComponents = (function (exports) {
    * LICENSE file in the root directory of this source tree.
    */
   // mdn resize function
-  var optimizedResize =
-  /* #__PURE__ */
-  function optimizedResize() {
+  var optimizedResize = /* #__PURE__ */function optimizedResize() {
     var callbacks = [];
     var running = false; // run the actual callbacks
 
@@ -1933,10 +1973,10 @@ var CarbonComponents = (function (exports) {
     }), _DIRECTION_LEFT$DIREC)[direction];
   };
 
-  var FloatingMenu =
-  /*#__PURE__*/
-  function (_mixin) {
+  var FloatingMenu = /*#__PURE__*/function (_mixin) {
     _inherits(FloatingMenu, _mixin);
+
+    var _super = _createSuper(FloatingMenu);
 
     /**
      * Floating menu.
@@ -1968,7 +2008,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, FloatingMenu);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(FloatingMenu).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       var attribDirectionValue = _this.element.getAttribute(_this.options.attribDirection);
 
@@ -2249,9 +2289,7 @@ var CarbonComponents = (function (exports) {
    * @type {object<string, string>}
    */
 
-  var triggerButtonPositionProps =
-  /* #__PURE__ */
-  function () {
+  var triggerButtonPositionProps = /* #__PURE__ */function () {
     var _ref;
 
     return _ref = {}, _defineProperty(_ref, DIRECTION_TOP, 'bottom'), _defineProperty(_ref, DIRECTION_BOTTOM, 'top'), _defineProperty(_ref, DIRECTION_LEFT, 'left'), _defineProperty(_ref, DIRECTION_RIGHT, 'right'), _ref;
@@ -2262,9 +2300,7 @@ var CarbonComponents = (function (exports) {
    */
 
 
-  var triggerButtonPositionFactors =
-  /* #__PURE__ */
-  function () {
+  var triggerButtonPositionFactors = /* #__PURE__ */function () {
     var _ref2;
 
     return _ref2 = {}, _defineProperty(_ref2, DIRECTION_TOP, -2), _defineProperty(_ref2, DIRECTION_BOTTOM, -1), _defineProperty(_ref2, DIRECTION_LEFT, -2), _defineProperty(_ref2, DIRECTION_RIGHT, -1), _ref2;
@@ -2316,10 +2352,10 @@ var CarbonComponents = (function (exports) {
     return undefined;
   };
 
-  var OverflowMenu =
-  /*#__PURE__*/
-  function (_mixin) {
+  var OverflowMenu = /*#__PURE__*/function (_mixin) {
     _inherits(OverflowMenu, _mixin);
+
+    var _super = _createSuper(OverflowMenu);
 
     /**
      * Overflow menu.
@@ -2341,7 +2377,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, OverflowMenu);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(OverflowMenu).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "getCurrentNavigation", function () {
         var focused = _this.element.ownerDocument.activeElement;
@@ -2481,13 +2517,13 @@ var CarbonComponents = (function (exports) {
 
     }, {
       key: "_handleKeyPress",
-
+      value:
       /**
        * Handles key press on document.
        * @param {Event} event The triggering event.
        * @private
        */
-      value: function _handleKeyPress(event) {
+      function _handleKeyPress(event) {
         var _this3 = this;
 
         var key = event.which;
@@ -2579,20 +2615,20 @@ var CarbonComponents = (function (exports) {
      * Mix-in class to instantiate components events on launcher button.
      * @class InitComponentByLauncher
      */
-    var InitComponentByLauncher =
-    /*#__PURE__*/
-    function (_ToMix) {
+    var InitComponentByLauncher = /*#__PURE__*/function (_ToMix) {
       _inherits(InitComponentByLauncher, _ToMix);
+
+      var _super = _createSuper(InitComponentByLauncher);
 
       function InitComponentByLauncher() {
         _classCallCheck(this, InitComponentByLauncher);
 
-        return _possibleConstructorReturn(this, _getPrototypeOf(InitComponentByLauncher).apply(this, arguments));
+        return _super.apply(this, arguments);
       }
 
       _createClass(InitComponentByLauncher, null, [{
         key: "init",
-
+        value:
         /**
          * `true` suggests that this component is lazily initialized upon an action/event, etc.
          * @type {boolean}
@@ -2609,7 +2645,7 @@ var CarbonComponents = (function (exports) {
          * @param {string} [options.attribInitTarget] The attribute name in the launcher buttons to find target component.
          * @returns {Handle} The handle to remove the event listener to handle clicking.
          */
-        value: function init() {
+        function init() {
           var _this = this;
 
           var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
@@ -2673,10 +2709,10 @@ var CarbonComponents = (function (exports) {
     return InitComponentByLauncher;
   }
 
-  var Modal =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Modal = /*#__PURE__*/function (_mixin) {
     _inherits(Modal, _mixin);
+
+    var _super = _createSuper(Modal);
 
     /**
      * Modal dialog.
@@ -2706,7 +2742,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Modal);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_handleFocusinListener", void 0);
 
@@ -2736,12 +2772,12 @@ var CarbonComponents = (function (exports) {
 
     _createClass(Modal, [{
       key: "createdByLauncher",
-
+      value:
       /**
        * A method that runs when `.init()` is called from `initComponentByLauncher`.
        * @param {Event} evt The event fired on the launcher button.
        */
-      value: function createdByLauncher(evt) {
+      function createdByLauncher(evt) {
         this.show(evt);
       }
       /**
@@ -2795,7 +2831,7 @@ var CarbonComponents = (function (exports) {
         }
 
         if (state === 'shown') {
-          var hasFocusin = 'onfocusin' in this.element.ownerDocument.defaultView;
+          var hasFocusin = ('onfocusin' in this.element.ownerDocument.defaultView);
           var focusinEventName = hasFocusin ? 'focusin' : 'focus';
           this._handleFocusinListener = this.manage(on(this.element.ownerDocument, focusinEventName, this._handleFocusin, !hasFocusin));
         }
@@ -2852,7 +2888,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode Modal.create .create()}, or {@linkcode Modal.init .init()},
@@ -2885,7 +2921,7 @@ var CarbonComponents = (function (exports) {
        *   The name of the custom event telling that modal is sure hidden
        *   without being canceled by the event handler named by `eventBeforeHidden` option (`modal-beinghidden`).
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-modal]',
@@ -2912,10 +2948,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var Loading =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Loading = /*#__PURE__*/function (_mixin) {
     _inherits(Loading, _mixin);
+
+    var _super = _createSuper(Loading);
 
     /**
      * Spinner indicating loading state.
@@ -2931,7 +2967,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Loading);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Loading).call(this, element, options));
+      _this = _super.call(this, element, options);
       _this.active = _this.options.active; // Initialize spinner
 
       _this.set(_this.active);
@@ -3025,7 +3061,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode Loading.create .create()}, or {@linkcode Loading.init .init()},
@@ -3034,7 +3070,7 @@ var CarbonComponents = (function (exports) {
        * @type {object}
        * @property {string} selectorInit The CSS selector to find spinners.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-loading]',
@@ -3075,10 +3111,10 @@ var CarbonComponents = (function (exports) {
     }
   }
 
-  var InlineLoading =
-  /*#__PURE__*/
-  function (_mixin) {
+  var InlineLoading = /*#__PURE__*/function (_mixin) {
     _inherits(InlineLoading, _mixin);
+
+    var _super = _createSuper(InlineLoading);
 
     /**
      * Spinner indicating loading state.
@@ -3094,7 +3130,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, InlineLoading);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(InlineLoading).call(this, element, options)); // Sets the initial state
+      _this = _super.call(this, element, options); // Sets the initial state
 
       var initialState = _this.options.initialState;
 
@@ -3171,7 +3207,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode InlineLoading.create .create()},
@@ -3188,7 +3224,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} selectorTextError The CSS selector to find the text describing the error state.
        * @property {string} classLoadingStop The CSS class for spinner's stopped state.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-inline-loading]',
@@ -3223,10 +3259,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var Dropdown =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Dropdown = /*#__PURE__*/function (_mixin) {
     _inherits(Dropdown, _mixin);
+
+    var _super = _createSuper(Dropdown);
 
     /**
      * A selector with drop downs.
@@ -3250,7 +3286,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Dropdown);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Dropdown).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this.manage(on(_this.element.ownerDocument, 'click', function (event) {
         _this._toggle(event);
@@ -3588,7 +3624,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode Dropdown.create .create()}, or {@linkcode Dropdown.init .init()},
@@ -3619,7 +3655,7 @@ var CarbonComponents = (function (exports) {
        *   Cancellation of this event stops selection of drop down item.
        * @property {string} [eventAfterSelected] The name of the custom event fired after a drop down item is selected.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-dropdown]',
@@ -3667,10 +3703,10 @@ var CarbonComponents = (function (exports) {
     FORWARD: 1
   });
 
-  var NumberInput =
-  /*#__PURE__*/
-  function (_mixin) {
+  var NumberInput = /*#__PURE__*/function (_mixin) {
     _inherits(NumberInput, _mixin);
+
+    var _super = _createSuper(NumberInput);
 
     /**
      * Number input UI.
@@ -3684,7 +3720,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, NumberInput);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(NumberInput).call(this, element, options)); // Broken DOM tree is seen with up/down arrows <svg> in IE, which breaks event delegation.
+      _this = _super.call(this, element, options); // Broken DOM tree is seen with up/down arrows <svg> in IE, which breaks event delegation.
       // <svg> does not have `Element.classList` in IE11
 
       _this.manage(on(_this.element.querySelector('.up-icon'), 'click', function (event) {
@@ -3708,11 +3744,38 @@ var CarbonComponents = (function (exports) {
       value: function _handleClick(event) {
         var numberInput = this.element.querySelector(this.options.selectorInput);
         var target = event.currentTarget.getAttribute('class').split(' ');
+        var min = Number(numberInput.min);
+        var max = Number(numberInput.max);
+        var step = Number(numberInput.step) || 1;
 
         if (target.indexOf('up-icon') >= 0) {
-          ++numberInput.value;
+          var nextValue = Number(numberInput.value) + step;
+
+          if (numberInput.max === '') {
+            numberInput.value = nextValue;
+          } else if (numberInput.value < max) {
+            if (nextValue > max) {
+              numberInput.value = max;
+            } else if (nextValue < min) {
+              numberInput.value = min;
+            } else {
+              numberInput.value = nextValue;
+            }
+          }
         } else if (target.indexOf('down-icon') >= 0) {
-          --numberInput.value;
+          var _nextValue = Number(numberInput.value) - step;
+
+          if (numberInput.min === '') {
+            numberInput.value = _nextValue;
+          } else if (numberInput.value > min) {
+            if (_nextValue < min) {
+              numberInput.value = min;
+            } else if (_nextValue > max) {
+              numberInput.value = max;
+            } else {
+              numberInput.value = _nextValue;
+            }
+          }
         } // Programmatic change in value (including `stepUp()`/`stepDown()`) won't fire change event
 
 
@@ -3729,7 +3792,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -3740,7 +3803,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} selectorInit The CSS selector to find number input UIs.
        * @property {string} [selectorInput] The CSS selector to find the `<input>` element.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-numberinput]',
@@ -3760,10 +3823,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var DataTable =
-  /*#__PURE__*/
-  function (_mixin) {
+  var DataTable = /*#__PURE__*/function (_mixin) {
     _inherits(DataTable, _mixin);
+
+    var _super = _createSuper(DataTable);
 
     /**
      * Data Table
@@ -3785,7 +3848,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, DataTable);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(DataTable).call(this, _element, options));
+      _this = _super.call(this, _element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_sortToggle", function (detail) {
         var element = detail.element,
@@ -4151,21 +4214,16 @@ var CarbonComponents = (function (exports) {
     'action-bar-cancel': '_actionBarCancel'
   });
 
-  /**
-   * Copyright IBM Corp. 2016, 2018
-   *
-   * This source code is licensed under the Apache-2.0 license found in the
-   * LICENSE file in the root directory of this source tree.
-   */
-
   var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-  function createCommonjsModule(fn, module) {
-  	return module = { exports: {} }, fn(module, module.exports), module.exports;
+  function createCommonjsModule(fn) {
+    var module = { exports: {} };
+  	return fn(module, module.exports), module.exports;
   }
 
-  var flatpickr = createCommonjsModule(function (module, exports) {
   /* flatpickr v4.6.1, @license MIT */
+
+  var flatpickr = createCommonjsModule(function (module, exports) {
   (function (global, factory) {
        module.exports = factory() ;
   }(commonjsGlobal, function () {
@@ -6843,10 +6901,10 @@ var CarbonComponents = (function (exports) {
     };
   };
 
-  var DatePicker =
-  /*#__PURE__*/
-  function (_mixin) {
+  var DatePicker = /*#__PURE__*/function (_mixin) {
     _inherits(DatePicker, _mixin);
+
+    var _super = _createSuper(DatePicker);
 
     /**
      * DatePicker.
@@ -6860,7 +6918,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, DatePicker);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(DatePicker).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_handleFocus", function () {
         if (_this.calendar) {
@@ -6893,8 +6951,8 @@ var CarbonComponents = (function (exports) {
           // and close the date picker dropdown when this component loses focus
 
           var w = doc.defaultView;
-          var hasFocusin = 'onfocusin' in w;
-          var hasFocusout = 'onfocusout' in w;
+          var hasFocusin = ('onfocusin' in w);
+          var hasFocusout = ('onfocusout' in w);
           var focusinEventName = hasFocusin ? 'focusin' : 'focus';
           var focusoutEventName = hasFocusout ? 'focusout' : 'blur';
 
@@ -7214,10 +7272,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var Pagination =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Pagination = /*#__PURE__*/function (_mixin) {
     _inherits(Pagination, _mixin);
+
+    var _super = _createSuper(Pagination);
 
     /**
      * Pagination component.
@@ -7246,7 +7304,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Pagination);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Pagination).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_emitEvent", function (evtName, detail) {
         var event = new CustomEvent("".concat(evtName), {
@@ -7357,10 +7415,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var Search =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Search = /*#__PURE__*/function (_mixin) {
     _inherits(Search, _mixin);
+
+    var _super = _createSuper(Search);
 
     /**
      * Search with Options.
@@ -7386,7 +7444,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Search);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Search).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       var closeIcon = _this.element.querySelector(_this.options.selectorClearIcon);
 
@@ -7491,10 +7549,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var Accordion =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Accordion = /*#__PURE__*/function (_mixin) {
     _inherits(Accordion, _mixin);
+
+    var _super = _createSuper(Accordion);
 
     /**
      * Accordion.
@@ -7508,7 +7566,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Accordion);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Accordion).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this.manage(on(_this.element, 'click', function (event) {
         var item = eventMatches(event, _this.options.selectorAccordionItem);
@@ -7604,10 +7662,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var CopyButton =
-  /*#__PURE__*/
-  function (_mixin) {
+  var CopyButton = /*#__PURE__*/function (_mixin) {
     _inherits(CopyButton, _mixin);
+
+    var _super = _createSuper(CopyButton);
 
     /**
      * CopyBtn UI.
@@ -7621,7 +7679,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, CopyButton);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(CopyButton).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this.manage(on(_this.element, 'click', function () {
         return _this.handleClick();
@@ -7680,7 +7738,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode CopyBtn.create .create()}, or {@linkcode CopyBtn.init .init()},
@@ -7692,7 +7750,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} classShowFeedback The CSS selector for showing the feedback tooltip.
        * @property {number} timeoutValue The specified timeout value before the feedback tooltip is hidden.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-copy-btn]',
@@ -7713,10 +7771,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var Notification =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Notification = /*#__PURE__*/function (_mixin) {
     _inherits(Notification, _mixin);
+
+    var _super = _createSuper(Notification);
 
     /**
      * InlineNotification.
@@ -7730,7 +7788,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Notification);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Notification).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_changeState", function (state, callback) {
         if (state === 'delete-notification') {
@@ -7787,10 +7845,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var Toolbar =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Toolbar = /*#__PURE__*/function (_mixin) {
     _inherits(Toolbar, _mixin);
+
+    var _super = _createSuper(Toolbar);
 
     /**
      * Toolbar.
@@ -7804,7 +7862,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Toolbar);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Toolbar).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       if (!_this.element.dataset.tableTarget) {
         console.warn('There is no table bound to this toolbar!'); // eslint-disable-line no-console
@@ -7902,7 +7960,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -7913,7 +7971,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} classTallRows The CSS class for making table rows into tall rows.
        * @property {string} classSearchActive The CSS class the active state of the search input.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-toolbar]',
@@ -7937,20 +7995,20 @@ var CarbonComponents = (function (exports) {
      * Mix-in class to instantiate components upon events.
      * @class InitComponentByEvent
      */
-    var InitComponentByEvent =
-    /*#__PURE__*/
-    function (_ToMix) {
+    var InitComponentByEvent = /*#__PURE__*/function (_ToMix) {
       _inherits(InitComponentByEvent, _ToMix);
+
+      var _super = _createSuper(InitComponentByEvent);
 
       function InitComponentByEvent() {
         _classCallCheck(this, InitComponentByEvent);
 
-        return _possibleConstructorReturn(this, _getPrototypeOf(InitComponentByEvent).apply(this, arguments));
+        return _super.apply(this, arguments);
       }
 
       _createClass(InitComponentByEvent, null, [{
         key: "init",
-
+        value:
         /**
          * `true` suggests that this component is lazily initialized upon an action/event, etc.
          * @type {boolean}
@@ -7965,7 +8023,7 @@ var CarbonComponents = (function (exports) {
          * @param {string} [options.selectorInit] The CSS selector to find this component.
          * @returns {Handle} The handle to remove the event listener to handle clicking.
          */
-        value: function init() {
+        function init() {
           var _this = this;
 
           var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
@@ -7980,7 +8038,7 @@ var CarbonComponents = (function (exports) {
             this.create(target, options);
           } else {
             // To work around non-bubbling `focus` event, use `focusin` event instead of it's available, and "capture mode" otherwise
-            var hasFocusin = 'onfocusin' in (target.nodeType === Node.ELEMENT_NODE ? target.ownerDocument : target).defaultView;
+            var hasFocusin = ('onfocusin' in (target.nodeType === Node.ELEMENT_NODE ? target.ownerDocument : target).defaultView);
             var handles = effectiveOptions.initEventNames.map(function (name) {
               var eventName = name === 'focus' && hasFocusin ? 'focusin' : name;
               return on(target, eventName, function (event) {
@@ -8032,7 +8090,7 @@ var CarbonComponents = (function (exports) {
     var arrowPositionProp = (_DIRECTION_LEFT$DIREC = {}, _defineProperty(_DIRECTION_LEFT$DIREC, DIRECTION_LEFT, 'right'), _defineProperty(_DIRECTION_LEFT$DIREC, DIRECTION_TOP, 'bottom'), _defineProperty(_DIRECTION_LEFT$DIREC, DIRECTION_RIGHT, 'left'), _defineProperty(_DIRECTION_LEFT$DIREC, DIRECTION_BOTTOM, 'top'), _DIRECTION_LEFT$DIREC)[menuDirection];
     var menuPositionAdjustmentProp = (_DIRECTION_LEFT$DIREC2 = {}, _defineProperty(_DIRECTION_LEFT$DIREC2, DIRECTION_LEFT, 'left'), _defineProperty(_DIRECTION_LEFT$DIREC2, DIRECTION_TOP, 'top'), _defineProperty(_DIRECTION_LEFT$DIREC2, DIRECTION_RIGHT, 'left'), _defineProperty(_DIRECTION_LEFT$DIREC2, DIRECTION_BOTTOM, 'top'), _DIRECTION_LEFT$DIREC2)[menuDirection];
     var values = [arrowPositionProp, 'border-bottom-width'].reduce(function (o, name) {
-      return _objectSpread2({}, o, _defineProperty({}, name, Number((/^([\d-.]+)px$/.exec(arrowStyle.getPropertyValue(name)) || [])[1])));
+      return _objectSpread2(_objectSpread2({}, o), {}, _defineProperty({}, name, Number((/^([\d-.]+)px$/.exec(arrowStyle.getPropertyValue(name)) || [])[1])));
     }, {});
     var margin = 0;
 
@@ -8065,10 +8123,10 @@ var CarbonComponents = (function (exports) {
 
   var allowedOpenKeys = [32, 13];
 
-  var Tooltip =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Tooltip = /*#__PURE__*/function (_mixin) {
     _inherits(Tooltip, _mixin);
+
+    var _super = _createSuper(Tooltip);
 
     /**
      * Tooltip.
@@ -8081,7 +8139,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Tooltip);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Tooltip).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_hasContextMenu", false);
 
@@ -8097,12 +8155,12 @@ var CarbonComponents = (function (exports) {
 
     _createClass(Tooltip, [{
       key: "createdByEvent",
-
+      value:
       /**
        * A method called when this widget is created upon events.
        * @param {Event} event The event triggering the creation.
        */
-      value: function createdByEvent(event) {
+      function createdByEvent(event) {
         var relatedTarget = event.relatedTarget,
             type = event.type,
             which = event.which;
@@ -8630,10 +8688,10 @@ var CarbonComponents = (function (exports) {
 
   var lodash_debounce = debounce;
 
-  var TooltipSimple =
-  /*#__PURE__*/
-  function (_mixin) {
+  var TooltipSimple = /*#__PURE__*/function (_mixin) {
     _inherits(TooltipSimple, _mixin);
+
+    var _super = _createSuper(TooltipSimple);
 
     /**
      * Simple Tooltip.
@@ -8647,7 +8705,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, TooltipSimple);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(TooltipSimple).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "tooltipFadeOut", lodash_debounce(function () {
         var tooltipTriggerButton = _this.getTooltipTriggerButton();
@@ -8721,7 +8779,7 @@ var CarbonComponents = (function (exports) {
 
     _createClass(TooltipSimple, null, [{
       key: "options",
-
+      get:
       /**
        * The component options.
        *
@@ -8732,7 +8790,7 @@ var CarbonComponents = (function (exports) {
        * created and how {@linkcode TooltipSimple.init .init()} works.
        * @property {string} selectorInit The CSS selector to find simple tooltip UIs.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-tooltip-definition],[data-tooltip-icon]',
@@ -8759,10 +8817,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var ProgressIndicator =
-  /*#__PURE__*/
-  function (_mixin) {
+  var ProgressIndicator = /*#__PURE__*/function (_mixin) {
     _inherits(ProgressIndicator, _mixin);
+
+    var _super = _createSuper(ProgressIndicator);
 
     /**
      * ProgressIndicator.
@@ -8784,7 +8842,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, ProgressIndicator);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(ProgressIndicator).call(this, element, options));
+      _this = _super.call(this, element, options);
       /**
        * The component state.
        * @type {object}
@@ -8956,7 +9014,7 @@ var CarbonComponents = (function (exports) {
       }
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -8974,7 +9032,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} [classCurrent] The className for the current step element.
        * @property {string} [classIncomplete] The className for a incomplete step element.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-progress]',
@@ -9008,10 +9066,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var StructuredList =
-  /*#__PURE__*/
-  function (_mixin) {
+  var StructuredList = /*#__PURE__*/function (_mixin) {
     _inherits(StructuredList, _mixin);
+
+    var _super = _createSuper(StructuredList);
 
     /**
      * StructuredList
@@ -9028,7 +9086,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, StructuredList);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(StructuredList).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this.manage(on(_this.element, 'keydown', function (evt) {
         if (evt.which === 37 || evt.which === 38 || evt.which === 39 || evt.which === 40) {
@@ -9177,10 +9235,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var Slider =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Slider = /*#__PURE__*/function (_mixin) {
     _inherits(Slider, _mixin);
+
+    var _super = _createSuper(Slider);
 
     /**
      * Slider.
@@ -9194,7 +9252,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Slider);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Slider).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_changeState", function (state, detail, callback) {
         callback();
@@ -9406,14 +9464,14 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
        * properties in this object are overriden for the instance being created.
        * @property {string} selectorInit The CSS selector to find slider instances.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-slider]',
@@ -9437,10 +9495,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var Tile =
-  /*#__PURE__*/
-  function (_mixin) {
+  var Tile = /*#__PURE__*/function (_mixin) {
     _inherits(Tile, _mixin);
+
+    var _super = _createSuper(Tile);
 
     /**
      * Tile.
@@ -9453,7 +9511,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, Tile);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Tile).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_getClass", function (type) {
         var typeObj = {
@@ -9542,14 +9600,14 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
        * properties in this object are overriden for the instance being created.
        * @property {string} selectorInit The CSS selector to find Tile instances.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-tile]',
@@ -9569,10 +9627,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var CodeSnippet =
-  /*#__PURE__*/
-  function (_mixin) {
+  var CodeSnippet = /*#__PURE__*/function (_mixin) {
     _inherits(CodeSnippet, _mixin);
+
+    var _super = _createSuper(CodeSnippet);
 
     /**
      * CodeSnippet UI.
@@ -9586,7 +9644,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, CodeSnippet);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(CodeSnippet).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _this._initCodeSnippet();
 
@@ -9632,7 +9690,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode CodeSnippet.create .create()},
@@ -9642,7 +9700,7 @@ var CarbonComponents = (function (exports) {
        * @type {object}
        * @property {string} selectorInit The data attribute to find code snippet UIs.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-code-snippet]',
@@ -9664,10 +9722,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var TextInput =
-  /*#__PURE__*/
-  function (_mixin) {
+  var TextInput = /*#__PURE__*/function (_mixin) {
     _inherits(TextInput, _mixin);
+
+    var _super = _createSuper(TextInput);
 
     /**
      * Text Input.
@@ -9681,7 +9739,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, TextInput);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(TextInput).call(this, _element, options));
+      _this = _super.call(this, _element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_setIconVisibility", function (_ref) {
         var iconVisibilityOn = _ref.iconVisibilityOn,
@@ -9749,7 +9807,7 @@ var CarbonComponents = (function (exports) {
 
     _createClass(TextInput, null, [{
       key: "options",
-
+      get:
       /**
        * The component options.
        *
@@ -9760,7 +9818,7 @@ var CarbonComponents = (function (exports) {
        * created and how {@linkcode TextInput.init .init()} works.
        * @property {string} selectorInit The CSS selector to find text input UIs.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-text-input]',
@@ -9788,10 +9846,10 @@ var CarbonComponents = (function (exports) {
 
   var prefix = settings_1.prefix;
 
-  var SideNav =
-  /*#__PURE__*/
-  function (_mixin) {
+  var SideNav = /*#__PURE__*/function (_mixin) {
     _inherits(SideNav, _mixin);
+
+    var _super = _createSuper(SideNav);
 
     /**
      * The map associating DOM element and copy button UI instance.
@@ -9824,7 +9882,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, SideNav);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(SideNav).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_handleClick", function (evt) {
         var matchesToggle = eventMatches(evt, _this.options.selectorSideNavToggle);
@@ -9878,11 +9936,11 @@ var CarbonComponents = (function (exports) {
 
     _createClass(SideNav, [{
       key: "isNavExpanded",
-
+      value:
       /**
        * @returns {boolean} `true` if the nav is expanded.
        */
-      value: function isNavExpanded() {
+      function isNavExpanded() {
         return this.element.classList.contains(this.options.classSideNavExpanded);
       }
       /**
@@ -9924,9 +9982,7 @@ var CarbonComponents = (function (exports) {
     classSideNavLinkCurrent: "".concat(prefix, "--side-nav__link--current")
   });
 
-  var forEach =
-  /* #__PURE__ */
-  function () {
+  var forEach = /* #__PURE__ */function () {
     return Array.prototype.forEach;
   }();
 
@@ -9934,10 +9990,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var HeaderSubmenu =
-  /*#__PURE__*/
-  function (_mixin) {
+  var HeaderSubmenu = /*#__PURE__*/function (_mixin) {
     _inherits(HeaderSubmenu, _mixin);
+
+    var _super = _createSuper(HeaderSubmenu);
 
     /**
      * Sub menus in header nav.
@@ -9955,7 +10011,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, HeaderSubmenu);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(HeaderSubmenu).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "_getAction", function (event) {
         var isFlyoutMenu = eventMatches(event, _this.options.selectorFlyoutMenu);
@@ -10188,7 +10244,7 @@ var CarbonComponents = (function (exports) {
         }
       });
 
-      var hasFocusOut = 'onfocusout' in window;
+      var hasFocusOut = ('onfocusout' in window);
 
       _this.manage(on(_this.element, hasFocusOut ? 'focusout' : 'blur', _this._handleEvent, !hasFocusOut));
 
@@ -10211,7 +10267,7 @@ var CarbonComponents = (function (exports) {
 
     _createClass(HeaderSubmenu, null, [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -10226,7 +10282,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} [selectorItem] The CSS selector to find the menu items.
        * @property {string} [attribExpanded] The attribute that represents the expanded/collapsed state.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-header-submenu]',
@@ -10273,10 +10329,10 @@ var CarbonComponents = (function (exports) {
     return Array.prototype.slice.call(arrayLike);
   };
 
-  var HeaderNav =
-  /*#__PURE__*/
-  function (_mixin) {
+  var HeaderNav = /*#__PURE__*/function (_mixin) {
     _inherits(HeaderNav, _mixin);
+
+    var _super = _createSuper(HeaderNav);
 
     /**
      * Header nav.
@@ -10294,7 +10350,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, HeaderNav);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(HeaderNav).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "getCurrentNavigation", function () {
         var focused = _this.element.ownerDocument.activeElement.closest(_this.options.selectorSubmenu);
@@ -10351,7 +10407,7 @@ var CarbonComponents = (function (exports) {
 
     _createClass(HeaderNav, null, [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -10366,7 +10422,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} [selectorSubmenuLink] The CSS selector to find the trigger buttons of sub menus.
        * @property {string} [selectorSubmenuItem] The CSS selector to find the sub menu items.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-header-nav]',
@@ -10401,14 +10457,12 @@ var CarbonComponents = (function (exports) {
     FORWARD: 1
   });
 
-  var NavigationMenuPanel =
-  /*#__PURE__*/
-  function (_mixin) {
+  var NavigationMenuPanel = /*#__PURE__*/function (_mixin) {
     _inherits(NavigationMenuPanel, _mixin);
 
-    function NavigationMenuPanel() {
-      var _getPrototypeOf2;
+    var _super = _createSuper(NavigationMenuPanel);
 
+    function NavigationMenuPanel() {
       var _this;
 
       _classCallCheck(this, NavigationMenuPanel);
@@ -10417,7 +10471,7 @@ var CarbonComponents = (function (exports) {
         args[_key] = arguments[_key];
       }
 
-      _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(NavigationMenuPanel)).call.apply(_getPrototypeOf2, [this].concat(args)));
+      _this = _super.call.apply(_super, [this].concat(args));
 
       _defineProperty(_assertThisInitialized(_this), "createdByLauncher", function (event) {
         var isExpanded = !_this.element.hasAttribute('hidden');
@@ -10460,7 +10514,7 @@ var CarbonComponents = (function (exports) {
 
     _createClass(NavigationMenuPanel, null, [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -10474,7 +10528,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} attribInitTarget The attribute name in the launcher buttons to find target popup nav.
        * @property {string[]} initEventNames The events that the component will handles
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           initEventNames: ['click'],
@@ -10497,10 +10551,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var NavigationMenu =
-  /*#__PURE__*/
-  function (_NavigationMenuPanel) {
+  var NavigationMenu = /*#__PURE__*/function (_NavigationMenuPanel) {
     _inherits(NavigationMenu, _NavigationMenuPanel);
+
+    var _super = _createSuper(NavigationMenu);
 
     /**
      * A navigation menu
@@ -10533,7 +10587,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, NavigationMenu);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(NavigationMenu).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "getCurrentNavigation", function () {
         return _this.element.ownerDocument.activeElement;
@@ -10674,7 +10728,7 @@ var CarbonComponents = (function (exports) {
         }
       }));
 
-      var hasFocusOut = 'onfocusout' in window;
+      var hasFocusOut = ('onfocusout' in window);
 
       _this.manage(on(_this.element, hasFocusOut ? 'focusout' : 'blur', _this._handleFocusOut, !hasFocusOut));
 
@@ -10687,7 +10741,7 @@ var CarbonComponents = (function (exports) {
 
     _createClass(NavigationMenu, null, [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -10703,7 +10757,7 @@ var CarbonComponents = (function (exports) {
        * @property {string[]} initEventNames The events that the component
        * will handles
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return Object.assign(Object.create(NavigationMenuPanel.options), {
           selectorInit: '[data-navigation-menu]',
@@ -10754,7 +10808,7 @@ var CarbonComponents = (function (exports) {
    * @returns {Handle} The handle to release the attached event handler
    */
   function onFocusByKeyboard(node, name, callback) {
-    var hasFocusout = 'onfocusout' in window;
+    var hasFocusout = ('onfocusout' in window);
     var focusinEventName = hasFocusout ? 'focusin' : 'focus';
     var focusoutEventName = hasFocusout ? 'focusout' : 'blur';
     /**
@@ -10808,10 +10862,10 @@ var CarbonComponents = (function (exports) {
 
   var seq = 0;
 
-  var ProductSwitcher =
-  /*#__PURE__*/
-  function (_NavigationMenuPanel) {
+  var ProductSwitcher = /*#__PURE__*/function (_NavigationMenuPanel) {
     _inherits(ProductSwitcher, _NavigationMenuPanel);
+
+    var _super = _createSuper(ProductSwitcher);
 
     /**
      * A navigation menu.
@@ -10830,7 +10884,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, ProductSwitcher);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(ProductSwitcher).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "current", '');
 
@@ -10944,7 +10998,7 @@ var CarbonComponents = (function (exports) {
 
     }], [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor,
@@ -10960,7 +11014,7 @@ var CarbonComponents = (function (exports) {
        * @property {string[]} initEventNames The events that the component
        * will handles
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return Object.assign(Object.create(NavigationMenuPanel.options), {
           selectorInit: '[data-product-switcher]',
@@ -10982,10 +11036,10 @@ var CarbonComponents = (function (exports) {
   /* #__PURE_CLASS_PROPERTY__ */
   new WeakMap());
 
-  var PaginationNav =
-  /*#__PURE__*/
-  function (_mixin) {
+  var PaginationNav = /*#__PURE__*/function (_mixin) {
     _inherits(PaginationNav, _mixin);
+
+    var _super = _createSuper(PaginationNav);
 
     /**
      * Pagination Nav component
@@ -10999,7 +11053,7 @@ var CarbonComponents = (function (exports) {
 
       _classCallCheck(this, PaginationNav);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(PaginationNav).call(this, element, options));
+      _this = _super.call(this, element, options);
 
       _defineProperty(_assertThisInitialized(_this), "getActivePageNumber", function () {
         var pageNum;
@@ -11140,7 +11194,7 @@ var CarbonComponents = (function (exports) {
 
     _createClass(PaginationNav, null, [{
       key: "options",
-
+      get:
       /**
        * The component options.
        * If `options` is specified in the constructor, {@linkcode PaginationNav.create .create()},
@@ -11157,7 +11211,7 @@ var CarbonComponents = (function (exports) {
        * @property {string} [classActive] The CSS class for page's selected state.
        * @property {string} [classDisabled] The CSS class for page's disabled state.
        */
-      get: function get() {
+      function get() {
         var prefix = settings_1.prefix;
         return {
           selectorInit: '[data-pagination-nav]',
@@ -11251,7 +11305,7 @@ var CarbonComponents = (function (exports) {
 
     if (!settings_1.disableAutoInit) {
       componentClasses.forEach(function (Clz) {
-        var h = Clz.init();
+        Clz.init();
       });
     }
   };
@@ -11388,6 +11442,8 @@ var CarbonComponents = (function (exports) {
   exports.TooltipSimple = TooltipSimple;
   exports.settings = settings_1;
   exports.watch = watch;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
   return exports;
 
