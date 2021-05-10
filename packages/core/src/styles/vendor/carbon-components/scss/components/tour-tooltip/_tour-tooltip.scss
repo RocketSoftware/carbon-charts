@@ -7,7 +7,9 @@
 @import '../../globals/scss/css--reset';
 @import '../../globals/scss/css--font-face';
 @import '../../globals/scss/layer';
-@import 'mixins';
+
+/* stylelint-disable declaration-empty-line-before, scss/double-slash-comment-inline,
+max-nesting-depth   */
 
 .#{$prefix}--tour-tooltip {
   @include layer('overlay');
@@ -20,7 +22,7 @@
   z-index: z('floating');
   word-wrap: break-word;
   color: $inverse-01;
-  display: grid; // for flipping
+  display: grid;
   transition: 0.6s;
   transform-style: preserve-3d;
   position: relative;

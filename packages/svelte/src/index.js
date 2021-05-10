@@ -5,6 +5,7 @@ import BarChartSimple from './BarChartSimple.svelte';
 import BarChartStacked from './BarChartStacked.svelte';
 import BoxplotChart from './BoxplotChart.svelte';
 import BubbleChart from './BubbleChart.svelte';
+import BulletChart from './BulletChart.svelte';
 import ComboChart from './ComboChart.svelte';
 import DonutChart from './DonutChart.svelte';
 import LineChart from './LineChart.svelte';
@@ -15,6 +16,7 @@ import RadarChart from './RadarChart.svelte';
 import GaugeChart from './GaugeChart.svelte';
 import MeterChart from './MeterChart.svelte';
 import TreemapChart from './TreemapChart.svelte';
+import WordCloudChart from './WordCloudChart.svelte';
 
 export {
 	AreaChart,
@@ -24,6 +26,7 @@ export {
 	BarChartStacked,
 	BoxplotChart,
 	BubbleChart,
+	BulletChart,
 	ComboChart,
 	DonutChart,
 	LineChart,
@@ -34,4 +37,5 @@ export {
 	GaugeChart,
 	MeterChart,
 	TreemapChart,
+	WordCloudChart,
 };

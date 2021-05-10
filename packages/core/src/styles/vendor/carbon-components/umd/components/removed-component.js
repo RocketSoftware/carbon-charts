@@ -64,9 +64,7 @@
       }
     };
 
-    return _temp = _class =
-    /*#__PURE__*/
-    function () {
+    return _temp = _class = /*#__PURE__*/function () {
       function _class() {
         _classCallCheck(this, _class);
 

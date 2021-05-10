@@ -15,6 +15,7 @@
 /// @access private
 /// @group progress-indicator
 @mixin flat-progress-indicator {
+  /* stylelint-disable declaration-property-value-blacklist, declaration-empty-line-before */
   .#{$prefix}--flat-progress {
     @include reset;
     display: flex;

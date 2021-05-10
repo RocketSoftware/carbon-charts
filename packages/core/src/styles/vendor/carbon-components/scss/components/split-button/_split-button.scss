@@ -1,3 +1,4 @@
+/* stylelint-disable max-nesting-depth, declaration-property-value-blacklist */
 @import '../../globals/scss/vars';
 @import '../../globals/scss/colors';
 @import '../../globals/scss/theme';
@@ -8,7 +9,6 @@
 @import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
 @import '../../globals/scss/css--reset';
 @import '../../globals/scss/css--font-face';
-@import 'mixins';
 
 @import '../button/button';
 @import '../overflow-menu/overflow-menu';

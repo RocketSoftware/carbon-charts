@@ -250,12 +250,6 @@ There is also a `type-scale` mixin that will set `font-size` for your directly:
 }
 ```
 
-## 📖 API Documentation
-
-If you're looking for `@rocketsoftware/type` API documentation, check out:
-
-- [Sass](./docs/sass.md)
-
 ## 📚 Examples
 
 If you're looking for more examples on how to use `@rocketsoftware/type`, we

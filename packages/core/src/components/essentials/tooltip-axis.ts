@@ -44,6 +44,8 @@ export class AxisChartsTooltip extends Tooltip {
 				rangeAxisPosition
 			);
 
+			const value = datum[rangeIdentifier];
+
 			let rangeLabel = rangeAxisOptions.title;
 			if (!rangeLabel) {
 				if (
@@ -61,20 +63,43 @@ export class AxisChartsTooltip extends Tooltip {
 					label: domainLabel,
 					value: domainValue,
 				},
-				{
-					label: rangeLabel,
-					value: datum[rangeIdentifier],
-				},
-				{
-					label: options.tooltip.groupLabel || 'Group',
-					value: datum[groupMapsTo],
-					color: this.model.getFillColor(datum[groupMapsTo]),
-					class: this.model.getColorClassName({
-						classNameTypes: [ColorClassNameTypes.TOOLTIP],
-						dataGroupName: datum[groupMapsTo],
-					}),
-				},
+				...(Array.isArray(value) && value.length === 2
+					? [
+							{
+								label: 'Start',
+								value: value[0],
+							},
+							{
+								label: 'End',
+								value: value[1],
+							},
+					  ]
+					: [
+							{
+								label: rangeLabel,
+								value: datum[rangeIdentifier],
+							},
+					  ]),
 			];
+
+			if (e.detail.additionalItems) {
+				e.detail.additionalItems.forEach((additionalItem) =>
+					items.push({
+						label: additionalItem.label,
+						value: additionalItem.value,
+					})
+				);
+			}
+
+			items.push({
+				label: options.tooltip.groupLabel,
+				value: datum[groupMapsTo],
+				color: this.model.getFillColor(datum[groupMapsTo]),
+				class: this.model.getColorClassName({
+					classNameTypes: [ColorClassNameTypes.TOOLTIP],
+					dataGroupName: datum[groupMapsTo],
+				}),
+			});
 		} else if (data.length > 1) {
 			items = [
 				{

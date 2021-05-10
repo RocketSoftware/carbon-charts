@@ -8,8 +8,7 @@
 @import '../../globals/scss/vendor/@rocketsoftware/elements/scss/import-once/import-once';
 @import '../../globals/scss/css--reset';
 @import '../../globals/scss/css--font-face';
-@import 'mixins';
-
+/* stylelint-disable declaration-property-value-blacklist */
 .#{$prefix}--btn-group {
   display: inline-flex;
   .#{$prefix}--overflow-menu {

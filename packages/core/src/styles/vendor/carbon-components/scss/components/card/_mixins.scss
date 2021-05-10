@@ -1,4 +1,5 @@
 @mixin app-status($status) {
+  /* stylelint-disable declaration-empty-line-before */
   @include reset;
   font-size: 0.75rem;
   display: none;

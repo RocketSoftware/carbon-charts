@@ -16,6 +16,7 @@ export * from './graphs/bar-grouped';
 export * from './graphs/bar-stacked';
 export * from './graphs/boxplot';
 export * from './graphs/bubble';
+export * from './graphs/bullet';
 export * from './graphs/line';
 export * from './graphs/lollipop';
 export * from './graphs/scatter';
@@ -27,6 +28,7 @@ export * from './graphs/skeleton';
 export * from './graphs/skeleton-lines';
 export * from './graphs/treemap';
 export * from './graphs/radar';
+export * from './graphs/wordcloud';
 
 // Layout
 export * from './layout/spacer';

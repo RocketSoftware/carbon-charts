@@ -9,6 +9,7 @@ import { GroupedBarChartComponent } from './bar-chart-grouped.component';
 import { StackedBarChartComponent } from './bar-chart-stacked.component';
 import { BoxplotChartComponent } from './boxplot-chart.component';
 import { BubbleChartComponent } from './bubble-chart.component';
+import { BulletChartComponent } from './bullet-chart.component';
 import { DonutChartComponent } from './donut-chart.component';
 import { GaugeChartComponent } from './gauge-chart.component';
 import { LineChartComponent } from './line-chart.component';
@@ -19,6 +20,7 @@ import { MeterChartComponent } from './meter-chart.component';
 import { RadarChartComponent } from './radar-chart.component';
 import { ComboChartComponent } from './combo-chart.component';
 import { TreemapChartComponent } from './treemap-chart.component';
+import { WordCloudChartComponent } from './wordcloud-chart.component';
 
 @NgModule({
 	imports: [CommonModule],
@@ -31,6 +33,7 @@ import { TreemapChartComponent } from './treemap-chart.component';
 		StackedBarChartComponent,
 		BoxplotChartComponent,
 		BubbleChartComponent,
+		BulletChartComponent,
 		DonutChartComponent,
 		GaugeChartComponent,
 		LineChartComponent,
@@ -41,6 +44,7 @@ import { TreemapChartComponent } from './treemap-chart.component';
 		RadarChartComponent,
 		ComboChartComponent,
 		TreemapChartComponent,
+		WordCloudChartComponent,
 	],
 	exports: [
 		BaseChart,
@@ -51,6 +55,7 @@ import { TreemapChartComponent } from './treemap-chart.component';
 		StackedBarChartComponent,
 		BoxplotChartComponent,
 		BubbleChartComponent,
+		BulletChartComponent,
 		DonutChartComponent,
 		GaugeChartComponent,
 		LineChartComponent,
@@ -61,6 +66,7 @@ import { TreemapChartComponent } from './treemap-chart.component';
 		RadarChartComponent,
 		ComboChartComponent,
 		TreemapChartComponent,
+		WordCloudChartComponent,
 	],
 })
 export class ChartsModule {}

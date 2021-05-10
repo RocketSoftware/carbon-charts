@@ -284,7 +284,8 @@ export class Gauge extends Component {
 		);
 
 		const symbolFontSize = fontSize / 2;
-		const gaugeSymbol = showPercentageSymbol || disablePercentage ? '%' : '';
+		const gaugeSymbol =
+			showPercentageSymbol || disablePercentage ? '%' : '';
 		const symbol = DOMUtils.appendOrSelect(
 			valueNumberGroup,
 			'text.gauge-value-symbol'
