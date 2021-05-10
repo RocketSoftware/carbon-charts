@@ -67,6 +67,7 @@ export enum ScaleTypes {
 	LINEAR = 'linear',
 	LOG = 'log',
 	LABELS = 'labels',
+	LABELS_RATIO = 'labels-ratio',
 }
 
 /**
@@ -208,4 +209,16 @@ export enum ToolbarControlTypes {
 export enum AxisTitleOrientations {
 	LEFT = 'left',
 	RIGHT = 'right',
+}
+
+/**
+ * enum of legend item type
+ */
+export enum LegendItemType {
+	CHECKBOX = 'checkbox',
+	RADIUS = 'radius',
+	AREA = 'area',
+	SIZE = 'size',
+	LINE = 'line',
+	QUARTILE = 'quartile',
 }

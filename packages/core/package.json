@@ -51,6 +51,7 @@
 		"@carbon/telemetry": "0.0.0-alpha.6",
 		"@carbon/utils-position": "1.1.1",
 		"@rocketsoftware/colors": "0.6.0",
+		"d3-cloud": "1.2.5",
 		"date-fns": "2.8.1",
 		"lodash-es": "4.17.15",
 		"resize-observer-polyfill": "1.5.0"
@@ -59,7 +60,7 @@
 		"d3": ">=5.0.0 <=5.14.2"
 	},
 	"devDependencies": {
-		"@carbon/import-once": "10.3.0",
+		"@carbon/import-once": "10.5.0",
 		"@rocketsoftware/carbon-components": "0.6.0",
 		"@rocketsoftware/elements": "0.6.0",
 		"@rocketsoftware/layout": "0.6.0",
