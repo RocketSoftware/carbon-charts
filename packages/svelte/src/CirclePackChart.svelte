@@ -2,7 +2,7 @@
   export let chart = null;
   export let ref = null;
 
-  import { CirclePackChart } from "@carbon/charts";
+  import { CirclePackChart } from "@rocketsoftware/charts";
   import BaseChart from "./BaseChart.svelte";
 </script>
 

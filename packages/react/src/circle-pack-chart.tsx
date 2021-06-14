@@ -1,7 +1,7 @@
 import React from 'react';
-import { CirclePackChart as CPC } from '@carbon/charts';
+import { CirclePackChart as CPC } from '@rocketsoftware/charts';
 import BaseChart from './base-chart';
-import { ChartConfig, CirclePackChartOptions } from '@carbon/charts/interfaces';
+import { ChartConfig, CirclePackChartOptions } from '@rocketsoftware/charts/interfaces';
 
 type CirclePackChartProps = ChartConfig<CirclePackChartOptions>;
 

@@ -5,7 +5,7 @@ import {
 
 import { BaseChart } from "./base-chart.component";
 
-import { CirclePackChart } from "@carbon/charts";
+import { CirclePackChart } from "@rocketsoftware/charts";
 
 /**
  * Wrapper around `BubbleChart` in carbon charts library

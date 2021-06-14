@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { CirclePackChart } from '@carbon/charts';
+import { CirclePackChart } from '@rocketsoftware/charts';
 import CcvBaseChart from './ccv-base-chart.vue';
 
 export default {
